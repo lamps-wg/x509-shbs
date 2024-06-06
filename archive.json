@@ -1,0 +1,423 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2024-06-06T01:19:18.326694+00:00",
+  "repo": "lamps-wg/x509-shbs",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 2,
+      "id": "I_kwDOLS-xBM5_qbzk",
+      "title": "Contradiction on CERT-KEY-USAGE demands between Chap 5 and Chap 6?",
+      "url": "https://github.com/lamps-wg/x509-shbs/issues/2",
+      "state": "CLOSED",
+      "author": "BashiriK",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "In Chapter 5 we write: \r\n\t\"CERT-KEY-USAGE\r\n      { digitalSignature, nonRepudiation, keyCertSign, cRLSign }\"\r\nWhile in Chapter 6 (\"key usage bits\") we restrict the choices for this field. \r\n",
+      "createdAt": "2024-02-19T08:47:09Z",
+      "updatedAt": "2024-06-03T15:36:31Z",
+      "closedAt": "2024-06-03T15:36:31Z",
+      "comments": []
+    },
+    {
+      "number": 4,
+      "id": "I_kwDOLS-xBM5_y19E",
+      "title": "Delete two paragraphs which are mentioned as \"EDNOTE\"s",
+      "url": "https://github.com/lamps-wg/x509-shbs/issues/4",
+      "state": "CLOSED",
+      "author": "BashiriK",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-02-20T10:21:29Z",
+      "updatedAt": "2024-06-03T13:19:47Z",
+      "closedAt": "2024-06-03T13:19:47Z",
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOLS-xBM5nAUe9",
+      "title": "Focused text on HSS and XMSS, removed SLH-DSA",
+      "url": "https://github.com/lamps-wg/x509-shbs/pull/1",
+      "state": "MERGED",
+      "author": "fluppe2",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-02-15T17:16:38Z",
+      "updatedAt": "2024-02-16T10:19:34Z",
+      "baseRepository": "lamps-wg/x509-shbs",
+      "baseRefName": "main",
+      "baseRefOid": "1669e431a03e1af50c79de64bccacb72f369cf9b",
+      "headRepository": "lamps-wg/x509-shbs",
+      "headRefName": "concentrate-on-hss-xmss",
+      "headRefOid": "53a31e05f966d0e330059cbbd782f9021eaa3e13",
+      "closedAt": "2024-02-16T10:19:34Z",
+      "mergedAt": "2024-02-16T10:19:34Z",
+      "mergedBy": "BashiriK",
+      "mergeCommit": {
+        "oid": "42ccd8d21a658ff3fe43974a4201c6a88cbfab62"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLS-xBM5wVjp4",
+          "commit": {
+            "abbreviatedOid": "53a31e0"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-16T09:47:18Z",
+          "updatedAt": "2024-02-16T09:47:19Z",
+          "comments": [
+            {
+              "originalPosition": 64,
+              "body": "Reading this implies that S-HBS = Stateful Hash-Based Signature. However, I would suggest to define \r\nS-HBS = Stateful Hash-Based Signature schemes\r\n",
+              "createdAt": "2024-02-16T09:47:18Z",
+              "updatedAt": "2024-02-16T09:47:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLS-xBM5wVoEi",
+          "commit": {
+            "abbreviatedOid": "53a31e0"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-02-16T09:57:13Z",
+          "updatedAt": "2024-02-16T10:00:07Z",
+          "comments": [
+            {
+              "originalPosition": 496,
+              "body": "Here is a good point where we can reference the new draft on state and backup management for S-HBS\r\n",
+              "createdAt": "2024-02-16T09:58:19Z",
+              "updatedAt": "2024-02-16T10:00:07Z"
+            },
+            {
+              "originalPosition": 474,
+              "body": "Here is a good point where we can reference the new draft on state and backup management for S-HBS",
+              "createdAt": "2024-02-16T09:58:45Z",
+              "updatedAt": "2024-02-16T10:00:07Z"
+            },
+            {
+              "originalPosition": 157,
+              "body": "I was thinking about the fact that we use here \"hash-based signature algorithms\" whereas we use S-HBS everywhere else. But I think that this is okay here due to the context. ",
+              "createdAt": "2024-02-16T10:00:02Z",
+              "updatedAt": "2024-02-16T10:00:07Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLS-xBM5wVxl0",
+          "commit": {
+            "abbreviatedOid": "53a31e0"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-02-16T10:19:25Z",
+          "updatedAt": "2024-02-16T10:19:25Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOLS-xBM5nTCdP",
+      "title": "Update affiliation",
+      "url": "https://github.com/lamps-wg/x509-shbs/pull/3",
+      "state": "MERGED",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-02-19T14:46:59Z",
+      "updatedAt": "2024-02-20T10:21:50Z",
+      "baseRepository": "lamps-wg/x509-shbs",
+      "baseRefName": "main",
+      "baseRefOid": "d5dd9e1945bed360490b19eb8aac65a55d7cfd1e",
+      "headRepository": "lamps-wg/x509-shbs",
+      "headRefName": "dvg/update_affiliation",
+      "headRefOid": "6f8325e1fe7e3bf336f18e99441e208d2c4a262f",
+      "closedAt": "2024-02-20T10:21:50Z",
+      "mergedAt": "2024-02-20T10:21:49Z",
+      "mergedBy": "BashiriK",
+      "mergeCommit": {
+        "oid": "4f4ee4d0c1acc93dee6aa57081435258af0fc104"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLS-xBM5wp_sa",
+          "commit": {
+            "abbreviatedOid": "6f8325e"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-02-20T10:21:43Z",
+          "updatedAt": "2024-02-20T10:21:43Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOLS-xBM5tKa9V",
+      "title": "Rename to draft-ietf-x509-shbs",
+      "url": "https://github.com/lamps-wg/x509-shbs/pull/5",
+      "state": "MERGED",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-04-19T12:05:40Z",
+      "updatedAt": "2024-04-22T11:04:44Z",
+      "baseRepository": "lamps-wg/x509-shbs",
+      "baseRefName": "main",
+      "baseRefOid": "4f4ee4d0c1acc93dee6aa57081435258af0fc104",
+      "headRepository": "lamps-wg/x509-shbs",
+      "headRefName": "dvg/rename",
+      "headRefOid": "54862cd7a5f4de27416f7ea0c7d7fecf89748897",
+      "closedAt": "2024-04-22T11:04:43Z",
+      "mergedAt": "2024-04-22T11:04:43Z",
+      "mergedBy": "BashiriK",
+      "mergeCommit": {
+        "oid": "78782d27c850c7e09dd3d3f1598429ad209e4c40"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLS-xBM54EjCH",
+          "commit": {
+            "abbreviatedOid": "54862cd"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-04-22T11:04:36Z",
+          "updatedAt": "2024-04-22T11:04:36Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDOLS-xBM5w5Cs2",
+      "title": "Update public key encoding",
+      "url": "https://github.com/lamps-wg/x509-shbs/pull/6",
+      "state": "MERGED",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-05-29T14:06:39Z",
+      "updatedAt": "2024-06-03T13:08:44Z",
+      "baseRepository": "lamps-wg/x509-shbs",
+      "baseRefName": "main",
+      "baseRefOid": "9833ddc35267a649d273937383e531426a3a45e1",
+      "headRepository": "lamps-wg/x509-shbs",
+      "headRefName": "dvg/encoding",
+      "headRefOid": "b47ab615164f7e9725ff7f10e7232e9fe7d2165e",
+      "closedAt": "2024-06-03T13:08:43Z",
+      "mergedAt": "2024-06-03T13:08:43Z",
+      "mergedBy": "BashiriK",
+      "mergeCommit": {
+        "oid": "2e727d8f4b449ad66dd7c3da77a886834cb3bc72"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLS-xBM58mDWa",
+          "commit": {
+            "abbreviatedOid": "8b67345"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-31T09:39:57Z",
+          "updatedAt": "2024-05-31T09:39:58Z",
+          "comments": [
+            {
+              "originalPosition": 44,
+              "body": "Thank you for putting this sentence in. This will help the reader. I would even add that the tree height of the S-HBS instance is also determined in the public key and the signature. That is, we write: \r\n\r\nThe public key and signature values identify the hash function and the height used in the HSS/LMS tree.",
+              "createdAt": "2024-05-31T09:39:57Z",
+              "updatedAt": "2024-05-31T09:39:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLS-xBM58mDmY",
+          "commit": {
+            "abbreviatedOid": "8b67345"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-31T09:40:30Z",
+          "updatedAt": "2024-05-31T09:40:30Z",
+          "comments": [
+            {
+              "originalPosition": 55,
+              "body": "See above.",
+              "createdAt": "2024-05-31T09:40:30Z",
+              "updatedAt": "2024-05-31T09:40:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLS-xBM58mhr_",
+          "commit": {
+            "abbreviatedOid": "8b67345"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-05-31T10:23:39Z",
+          "updatedAt": "2024-05-31T10:23:40Z",
+          "comments": [
+            {
+              "originalPosition": 66,
+              "body": "See above.",
+              "createdAt": "2024-05-31T10:23:39Z",
+              "updatedAt": "2024-05-31T10:23:40Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLS-xBM58miqj",
+          "commit": {
+            "abbreviatedOid": "8b67345"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "I only have one small comment. Besides that I totally agree with everything. ",
+          "createdAt": "2024-05-31T10:25:56Z",
+          "updatedAt": "2024-05-31T10:25:56Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOLS-xBM58zU2E",
+          "commit": {
+            "abbreviatedOid": "b47ab61"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-06-03T13:08:37Z",
+          "updatedAt": "2024-06-03T13:08:37Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOLS-xBM5xUOQP",
+      "title": "Clarify key usage",
+      "url": "https://github.com/lamps-wg/x509-shbs/pull/7",
+      "state": "MERGED",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-06-03T15:23:31Z",
+      "updatedAt": "2024-06-03T15:36:21Z",
+      "baseRepository": "lamps-wg/x509-shbs",
+      "baseRefName": "main",
+      "baseRefOid": "2e727d8f4b449ad66dd7c3da77a886834cb3bc72",
+      "headRepository": "lamps-wg/x509-shbs",
+      "headRefName": "dvg/keyusage",
+      "headRefOid": "1563291c600af02e1effe4072db12b7df186d66a",
+      "closedAt": "2024-06-03T15:36:21Z",
+      "mergedAt": "2024-06-03T15:36:21Z",
+      "mergedBy": "BashiriK",
+      "mergeCommit": {
+        "oid": "68cdd21cbdbeb0725bf371ea70d4299dac7113c5"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLS-xBM5800_1",
+          "commit": {
+            "abbreviatedOid": "1563291"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-06-03T15:36:15Z",
+          "updatedAt": "2024-06-03T15:36:15Z",
+          "comments": []
+        }
+      ]
+    }
+  ]
+}
