@@ -18,11 +18,11 @@ variant of XMSS. This specification applies to the Internet X.509 Public Key
 infrastructure (PKI) when those digital signatures are used in Internet X.509
 certificates and certificate revocation lists. 
     " name="description">
-<meta content="xml2rfc 3.21.0" name="generator">
+<meta content="xml2rfc 3.22.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-lamps-x509-shbs-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.21.0
+  xml2rfc 3.22.0
     Python 3.12.3
     ConfigArgParse 1.7
     google-i18n-address 3.1.0
@@ -32,9 +32,8 @@ certificates and certificate revocation lists.
     platformdirs 4.2.2
     pycountry 22.3.5
     PyYAML 6.0.1
-    requests 2.31.0
+    requests 2.32.3
     setuptools 69.5.1
-    six 1.16.0
     wcwidth 0.2.13
 -->
 <link href="draft-ietf-lamps-x509-shbs.xml" rel="alternate" type="application/rfc+xml">
@@ -1034,11 +1033,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">HSS and XMSS for X.509</td>
-<td class="right">June 2024</td>
+<td class="right">July 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Bashiri, et al.</td>
-<td class="center">Expires 16 December 2024</td>
+<td class="center">Expires 5 January 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1051,12 +1050,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-lamps-x509-shbs-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-06-14" class="published">14 June 2024</time>
+<time datetime="2024-07-04" class="published">4 July 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-12-16">16 December 2024</time></dd>
+<dd class="expires"><time datetime="2025-01-05">5 January 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1126,7 +1125,7 @@ certificates and certificate revocation lists.<a href="#section-abstract-1" clas
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 16 December 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 5 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1239,10 +1238,16 @@ certificates and certificate revocation lists.<a href="#section-abstract-1" clas
             <p id="section-toc.1-1.14.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-hss-x509-v3-certificate-exa" class="internal xref">HSS X.509 v3 Certificate Example</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15">
-            <p id="section-toc.1-1.15.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+            <p id="section-toc.1-1.15.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-xmss-x509-v3-certificate-ex" class="internal xref">XMSS X.509 v3 Certificate Example</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.16">
-            <p id="section-toc.1-1.16.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.16.1"><a href="#appendix-C" class="auto internal xref">Appendix C</a>.  <a href="#name-xmssmt-x509-v3-certificate-" class="internal xref">XMSS^MT X.509 v3 Certificate Example</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.17">
+            <p id="section-toc.1-1.17.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.18">
+            <p id="section-toc.1-1.18.1"><a href="#appendix-E" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1360,7 +1365,8 @@ HSS/LMS tree. <span>[<a href="#RFC8554" class="cite xref">RFC8554</a>]</span> an
 <div class="alignLeft art-text artwork" id="section-4.2-2">
 <pre>
 id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
-   TBD }
+   iso(1) identified-organization(3) dod(6) internet(1) security(5)
+   mechanisms(5) pkix(7) algorithms(6) TBD1 }
 </pre><a href="#section-4.2-2" class="pilcrow">¶</a>
 </div>
 <p id="section-4.2-3">The public key and signature values identify the hash function and the height used in the
@@ -1377,7 +1383,8 @@ XMSS tree. <span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> and <
 <div class="alignLeft art-text artwork" id="section-4.3-2">
 <pre>
 id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
-   TBD }
+   iso(1) identified-organization(3) dod(6) internet(1) security(5)
+   mechanisms(5) pkix(7) algorithms(6) TBD2 }
 </pre><a href="#section-4.3-2" class="pilcrow">¶</a>
 </div>
 <p id="section-4.3-3">The public key and signature values identify the hash function and the height used in the
@@ -1626,9 +1633,9 @@ format of an XMSS^MT signature.<a href="#section-7.3-5" class="pilcrow">¶</a></
 This ASN.1 Module builds upon the conventions established in <span>[<a href="#RFC5911" class="cite xref">RFC5911</a>]</span>.<a href="#section-9-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-9-2">
 <pre>
-X509-SHBS-2024 -- TBD - IANA assigned module OID
+X509-SHBS-2024
   { iso(1) identified-organization(3) dod(6) internet(1) security(5)
-    mechanisms(5) pkix(7) id-mod(0) id-mod-x509-shbs-01(TBD) }
+    mechanisms(5) pkix(7) id-mod(0) id-mod-pkix1-shbs-2024(TBD) }
 
 DEFINITIONS IMPLICIT TAGS ::= BEGIN
 
@@ -1653,10 +1660,12 @@ IMPORTS
 -- id-alg-hss-lms-hashsig is defined in [RFC8708]
 
 id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
-   TBD }
+   iso(1) identified-organization(3) dod(6) internet(1) security(5)
+   mechanisms(5) pkix(7) algorithms(6) TBD1 }
 
 id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
-   TBD }
+   iso(1) identified-organization(3) dod(6) internet(1) security(5)
+   mechanisms(5) pkix(7) algorithms(6) TBD2 }
 
 --
 -- Signature Algorithms and Public Keys
@@ -1779,6 +1788,50 @@ described in Section 7 of <span>[<a href="#SP800208" class="cite xref">SP800208<
       </h2>
 <p id="section-12-1">IANA is requested to assign a module OID from the "SMI for PKIX Module
 Identifier" registry for the ASN.1 module in <a href="#sec-asn1" class="auto internal xref">Section 9</a>.<a href="#section-12-1" class="pilcrow">¶</a></p>
+<p id="section-12-2">One object identifier for the ASN.1 module in Appendix A is requested
+for the SMI Security for PKIX Module Identifiers (1.3.6.1.5.5.7.0)
+registry:<a href="#section-12-2" class="pilcrow">¶</a></p>
+<table class="center" id="table-1">
+        <caption><a href="#table-1" class="selfRef">Table 1</a></caption>
+<thead>
+          <tr>
+            <th class="text-left" rowspan="1" colspan="1">Decimal</th>
+            <th class="text-left" rowspan="1" colspan="1">Description</th>
+            <th class="text-left" rowspan="1" colspan="1">References</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">TBD</td>
+            <td class="text-left" rowspan="1" colspan="1">id-mod-pkix1-shbs-2024</td>
+            <td class="text-left" rowspan="1" colspan="1">[EDNOTE: THIS RFC]</td>
+          </tr>
+        </tbody>
+      </table>
+<p id="section-12-4">IANA is requested to update the SMI Security for PKIX Algorithms
+<span>[<a href="#SMI-PKIX" class="cite xref">SMI-PKIX</a>]</span> (1.3.6.1.5.5.7.6) registry with four additional entries:<a href="#section-12-4" class="pilcrow">¶</a></p>
+<table class="center" id="table-2">
+        <caption><a href="#table-2" class="selfRef">Table 2</a></caption>
+<thead>
+          <tr>
+            <th class="text-left" rowspan="1" colspan="1">Decimal</th>
+            <th class="text-left" rowspan="1" colspan="1">Description</th>
+            <th class="text-left" rowspan="1" colspan="1">References</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">TBD1</td>
+            <td class="text-left" rowspan="1" colspan="1">id-alg-xmss-hashsig</td>
+            <td class="text-left" rowspan="1" colspan="1">[EDNOTE: THIS RFC]</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">TBD2</td>
+            <td class="text-left" rowspan="1" colspan="1">id-alg-xmssmt-hashsig</td>
+            <td class="text-left" rowspan="1" colspan="1">[EDNOTE: THIS RFC]</td>
+          </tr>
+        </tbody>
+      </table>
 </section>
 </div>
 <section id="section-13">
@@ -1865,8 +1918,12 @@ Identifier" registry for the ASN.1 module in <a href="#sec-asn1" class="auto int
 <span class="refAuthor">Josefsson, S.</span> and <span class="refAuthor">J. Schaad</span>, <span class="refTitle">"Algorithm Identifiers for Ed25519, Ed448, X25519, and X448 for Use in the Internet X.509 Public Key Infrastructure"</span>, <span class="seriesInfo">RFC 8410</span>, <span class="seriesInfo">DOI 10.17487/RFC8410</span>, <time datetime="2018-08" class="refDate">August 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8410">https://www.rfc-editor.org/rfc/rfc8410</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8411">[RFC8411]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Schaad, J.</span> and <span class="refAuthor">R. Andrews</span>, <span class="refTitle">"IANA Registration for the Cryptographic Algorithm Object Identifier Range"</span>, <span class="seriesInfo">RFC 8411</span>, <span class="seriesInfo">DOI 10.17487/RFC8411</span>, <time datetime="2018-08" class="refDate">August 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8411">https://www.rfc-editor.org/rfc/rfc8411</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="SMI-PKIX">[SMI-PKIX]</dt>
+      <dd>
+<span class="refAuthor">IANA</span>, <span class="refTitle">"SMI Security for PKIX Algorithms"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iana.org/assignments/smi-numbers/smi-numbers.xhtml#smi-numbers-1.3.6.1.5.5.7.6">https://www.iana.org/assignments/smi-numbers/smi-numbers.xhtml#smi-numbers-1.3.6.1.5.5.7.6</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -2030,20 +2087,36 @@ gAZyEfd0q+s4IzBorUgB5HdeNOSxw+lGpJbacRIZscJ/Uw/2zUrPEujqJRuJ9jVU
 </div>
 </section>
 </div>
-<div id="acknowledgments">
+<div id="xmss-x509-v3-certificate-example">
 <section id="appendix-B">
+      <h2 id="name-xmss-x509-v3-certificate-ex">
+<a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-xmss-x509-v3-certificate-ex" class="section-name selfRef">XMSS X.509 v3 Certificate Example</a>
+      </h2>
+<p id="appendix-B-1">[EDNOTE: To be provided once id-alg-xmss-hashsig is assigned]<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="xmssmt-x509-v3-certificate-example">
+<section id="appendix-C">
+      <h2 id="name-xmssmt-x509-v3-certificate-">
+<a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-xmssmt-x509-v3-certificate-" class="section-name selfRef">XMSS^MT X.509 v3 Certificate Example</a>
+      </h2>
+<p id="appendix-C-1">[EDNOTE: To be provided once id-alg-xmssmt-hashsig is assigned]<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="acknowledgments">
+<section id="appendix-D">
       <h2 id="name-acknowledgments">
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="appendix-B-1">Thanks for Russ Housley and Panos Kampanakis for helpful suggestions.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
-<p id="appendix-B-2">This document uses a lot of text from similar documents <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span>,
+<p id="appendix-D-1">Thanks for Russ Housley and Panos Kampanakis for helpful suggestions.<a href="#appendix-D-1" class="pilcrow">¶</a></p>
+<p id="appendix-D-2">This document uses a lot of text from similar documents <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span>,
 (<span>[<a href="#RFC3279" class="cite xref">RFC3279</a>]</span> and <span>[<a href="#RFC8410" class="cite xref">RFC8410</a>]</span>) as well as <span>[<a href="#I-D.draft-ietf-lamps-rfc8708bis" class="cite xref">I-D.draft-ietf-lamps-rfc8708bis</a>]</span>. Thanks go to the authors of
 those documents. "Copying always makes things easier and less error prone" -
-<span>[<a href="#RFC8411" class="cite xref">RFC8411</a>]</span>.<a href="#appendix-B-2" class="pilcrow">¶</a></p>
+<span>[<a href="#RFC8411" class="cite xref">RFC8411</a>]</span>.<a href="#appendix-D-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
-<section id="appendix-C">
+<section id="appendix-E">
       <h2 id="name-authors-addresses">
 <a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>

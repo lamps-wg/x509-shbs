@@ -5,14 +5,14 @@
 LAMPS - Limited Additional Mechanisms for PKIX and SMIME      K. Bashiri
 Internet-Draft                                                       BSI
 Intended status: Standards Track                              S. Fluhrer
-Expires: 16 December 2024                                  Cisco Systems
+Expires: 5 January 2025                                    Cisco Systems
                                                                S. Gazdag
                                                               genua GmbH
                                                             D. Van Geest
                                                      CryptoNext Security
                                                              S. Kousidis
                                                                      BSI
-                                                            14 June 2024
+                                                             4 July 2024
 
 
 Internet X.509 Public Key Infrastructure: Algorithm Identifiers for HSS
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 December 2024.
+   This Internet-Draft will expire on 5 January 2025.
 
 Copyright Notice
 
@@ -102,6 +102,8 @@ Table of Contents
      13.1.  Normative References
      13.2.  Informative References
    Appendix A.  HSS X.509 v3 Certificate Example
+   Appendix B.  XMSS X.509 v3 Certificate Example
+   Appendix C.  XMSS^MT X.509 v3 Certificate Example
    Acknowledgments
    Authors' Addresses
 
@@ -210,7 +212,8 @@ Table of Contents
    The object identifier for an XMSS public key is id-alg-xmss-hashsig:
 
    id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
-      TBD }
+      iso(1) identified-organization(3) dod(6) internet(1) security(5)
+      mechanisms(5) pkix(7) algorithms(6) TBD1 }
 
    The public key and signature values identify the hash function and
    the height used in the XMSS tree.  [RFC8391] and [SP800208] define
@@ -223,7 +226,8 @@ Table of Contents
    hashsig:
 
    id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
-      TBD }
+      iso(1) identified-organization(3) dod(6) internet(1) security(5)
+      mechanisms(5) pkix(7) algorithms(6) TBD2 }
 
    The public key and signature values identify the hash function and
    the height used in the XMSS^MT tree.  [RFC8391] and [SP800208] define
@@ -420,9 +424,9 @@ Table of Contents
    module here.  This ASN.1 Module builds upon the conventions
    established in [RFC5911].
 
-   X509-SHBS-2024 -- TBD - IANA assigned module OID
+   X509-SHBS-2024
      { iso(1) identified-organization(3) dod(6) internet(1) security(5)
-       mechanisms(5) pkix(7) id-mod(0) id-mod-x509-shbs-01(TBD) }
+       mechanisms(5) pkix(7) id-mod(0) id-mod-pkix1-shbs-2024(TBD) }
 
    DEFINITIONS IMPLICIT TAGS ::= BEGIN
 
@@ -447,10 +451,12 @@ Table of Contents
    -- id-alg-hss-lms-hashsig is defined in [RFC8708]
 
    id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
-      TBD }
+      iso(1) identified-organization(3) dod(6) internet(1) security(5)
+      mechanisms(5) pkix(7) algorithms(6) TBD1 }
 
    id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
-      TBD }
+      iso(1) identified-organization(3) dod(6) internet(1) security(5)
+      mechanisms(5) pkix(7) algorithms(6) TBD2 }
 
    --
    -- Signature Algorithms and Public Keys
@@ -563,6 +569,31 @@ Table of Contents
    IANA is requested to assign a module OID from the "SMI for PKIX
    Module Identifier" registry for the ASN.1 module in Section 9.
 
+   One object identifier for the ASN.1 module in Appendix A is requested
+   for the SMI Security for PKIX Module Identifiers (1.3.6.1.5.5.7.0)
+   registry:
+
+         +=========+========================+====================+
+         | Decimal | Description            | References         |
+         +=========+========================+====================+
+         | TBD     | id-mod-pkix1-shbs-2024 | [EDNOTE: THIS RFC] |
+         +---------+------------------------+--------------------+
+
+                                  Table 1
+
+   IANA is requested to update the SMI Security for PKIX Algorithms
+   [SMI-PKIX] (1.3.6.1.5.5.7.6) registry with four additional entries:
+
+         +=========+=======================+====================+
+         | Decimal | Description           | References         |
+         +=========+=======================+====================+
+         | TBD1    | id-alg-xmss-hashsig   | [EDNOTE: THIS RFC] |
+         +---------+-----------------------+--------------------+
+         | TBD2    | id-alg-xmssmt-hashsig | [EDNOTE: THIS RFC] |
+         +---------+-----------------------+--------------------+
+
+                                 Table 2
+
 13.  References
 
 13.1.  Normative References
@@ -656,6 +687,10 @@ Table of Contents
               Cryptographic Algorithm Object Identifier Range",
               RFC 8411, DOI 10.17487/RFC8411, August 2018,
               <https://www.rfc-editor.org/rfc/rfc8411>.
+
+   [SMI-PKIX] IANA, "SMI Security for PKIX Algorithms", n.d.,
+              <https://www.iana.org/assignments/smi-numbers/smi-
+              numbers.xhtml#smi-numbers-1.3.6.1.5.5.7.6>.
 
 Appendix A.  HSS X.509 v3 Certificate Example
 
@@ -804,6 +839,14 @@ Appendix A.  HSS X.509 v3 Certificate Example
    gAZyEfd0q+s4IzBorUgB5HdeNOSxw+lGpJbacRIZscJ/Uw/2zUrPEujqJRuJ9jVU
    6ZvhAtX41IuSVkP9BTtLC92KIAUuGH6hqOhVGD1A/141o8P7
    -----END CERTIFICATE-----
+
+Appendix B.  XMSS X.509 v3 Certificate Example
+
+   [EDNOTE: To be provided once id-alg-xmss-hashsig is assigned]
+
+Appendix C.  XMSS^MT X.509 v3 Certificate Example
+
+   [EDNOTE: To be provided once id-alg-xmssmt-hashsig is assigned]
 
 Acknowledgments
 
