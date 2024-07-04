@@ -115,6 +115,12 @@ informative:
     author:
       -
         ins: IANA
+  SMI-PKIX:
+    target: https://www.iana.org/assignments/smi-numbers/smi-numbers.xhtml#smi-numbers-1.3.6.1.5.5.7.6
+    title: "SMI Security for PKIX Algorithms"
+    author:
+      -
+        ins: IANA
 
 --- abstract
 
@@ -218,7 +224,8 @@ HSS/LMS tree. [RFC8554] and [SP800208] define these values, but an IANA registry
 The object identifier for an XMSS public key is `id-alg-xmss-hashsig`:
 
     id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
-       TBD }
+       iso(1) identified-organization(3) dod(6) internet(1) security(5)
+       mechanisms(5) pkix(7) algorithms(6) TBD1 }
 
 The public key and signature values identify the hash function and the height used in the
 XMSS tree. [RFC8391] and [SP800208] define these values, but an IANA registry
@@ -229,7 +236,8 @@ XMSS tree. [RFC8391] and [SP800208] define these values, but an IANA registry
 The object identifier for an XMSS^MT public key is `id-alg-xmssmt-hashsig`:
 
     id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
-       TBD }
+       iso(1) identified-organization(3) dod(6) internet(1) security(5)
+       mechanisms(5) pkix(7) algorithms(6) TBD2 }
 
 The public key and signature values identify the hash function and the height used in the
 XMSS^MT tree. [RFC8391] and [SP800208] define these values, but an IANA registry
@@ -469,6 +477,22 @@ described in Section 7 of [SP800208].
 IANA is requested to assign a module OID from the "SMI for PKIX Module
 Identifier" registry for the ASN.1 module in {{sec-asn1}}.
 
+One object identifier for the ASN.1 module in Appendix A is requested
+for the SMI Security for PKIX Module Identifiers (1.3.6.1.5.5.7.0)
+registry:
+
+| Decimal |       Description        |     References       |
+| ---     | ---                      | ---                  |
+| TBD     | id-mod-pkix1-shbs-2024   | \[EDNOTE: THIS RFC\] |
+
+IANA is requested to update the SMI Security for PKIX Algorithms
+[SMI-PKIX] (1.3.6.1.5.5.7.6) registry with four additional entries:
+
+| Decimal |       Description        |     References       |
+| ---     | ---                      | ---                  |
+| TBD1    | id-alg-xmss-hashsig      | \[EDNOTE: THIS RFC\] |
+| TBD2    | id-alg-xmssmt-hashsig    | \[EDNOTE: THIS RFC\] |
+
 --- back
 
 # HSS X.509 v3 Certificate Example
@@ -622,6 +646,14 @@ gAZyEfd0q+s4IzBorUgB5HdeNOSxw+lGpJbacRIZscJ/Uw/2zUrPEujqJRuJ9jVU
 6ZvhAtX41IuSVkP9BTtLC92KIAUuGH6hqOhVGD1A/141o8P7
 -----END CERTIFICATE-----
 ~~~
+
+# XMSS X.509 v3 Certificate Example
+
+\[EDNOTE: To be provided once id-alg-xmss-hashsig is assigned\]
+
+# XMSS^MT X.509 v3 Certificate Example
+
+\[EDNOTE: To be provided once id-alg-xmssmt-hashsig is assigned\]
 
 # Acknowledgments
 {:numbered="false"}
