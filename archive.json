@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-02T01:21:38.496772+00:00",
+  "timestamp": "2024-07-04T01:21:32.972869+00:00",
   "repo": "lamps-wg/x509-shbs",
   "labels": [
     {
@@ -460,6 +460,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 9,
+      "id": "PR_kwDOLS-xBM50TkzT",
+      "title": "Request IANA OIDs",
+      "url": "https://github.com/lamps-wg/x509-shbs/pull/9",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-07-03T10:14:55Z",
+      "updatedAt": "2024-07-03T10:14:55Z",
+      "baseRepository": "lamps-wg/x509-shbs",
+      "baseRefName": "main",
+      "baseRefOid": "b021a6a583ed6204eb6b6da3c2a9fee844a36db8",
+      "headRepository": "lamps-wg/x509-shbs",
+      "headRefName": "dvg/request_oids",
+      "headRefOid": "04e7d9e27bfbde5beb7679dfdd1406e5d116952b",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
