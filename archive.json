@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-09T01:22:49.452070+00:00",
+  "timestamp": "2024-07-11T01:23:22.529004+00:00",
   "repo": "lamps-wg/x509-shbs",
   "labels": [
     {
@@ -502,6 +502,34 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 10,
+      "id": "PR_kwDOLS-xBM507t1q",
+      "title": "Fix certificate examples",
+      "url": "https://github.com/lamps-wg/x509-shbs/pull/10",
+      "state": "MERGED",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-07-10T08:37:53Z",
+      "updatedAt": "2024-07-10T21:08:48Z",
+      "baseRepository": "lamps-wg/x509-shbs",
+      "baseRefName": "main",
+      "baseRefOid": "8640376d591c70ace89f069d79b40d314b4a7ce9",
+      "headRepository": "lamps-wg/x509-shbs",
+      "headRefName": "dvg/fix_examples",
+      "headRefOid": "31a0d523f5a09181afb7c7f0909e773859d2827e",
+      "closedAt": "2024-07-10T21:08:48Z",
+      "mergedAt": "2024-07-10T21:08:48Z",
+      "mergedBy": "danvangeest",
+      "mergeCommit": {
+        "oid": "3d439a9936271a5e3451533e2bf82616452d97e9"
+      },
+      "comments": [],
+      "reviews": []
     }
   ]
 }
