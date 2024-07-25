@@ -20,6 +20,11 @@ venue:
 
 author:
 -
+    ins: D. Van Geest
+    name: Daniel Van Geest
+    org: CryptoNext Security
+    email: daniel.vangeest@cryptonext-security.com
+-
     ins: K. Bashiri
     name: Kaveh Bashiri
     org: BSI
@@ -34,11 +39,6 @@ author:
     name: Stefan Gazdag
     org: genua GmbH
     email: ietf@gazdag.de
--
-    ins: D. Van Geest
-    name: Daniel Van Geest
-    org: CryptoNext Security
-    email: daniel.vangeest@cryptonext-security.com
 -
     ins: S. Kousidis
     name: Stavros Kousidis
