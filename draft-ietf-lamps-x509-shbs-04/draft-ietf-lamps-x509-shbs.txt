@@ -2,14 +2,14 @@
 
 
 
-LAMPS - Limited Additional Mechanisms for PKIX and SMIME      K. Bashiri
-Internet-Draft                                                       BSI
-Intended status: Standards Track                              S. Fluhrer
-Expires: 26 January 2025                                   Cisco Systems
+LAMPS - Limited Additional Mechanisms for PKIX and SMIME    D. Van Geest
+Internet-Draft                                       CryptoNext Security
+Intended status: Standards Track                              K. Bashiri
+Expires: 26 January 2025                                             BSI
+                                                              S. Fluhrer
+                                                           Cisco Systems
                                                                S. Gazdag
                                                               genua GmbH
-                                                            D. Van Geest
-                                                     CryptoNext Security
                                                              S. Kousidis
                                                                      BSI
                                                             25 July 2024
@@ -1517,6 +1517,11 @@ Acknowledgments
 
 Authors' Addresses
 
+   Daniel Van Geest
+   CryptoNext Security
+   Email: daniel.vangeest@cryptonext-security.com
+
+
    Kaveh Bashiri
    BSI
    Email: kaveh.bashiri.ietf@gmail.com
@@ -1530,11 +1535,6 @@ Authors' Addresses
    Stefan Gazdag
    genua GmbH
    Email: ietf@gazdag.de
-
-
-   Daniel Van Geest
-   CryptoNext Security
-   Email: daniel.vangeest@cryptonext-security.com
 
 
    Stavros Kousidis
