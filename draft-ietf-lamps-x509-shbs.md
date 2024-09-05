@@ -351,12 +351,13 @@ create a signature on a message, no digest algorithm is applied to the message
 before signing.  That is, the full data to be signed is signed rather than
 a digest of the data.
 
-For HSS, the signature value is described in section 6.4 of [RFC8554]. For XMSS
-and XMSS^MT the signature values are described in sections B.2 and C.2 of
-[RFC8391], respectively. The octet string representing the signature is encoded
-directly in the OCTET STRING without adding any additional ASN.1 wrapping. For
-the Certificate and CertificateList structures, the signature value is wrapped
-in the "signatureValue" OCTET STRING field.
+The format of an HSS signature is described in {{Section 6.2 of RFC8554}}. The format
+of an XMSS signature is described in {{Section B.2 of RFC8391}} and the format of
+an XMSS^MT signature is described in {{Section C.2 of RFC8391}}.
+The octet string representing the signature is encoded
+directly in a BIT STRING without adding any additional ASN.1 wrapping. For
+the Certificate and CertificateList structures, the octet string is encoded
+in the "signatureValue" BIT STRING field.
 
 ## HSS Signature Algorithm
 
@@ -368,10 +369,6 @@ processed by the HSS signature algorithm.
        iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
        smime(16) alg(3) 17 }
 
-The HSS signature is defined as follows:
-
-    HSS-LMS-HashSig-Signature ::= OCTET STRING
-
 See [SP800208] and [RFC8554] for more information on the contents and
 format of an HSS signature.
 
@@ -380,10 +377,6 @@ format of an HSS signature.
 The id-alg-xmss-hashsig public key OID is also used to specify that an XMSS signature was
 generated on the full message, i.e. the message was not hashed before being
 processed by the XMSS signature algorithm.
-
-The XMSS signature is defined as follows:
-
-    XMSS-HashSig-Signature ::= OCTET STRING
 
 See [SP800208] and [RFC8391] for more information on the contents and
 format of an XMSS signature.
@@ -396,10 +389,6 @@ The signature generation MUST be performed according to 7.2 of
 The id-alg-xmssmt-hashsig public key OID is also used to specify that an XMSS^MT signature
 was generated on the full message, i.e. the message was not hashed before being
 processed by the XMSS^MT signature algorithm.
-
-The XMSS^MT signature is defined as follows:
-
-    XMSSMT-HashSig-Signature ::= OCTET STRING
 
 See [SP800208] and [RFC8391] for more information on the contents and
 format of an XMSS^MT signature.
@@ -1321,7 +1310,7 @@ ZgzrAnag1Fbm6L6h8Mcjs0+GkBpaFo4HDSTR7gOYnw==
 # Acknowledgments
 {:numbered="false"}
 
-Thanks for Russ Housley and Panos Kampanakis for helpful suggestions.
+Thanks for Russ Housley, Panos Kampanakis, Michael StJohns and Corey Bonnell for helpful suggestions and reviews.
 
 This document uses a lot of text from similar documents [SP800208],
 ([RFC3279] and [RFC8410]) as well as {{-rfc8708bis}}. Thanks go to the authors of
