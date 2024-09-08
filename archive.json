@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-09-05T01:36:17.657813+00:00",
+  "timestamp": "2024-09-08T01:42:24.396566+00:00",
   "repo": "lamps-wg/x509-shbs",
   "labels": [
     {
@@ -81,6 +81,37 @@
       "updatedAt": "2024-06-03T13:19:47Z",
       "closedAt": "2024-06-03T13:19:47Z",
       "comments": []
+    },
+    {
+      "number": 11,
+      "id": "I_kwDOLS-xBM6VdBAw",
+      "title": "Address concerns with section 3",
+      "url": "https://github.com/lamps-wg/x509-shbs/issues/11",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "During WGLC for version -04, Michael, Russ and Corey all had concerns about Section 3, \"Use Cases of S-HBS in X.509\":\r\nhttps://mailarchive.ietf.org/arch/msg/spasm/4CjuMTStnQ7GDKNtLd3c4FYXXPU/\r\nhttps://mailarchive.ietf.org/arch/msg/spasm/7rQTh7xPLDMckPCRjIrUakskI20/\r\nhttps://mailarchive.ietf.org/arch/msg/spasm/HDYrwCYUZqvHI-lPAYsY7Ohd0c0/\r\n\r\nThat section was added in draft-gazdag-x509-hash-sigs-02.\r\n\r\nIs it necessary to have this section?\r\n\r\nIf yes, is it necessary to have normative language in this section or should such restrictions be left to certificate policy?  Normative language may be too restrictive and not cover potentially valid use cases, for example Corey brought up the case of CRL issuer certificates. Should we instead refer to some example policies (NIST, BSI?).",
+      "createdAt": "2024-09-05T10:35:28Z",
+      "updatedAt": "2024-09-06T10:34:45Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "BashiriK",
+          "authorAssociation": "COLLABORATOR",
+          "body": "We added this section, since some people on the forum asked us to do so. I think it was Panos. The problem was that they said that we should include this section as using stateful schemes can lead to many dangerous situations which should be taken care of. \r\n\r\nI think one solution could be that we avoid normative language. This seems like a middle way to me. What do you think?",
+          "createdAt": "2024-09-06T10:33:45Z",
+          "updatedAt": "2024-09-06T10:33:45Z"
+        },
+        {
+          "author": "BashiriK",
+          "authorAssociation": "COLLABORATOR",
+          "body": "In other words: Let's keep this section but let's get rid of normative language.",
+          "createdAt": "2024-09-06T10:34:43Z",
+          "updatedAt": "2024-09-06T10:34:43Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -530,6 +561,68 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 12,
+      "id": "PR_kwDOLS-xBM56hEuG",
+      "title": "Address Corey Bonnell's comment about OCTET STRING",
+      "url": "https://github.com/lamps-wg/x509-shbs/pull/12",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Comment 5 from https://mailarchive.ietf.org/arch/msg/spasm/HDYrwCYUZqvHI-lPAYsY7Ohd0c0/",
+      "createdAt": "2024-09-05T12:17:56Z",
+      "updatedAt": "2024-09-06T10:46:21Z",
+      "baseRepository": "lamps-wg/x509-shbs",
+      "baseRefName": "main",
+      "baseRefOid": "06e62c121c077794a2194dae39da054ca3c9e32e",
+      "headRepository": "lamps-wg/x509-shbs",
+      "headRefName": "dvg/wrong_octet_string",
+      "headRefOid": "29026c5ca50acf12e990144885e96bd75d652cbc",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Converting to draft so reviewers can't merge.",
+          "createdAt": "2024-09-05T12:38:47Z",
+          "updatedAt": "2024-09-05T12:38:47Z"
+        },
+        {
+          "author": "BashiriK",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I agree with everything. Thank you. Do you merge it, Daniel? ",
+          "createdAt": "2024-09-06T10:35:33Z",
+          "updatedAt": "2024-09-06T10:35:33Z"
+        },
+        {
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I will merge it, I just wanted to give Corey a chance to review it if he wants, and give time for my response to Russ' response to sit for a bit.",
+          "createdAt": "2024-09-06T10:46:20Z",
+          "updatedAt": "2024-09-06T10:46:20Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLS-xBM6INTnI",
+          "commit": {
+            "abbreviatedOid": "29026c5"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-09-06T07:28:14Z",
+          "updatedAt": "2024-09-06T07:28:14Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
