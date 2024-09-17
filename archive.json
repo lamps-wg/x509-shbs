@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-09-15T01:46:04.601762+00:00",
+  "timestamp": "2024-09-17T01:15:41.645466+00:00",
   "repo": "lamps-wg/x509-shbs",
   "labels": [
     {
@@ -94,7 +94,7 @@
       "labels": [],
       "body": "During WGLC for version -04, Michael, Russ and Corey all had concerns about Section 3, \"Use Cases of S-HBS in X.509\":\r\nhttps://mailarchive.ietf.org/arch/msg/spasm/4CjuMTStnQ7GDKNtLd3c4FYXXPU/\r\nhttps://mailarchive.ietf.org/arch/msg/spasm/7rQTh7xPLDMckPCRjIrUakskI20/\r\nhttps://mailarchive.ietf.org/arch/msg/spasm/HDYrwCYUZqvHI-lPAYsY7Ohd0c0/\r\n\r\nThat section was added in draft-gazdag-x509-hash-sigs-02.\r\n\r\nIs it necessary to have this section?\r\n\r\nIf yes, is it necessary to have normative language in this section or should such restrictions be left to certificate policy?  Normative language may be too restrictive and not cover potentially valid use cases, for example Corey brought up the case of CRL issuer certificates. Should we instead refer to some example policies (NIST, BSI?).",
       "createdAt": "2024-09-05T10:35:28Z",
-      "updatedAt": "2024-09-06T10:34:45Z",
+      "updatedAt": "2024-09-16T09:39:54Z",
       "closedAt": null,
       "comments": [
         {
@@ -110,6 +110,13 @@
           "body": "In other words: Let's keep this section but let's get rid of normative language.",
           "createdAt": "2024-09-06T10:34:43Z",
           "updatedAt": "2024-09-06T10:34:43Z"
+        },
+        {
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "What @BashiriK is referring to as the background of why section 3 has been formulated can be found here: https://mailarchive.ietf.org/arch/msg/spasm/3XiW2VUdPN2It_0ToyqHQssnfL0/",
+          "createdAt": "2024-09-16T09:39:52Z",
+          "updatedAt": "2024-09-16T09:39:52Z"
         }
       ]
     }
