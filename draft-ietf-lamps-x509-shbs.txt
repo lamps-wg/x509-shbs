@@ -5,14 +5,14 @@
 LAMPS - Limited Additional Mechanisms for PKIX and SMIME    D. Van Geest
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                              K. Bashiri
-Expires: 26 January 2025                                             BSI
+Expires: 21 March 2025                                               BSI
                                                               S. Fluhrer
                                                            Cisco Systems
                                                                S. Gazdag
                                                               genua GmbH
                                                              S. Kousidis
                                                                      BSI
-                                                            25 July 2024
+                                                       17 September 2024
 
 
 Internet X.509 Public Key Infrastructure: Algorithm Identifiers for HSS
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 January 2025.
+   This Internet-Draft will expire on 21 March 2025.
 
 Copyright Notice
 
@@ -350,13 +350,14 @@ Table of Contents
    applied to the message before signing.  That is, the full data to be
    signed is signed rather than a digest of the data.
 
-   For HSS, the signature value is described in section 6.4 of
-   [RFC8554].  For XMSS and XMSS^MT the signature values are described
-   in sections B.2 and C.2 of [RFC8391], respectively.  The octet string
-   representing the signature is encoded directly in the OCTET STRING
+   The format of an HSS signature is described in Section 6.2 of
+   [RFC8554].  The format of an XMSS signature is described in
+   Appendix B.2 of [RFC8391] and the format of an XMSS^MT signature is
+   described in Appendix C.2 of [RFC8391].  The octet string
+   representing the signature is encoded directly in a BIT STRING
    without adding any additional ASN.1 wrapping.  For the Certificate
-   and CertificateList structures, the signature value is wrapped in the
-   "signatureValue" OCTET STRING field.
+   and CertificateList structures, the octet string is encoded in the
+   "signatureValue" BIT STRING field.
 
 7.1.  HSS Signature Algorithm
 
@@ -368,10 +369,6 @@ Table of Contents
       iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
       smime(16) alg(3) 17 }
 
-   The HSS signature is defined as follows:
-
-   HSS-LMS-HashSig-Signature ::= OCTET STRING
-
    See [SP800208] and [RFC8554] for more information on the contents and
    format of an HSS signature.
 
@@ -381,10 +378,6 @@ Table of Contents
    an XMSS signature was generated on the full message, i.e. the message
    was not hashed before being processed by the XMSS signature
    algorithm.
-
-   The XMSS signature is defined as follows:
-
-   XMSS-HashSig-Signature ::= OCTET STRING
 
    See [SP800208] and [RFC8391] for more information on the contents and
    format of an XMSS signature.
@@ -398,10 +391,6 @@ Table of Contents
    an XMSS^MT signature was generated on the full message, i.e. the
    message was not hashed before being processed by the XMSS^MT
    signature algorithm.
-
-   The XMSS^MT signature is defined as follows:
-
-   XMSSMT-HashSig-Signature ::= OCTET STRING
 
    See [SP800208] and [RFC8391] for more information on the contents and
    format of an XMSS^MT signature.
@@ -1507,7 +1496,8 @@ Appendix C.  XMSS^MT X.509 v3 Certificate Example
 
 Acknowledgments
 
-   Thanks for Russ Housley and Panos Kampanakis for helpful suggestions.
+   Thanks for Russ Housley, Panos Kampanakis, Michael StJohns and Corey
+   Bonnell for helpful suggestions and reviews.
 
    This document uses a lot of text from similar documents [SP800208],
    ([RFC3279] and [RFC8410]) as well as
