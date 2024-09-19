@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-09-17T01:15:41.645466+00:00",
+  "timestamp": "2024-09-19T01:38:53.675598+00:00",
   "repo": "lamps-wg/x509-shbs",
   "labels": [
     {
@@ -574,24 +574,26 @@
       "id": "PR_kwDOLS-xBM56hEuG",
       "title": "Address Corey Bonnell's comment about OCTET STRING",
       "url": "https://github.com/lamps-wg/x509-shbs/pull/12",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "danvangeest",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Comment 5 from https://mailarchive.ietf.org/arch/msg/spasm/HDYrwCYUZqvHI-lPAYsY7Ohd0c0/",
       "createdAt": "2024-09-05T12:17:56Z",
-      "updatedAt": "2024-09-06T10:46:21Z",
+      "updatedAt": "2024-09-17T14:54:44Z",
       "baseRepository": "lamps-wg/x509-shbs",
       "baseRefName": "main",
       "baseRefOid": "06e62c121c077794a2194dae39da054ca3c9e32e",
       "headRepository": "lamps-wg/x509-shbs",
       "headRefName": "dvg/wrong_octet_string",
       "headRefOid": "29026c5ca50acf12e990144885e96bd75d652cbc",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-09-17T14:54:43Z",
+      "mergedAt": "2024-09-17T14:54:43Z",
+      "mergedBy": "danvangeest",
+      "mergeCommit": {
+        "oid": "f4ea01dbe82f3fabbcb59bba4610cb3e16cec33b"
+      },
       "comments": [
         {
           "author": "danvangeest",
