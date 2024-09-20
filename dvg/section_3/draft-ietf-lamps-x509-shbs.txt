@@ -5,14 +5,14 @@
 LAMPS - Limited Additional Mechanisms for PKIX and SMIME    D. Van Geest
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                              K. Bashiri
-Expires: 23 March 2025                                               BSI
+Expires: 24 March 2025                                               BSI
                                                               S. Fluhrer
                                                            Cisco Systems
                                                                S. Gazdag
                                                               genua GmbH
                                                              S. Kousidis
                                                                      BSI
-                                                       19 September 2024
+                                                       20 September 2024
 
 
 Internet X.509 Public Key Infrastructure: Algorithm Identifiers for HSS
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 March 2025.
+   This Internet-Draft will expire on 24 March 2025.
 
 Copyright Notice
 
@@ -143,7 +143,7 @@ Table of Contents
    imperative that S-HBS implementations do not reuse OTS signatures.
    This makes S-HBS algorithms inappropriate for general use cases.  The
    exact conditions under which S-HBS certificates may be used is left
-   to certificate policies, however the intended use of S-HBS as
+   to certificate policies.  However the intended use of S-HBS as
    described by [SP800208] can be used as a guideline:
 
    |  1) it is necessary to implement a digital signature scheme in the
@@ -170,7 +170,8 @@ Table of Contents
 
    *  CA certificates.
 
-   In each of these cases, signatures can be generated in hardware
+   In each of these cases, the operator is able to control their signing
+   environment such that signatures are generated in hardware
    cryptographic modules and audited before the signature is published,
    in order to prevent OTS key reuse.
 
