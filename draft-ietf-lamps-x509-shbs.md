@@ -177,8 +177,8 @@ and discussed later in {{use-cases-shbs-x509}}.
 As described in the Security Considerations of {{sec-security}}, it is
 imperative that S-HBS implementations do not reuse OTS signatures. This makes
 S-HBS algorithms inappropriate for general use cases. The exact conditions
-under which S-HBS certificates may be used is left to certificate policies,
-however the intended use of S-HBS as described by [SP800208] can be used as a
+under which S-HBS certificates may be used is left to certificate policies.
+However the intended use of S-HBS as described by [SP800208] can be used as a
 guideline:
 
 {:quote}
@@ -202,7 +202,8 @@ to enforce security restrictions on the signing environment include:
 - Software signing (Table IV of [CNSA2.0], [ANSSI])
 - CA certificates.
 
-In each of these cases, signatures can be generated in hardware cryptographic
+In each of these cases, the operator is able to control their signing
+environment such that signatures are generated in hardware cryptographic
 modules and audited before the signature is published, in order to prevent OTS
 key reuse.
 
