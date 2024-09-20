@@ -1322,7 +1322,7 @@ to enforce security restrictions on the signing environment include:<a href="#se
           <p id="section-3-5.2.1">Software signing (Table IV of <span>[<a href="#CNSA2.0" class="cite xref">CNSA2.0</a>]</span>, <span>[<a href="#ANSSI" class="cite xref">ANSSI</a>]</span>)<a href="#section-3-5.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-3-5.3">
-          <p id="section-3-5.3.1">CA certificates.<a href="#section-3-5.3.1" class="pilcrow">¶</a></p>
+          <p id="section-3-5.3.1">Certification Authority (CA) certificates.<a href="#section-3-5.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-3-6">In each of these cases, the operator is able to control their signing
@@ -1524,7 +1524,7 @@ on the contents and format of an XMSS^MT public key.<a href="#section-5.3-5" cla
 <p id="section-6-1">The intended application for the key is indicated in the keyUsage certificate
 extension <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.
 When one of the AlgorithmIdentifiers specified in this document appears in the SubjectPublicKeyInfo
-field of a certification authority (CA) X.509 certificate <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>, the
+field of a CA X.509 certificate <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>, the
 certificate key usage extension <span class="bcp14">MUST</span> contain at least one of the
 following values: digitalSignature, nonRepudiation, keyCertSign, or
 cRLSign. However, it <span class="bcp14">MUST NOT</span> contain other values.<a href="#section-6-1" class="pilcrow">¶</a></p>

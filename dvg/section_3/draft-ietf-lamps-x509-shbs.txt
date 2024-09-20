@@ -168,7 +168,7 @@ Table of Contents
 
    *  Software signing (Table IV of [CNSA2.0], [ANSSI])
 
-   *  CA certificates.
+   *  Certification Authority (CA) certificates.
 
    In each of these cases, the operator is able to control their signing
    environment such that signatures are generated in hardware
@@ -335,11 +335,10 @@ Table of Contents
    The intended application for the key is indicated in the keyUsage
    certificate extension [RFC5280].  When one of the
    AlgorithmIdentifiers specified in this document appears in the
-   SubjectPublicKeyInfo field of a certification authority (CA) X.509
-   certificate [RFC5280], the certificate key usage extension MUST
-   contain at least one of the following values: digitalSignature,
-   nonRepudiation, keyCertSign, or cRLSign.  However, it MUST NOT
-   contain other values.
+   SubjectPublicKeyInfo field of a CA X.509 certificate [RFC5280], the
+   certificate key usage extension MUST contain at least one of the
+   following values: digitalSignature, nonRepudiation, keyCertSign, or
+   cRLSign.  However, it MUST NOT contain other values.
 
    When one of these AlgorithmIdentifiers appears in the
    SubjectPublicKeyInfo field of an end entity X.509 certificate
