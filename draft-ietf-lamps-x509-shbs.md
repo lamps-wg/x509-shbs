@@ -61,6 +61,7 @@ normative:
 
 informative:
   RFC3279:
+  RFC3647:
   RFC8410:
   RFC8411:
   MCGREW:
@@ -177,7 +178,7 @@ and discussed later in {{use-cases-shbs-x509}}.
 As described in the Security Considerations of {{sec-security}}, it is
 imperative that S-HBS implementations do not reuse OTS signatures. This makes
 S-HBS algorithms inappropriate for general use cases. The exact conditions
-under which S-HBS certificates may be used is left to certificate policies.
+under which S-HBS certificates may be used is left to certificate policies [RFC3647].
 However the intended use of S-HBS as described by [SP800208] can be used as a
 guideline:
 
