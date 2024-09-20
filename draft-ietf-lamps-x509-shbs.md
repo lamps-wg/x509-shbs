@@ -200,7 +200,7 @@ to enforce security restrictions on the signing environment include:
 - Firmware signing (Section 1.1 of [SP800208], Table IV of [CNSA2.0], Section
 6.7 of [BSI])
 - Software signing (Table IV of [CNSA2.0], [ANSSI])
-- CA certificates.
+- Certification Authority (CA) certificates.
 
 In each of these cases, the operator is able to control their signing
 environment such that signatures are generated in hardware cryptographic
@@ -353,7 +353,7 @@ on the contents and format of an XMSS^MT public key.
 The intended application for the key is indicated in the keyUsage certificate
 extension [RFC5280].
 When one of the AlgorithmIdentifiers specified in this document appears in the SubjectPublicKeyInfo
-field of a certification authority (CA) X.509 certificate [RFC5280], the
+field of a CA X.509 certificate [RFC5280], the
 certificate key usage extension MUST contain at least one of the
 following values: digitalSignature, nonRepudiation, keyCertSign, or
 cRLSign. However, it MUST NOT contain other values.
