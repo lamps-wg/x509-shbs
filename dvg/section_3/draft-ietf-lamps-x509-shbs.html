@@ -1296,7 +1296,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <p id="section-3-1">As described in the Security Considerations of <a href="#sec-security" class="auto internal xref">Section 10</a>, it is
 imperative that S-HBS implementations do not reuse OTS signatures. This makes
 S-HBS algorithms inappropriate for general use cases. The exact conditions
-under which S-HBS certificates may be used is left to certificate policies.
+under which S-HBS certificates may be used is left to certificate policies <span>[<a href="#RFC3647" class="cite xref">RFC3647</a>]</span>.
 However the intended use of S-HBS as described by <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> can be used as a
 guideline:<a href="#section-3-1" class="pilcrow">¶</a></p>
 <blockquote id="section-3-2">
@@ -1646,7 +1646,7 @@ IMPORTS
 -- Object Identifiers
 --
 
--- id-alg-hss-lms-hashsig is defined in [RFC8708]
+-- id-alg-hss-lms-hashsig is defined in {{I-D.draft-ietf-lamps-rfc8708bis}}
 
 id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
    iso(1) identified-organization(3) dod(6) internet(1) security(5)
@@ -1660,7 +1660,7 @@ id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
 -- Signature Algorithms and Public Keys
 --
 
--- sa-HSS-LMS-HashSig is defined in [RFC8708]
+-- sa-HSS-LMS-HashSig is defined in {{I-D.draft-ietf-lamps-rfc8708bis}}
 
 sa-XMSS-HashSig SIGNATURE-ALGORITHM ::= {
    IDENTIFIER id-alg-xmss-hashsig
@@ -1674,7 +1674,7 @@ sa-XMSSMT-HashSig SIGNATURE-ALGORITHM ::= {
    PUBLIC-KEYS { pk-XMSSMT-HashSig }
    SMIME-CAPS { IDENTIFIED BY id-alg-xmssmt-hashsig } }
 
--- pk-HSS-LMS-HashSig is defined in [RFC8708]
+-- pk-HSS-LMS-HashSig is defined in {{I-D.draft-ietf-lamps-rfc8708bis}}
 
 pk-XMSS-HashSig PUBLIC-KEY ::= {
    IDENTIFIER id-alg-xmss-hashsig
@@ -1913,6 +1913,10 @@ registry <span>[<a href="#SMI-PKIX" class="cite xref">SMI-PKIX</a>]</span> with 
 <dt id="RFC3279">[RFC3279]</dt>
         <dd>
 <span class="refAuthor">Bassham, L.</span>, <span class="refAuthor">Polk, W.</span>, and <span class="refAuthor">R. Housley</span>, <span class="refTitle">"Algorithms and Identifiers for the Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile"</span>, <span class="seriesInfo">RFC 3279</span>, <span class="seriesInfo">DOI 10.17487/RFC3279</span>, <time datetime="2002-04" class="refDate">April 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3279">https://www.rfc-editor.org/rfc/rfc3279</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC3647">[RFC3647]</dt>
+        <dd>
+<span class="refAuthor">Chokhani, S.</span>, <span class="refAuthor">Ford, W.</span>, <span class="refAuthor">Sabett, R.</span>, <span class="refAuthor">Merrill, C.</span>, and <span class="refAuthor">S. Wu</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure Certificate Policy and Certification Practices Framework"</span>, <span class="seriesInfo">RFC 3647</span>, <span class="seriesInfo">DOI 10.17487/RFC3647</span>, <time datetime="2003-11" class="refDate">November 2003</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3647">https://www.rfc-editor.org/rfc/rfc3647</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8410">[RFC8410]</dt>
         <dd>

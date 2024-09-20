@@ -143,8 +143,8 @@ Table of Contents
    imperative that S-HBS implementations do not reuse OTS signatures.
    This makes S-HBS algorithms inappropriate for general use cases.  The
    exact conditions under which S-HBS certificates may be used is left
-   to certificate policies.  However the intended use of S-HBS as
-   described by [SP800208] can be used as a guideline:
+   to certificate policies [RFC3647].  However the intended use of S-HBS
+   as described by [SP800208] can be used as a guideline:
 
    |  1) it is necessary to implement a digital signature scheme in the
    |  near future;
@@ -419,97 +419,97 @@ Table of Contents
    module here.  This ASN.1 Module builds upon the conventions
    established in [RFC5911].
 
-   X509-SHBS-2024
-     { iso(1) identified-organization(3) dod(6) internet(1) security(5)
-       mechanisms(5) pkix(7) id-mod(0) id-mod-pkix1-shbs-2024(TBD) }
+X509-SHBS-2024
+  { iso(1) identified-organization(3) dod(6) internet(1) security(5)
+    mechanisms(5) pkix(7) id-mod(0) id-mod-pkix1-shbs-2024(TBD) }
 
-   DEFINITIONS IMPLICIT TAGS ::= BEGIN
+DEFINITIONS IMPLICIT TAGS ::= BEGIN
 
-   EXPORTS ALL;
+EXPORTS ALL;
 
-   IMPORTS
-     PUBLIC-KEY, SIGNATURE-ALGORITHM
-       FROM AlgorithmInformation-2009  -- RFC 5911 [CMSASN1]
-         { iso(1) identified-organization(3) dod(6) internet(1)
-           security(5) mechanisms(5) pkix(7) id-mod(0)
-           id-mod-algorithmInformation-02(58) }
+IMPORTS
+  PUBLIC-KEY, SIGNATURE-ALGORITHM
+    FROM AlgorithmInformation-2009  -- RFC 5911 [CMSASN1]
+      { iso(1) identified-organization(3) dod(6) internet(1)
+        security(5) mechanisms(5) pkix(7) id-mod(0)
+        id-mod-algorithmInformation-02(58) }
 
-     sa-HSS-LMS-HashSig, pk-HSS-LMS-HashSig
-       FROM MTS-HashSig-2013
-         { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
-           id-smime(16) id-mod(0) id-mod-mts-hashsig-2013(64) };
+  sa-HSS-LMS-HashSig, pk-HSS-LMS-HashSig
+    FROM MTS-HashSig-2013
+      { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
+        id-smime(16) id-mod(0) id-mod-mts-hashsig-2013(64) };
 
-   --
-   -- Object Identifiers
-   --
+--
+-- Object Identifiers
+--
 
-   -- id-alg-hss-lms-hashsig is defined in [RFC8708]
+-- id-alg-hss-lms-hashsig is defined in {{I-D.draft-ietf-lamps-rfc8708bis}}
 
-   id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
-      iso(1) identified-organization(3) dod(6) internet(1) security(5)
-      mechanisms(5) pkix(7) algorithms(6) 34 }
+id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
+   iso(1) identified-organization(3) dod(6) internet(1) security(5)
+   mechanisms(5) pkix(7) algorithms(6) 34 }
 
-   id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
-      iso(1) identified-organization(3) dod(6) internet(1) security(5)
-      mechanisms(5) pkix(7) algorithms(6) 35 }
+id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
+   iso(1) identified-organization(3) dod(6) internet(1) security(5)
+   mechanisms(5) pkix(7) algorithms(6) 35 }
 
-   --
-   -- Signature Algorithms and Public Keys
-   --
+--
+-- Signature Algorithms and Public Keys
+--
 
-   -- sa-HSS-LMS-HashSig is defined in [RFC8708]
+-- sa-HSS-LMS-HashSig is defined in {{I-D.draft-ietf-lamps-rfc8708bis}}
 
-   sa-XMSS-HashSig SIGNATURE-ALGORITHM ::= {
-      IDENTIFIER id-alg-xmss-hashsig
-      PARAMS ARE absent
-      PUBLIC-KEYS { pk-XMSS-HashSig }
-      SMIME-CAPS { IDENTIFIED BY id-alg-xmss-hashsig } }
+sa-XMSS-HashSig SIGNATURE-ALGORITHM ::= {
+   IDENTIFIER id-alg-xmss-hashsig
+   PARAMS ARE absent
+   PUBLIC-KEYS { pk-XMSS-HashSig }
+   SMIME-CAPS { IDENTIFIED BY id-alg-xmss-hashsig } }
 
-   sa-XMSSMT-HashSig SIGNATURE-ALGORITHM ::= {
-      IDENTIFIER id-alg-xmssmt-hashsig
-      PARAMS ARE absent
-      PUBLIC-KEYS { pk-XMSSMT-HashSig }
-      SMIME-CAPS { IDENTIFIED BY id-alg-xmssmt-hashsig } }
+sa-XMSSMT-HashSig SIGNATURE-ALGORITHM ::= {
+   IDENTIFIER id-alg-xmssmt-hashsig
+   PARAMS ARE absent
+   PUBLIC-KEYS { pk-XMSSMT-HashSig }
+   SMIME-CAPS { IDENTIFIED BY id-alg-xmssmt-hashsig } }
 
-   -- pk-HSS-LMS-HashSig is defined in [RFC8708]
+-- pk-HSS-LMS-HashSig is defined in {{I-D.draft-ietf-lamps-rfc8708bis}}
 
-   pk-XMSS-HashSig PUBLIC-KEY ::= {
-      IDENTIFIER id-alg-xmss-hashsig
-      -- KEY no ASN.1 wrapping --
-      PARAMS ARE absent
-      CERT-KEY-USAGE
-         { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+pk-XMSS-HashSig PUBLIC-KEY ::= {
+   IDENTIFIER id-alg-xmss-hashsig
+   -- KEY no ASN.1 wrapping --
+   PARAMS ARE absent
+   CERT-KEY-USAGE
+      { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
 
-   pk-XMSSMT-HashSig PUBLIC-KEY ::= {
-      IDENTIFIER id-alg-xmssmt-hashsig
-      -- KEY no ASN.1 wrapping --
-      PARAMS ARE absent
-      CERT-KEY-USAGE
-         { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+pk-XMSSMT-HashSig PUBLIC-KEY ::= {
+   IDENTIFIER id-alg-xmssmt-hashsig
+   -- KEY no ASN.1 wrapping --
+   PARAMS ARE absent
+   CERT-KEY-USAGE
+      { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
 
-   --
-   -- Public Key (pk-) Algorithms
-   --
-   PublicKeys PUBLIC-KEY ::= {
-      -- This expands PublicKeys from RFC 5912
-      pk-HSS-LMS-HashSig |
-      pk-XMSS-HashSig |
-      pk-XMSSMT-HashSig,
-      ...
-   }
+--
+-- Public Key (pk-) Algorithms
+--
+PublicKeys PUBLIC-KEY ::= {
+   -- This expands PublicKeys from RFC 5912
+   pk-HSS-LMS-HashSig |
+   pk-XMSS-HashSig |
+   pk-XMSSMT-HashSig,
+   ...
+}
 
-   --
-   -- Signature Algorithms (sa-)
-   --
-   SignatureAlgs SIGNATURE-ALGORITHM ::= {
-      -- This expands SignatureAlgorithms from RFC 5912
-      sa-HSS-LMS-HashSig |
-      sa-XMSS-HashSig |
-      sa-XMSSMT-HashSig,
-      ...
-   }
+--
+-- Signature Algorithms (sa-)
+--
+SignatureAlgs SIGNATURE-ALGORITHM ::= {
+   -- This expands SignatureAlgorithms from RFC 5912
+   sa-HSS-LMS-HashSig |
+   sa-XMSS-HashSig |
+   sa-XMSSMT-HashSig,
+   ...
+}
 
-   END
+END
 
 10.  Security Considerations
 
@@ -686,6 +686,12 @@ Table of Contents
               Infrastructure Certificate and Certificate Revocation List
               (CRL) Profile", RFC 3279, DOI 10.17487/RFC3279, April
               2002, <https://www.rfc-editor.org/rfc/rfc3279>.
+
+   [RFC3647]  Chokhani, S., Ford, W., Sabett, R., Merrill, C., and S.
+              Wu, "Internet X.509 Public Key Infrastructure Certificate
+              Policy and Certification Practices Framework", RFC 3647,
+              DOI 10.17487/RFC3647, November 2003,
+              <https://www.rfc-editor.org/rfc/rfc3647>.
 
    [RFC8410]  Josefsson, S. and J. Schaad, "Algorithm Identifiers for
               Ed25519, Ed448, X25519, and X448 for Use in the Internet
