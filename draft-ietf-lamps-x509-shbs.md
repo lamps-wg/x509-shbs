@@ -352,18 +352,35 @@ on the contents and format of an XMSS^MT public key.
 
 # Key Usage Bits
 
-The intended application for the key is indicated in the keyUsage certificate
-extension [RFC5280].
-When one of the AlgorithmIdentifiers specified in this document appears in the SubjectPublicKeyInfo
-field of a CA X.509 certificate [RFC5280], the
-certificate key usage extension MUST contain at least one of the
-following values: digitalSignature, nonRepudiation, keyCertSign, or
-cRLSign. However, it MUST NOT contain other values.
+The intended application for the key is indicated in the keyUsage
+certificate extension; see Section 4.2.1.3 of [RFC5280].  If the
+keyUsage extension is present in a certificate that indicates
+id-alg-hss-lms-hashsig, id-alg-xmss-hashsig or id-alg-xmssmt-hashsig
+in the SubjectPublicKeyInfo, then the at least one of following
+MUST be present:
 
-When one of these AlgorithmIdentifiers appears in the SubjectPublicKeyInfo
-field of an end entity X.509 certificate [RFC5280], the certificate key usage
-extension MUST contain at least one of the following values: digitalSignature
-or nonRepudiation. However, it MUST NOT contain other values.
+~~~
+  digitalSignature; or
+  nonRepudiation; or
+  keyCertSign; or
+  cRLSign.
+~~~
+
+If the keyUsage extension is present in a certificate that indicates
+id-alg-hss-lms-hashsig, id-alg-xmss-hashsig or id-alg-xmssmt-hashsig
+in the SubjectPublicKeyInfo, then the following MUST NOT be
+present:
+
+~~~
+  keyEncipherment; or
+  dataEncipherment; or
+  keyAgreement; or
+  encipherOnly; or
+  decipherOnly.
+~~~
+
+Requirements about the keyUsage extension bits defined in [RFC5280]
+still apply.
 
 # Signature Algorithms
 
