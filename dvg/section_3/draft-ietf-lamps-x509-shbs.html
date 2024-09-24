@@ -1037,7 +1037,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Van Geest, et al.</td>
-<td class="center">Expires 24 March 2025</td>
+<td class="center">Expires 28 March 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1050,12 +1050,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-lamps-x509-shbs-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-09-20" class="published">20 September 2024</time>
+<time datetime="2024-09-24" class="published">24 September 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-03-24">24 March 2025</time></dd>
+<dd class="expires"><time datetime="2025-03-28">28 March 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1125,7 +1125,7 @@ certificates and certificate revocation lists.<a href="#section-abstract-1" clas
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 24 March 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 28 March 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1335,13 +1335,13 @@ signature generation will often be more tightly controlled. Some
 manufactures use common and well-established key formats like X.509 for their
 code signing and update mechanisms. Also there are multi-party IoT ecosystems
 where publicly trusted code signing certificates are useful.<a href="#section-3-7" class="pilcrow">¶</a></p>
-<p id="section-3-8">In general, root CAs generate signatures in a more secure environment and issue
-fewer certificates than intermediate CAs. This makes the use of S-HBS public
-keys more appropriate in root CA certificates than in intermediate CA
-certificates. However, if an intermediate CA can match the security and
-signature count restrictions of a root CA, for example if the intermediate CA
+<p id="section-3-8">In general, root CAs <span>[<a href="#RFC4949" class="cite xref">RFC4949</a>]</span> generate signatures in a more secure environment and issue
+fewer certificates than subordinate CAs <span>[<a href="#RFC4949" class="cite xref">RFC4949</a>]</span>. This makes the use of S-HBS public
+keys more appropriate in root CA certificates than in subordinate CA
+certificates. However, if a subordinate CA can match the security and
+signature count restrictions of a root CA, for example if the subordinate CA
 only issues code-signing certificates, then using an S-HBS public key in the
-intermediate CA certificate may be possible.<a href="#section-3-8" class="pilcrow">¶</a></p>
+subordinate CA certificate may be possible.<a href="#section-3-8" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="algorithm-identifiers-and-parameters">
@@ -1521,17 +1521,35 @@ on the contents and format of an XMSS^MT public key.<a href="#section-5.3-5" cla
       <h2 id="name-key-usage-bits">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-key-usage-bits" class="section-name selfRef">Key Usage Bits</a>
       </h2>
-<p id="section-6-1">The intended application for the key is indicated in the keyUsage certificate
-extension <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.
-When one of the AlgorithmIdentifiers specified in this document appears in the SubjectPublicKeyInfo
-field of a CA X.509 certificate <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>, the
-certificate key usage extension <span class="bcp14">MUST</span> contain at least one of the
-following values: digitalSignature, nonRepudiation, keyCertSign, or
-cRLSign. However, it <span class="bcp14">MUST NOT</span> contain other values.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">When one of these AlgorithmIdentifiers appears in the SubjectPublicKeyInfo
-field of an end entity X.509 certificate <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>, the certificate key usage
-extension <span class="bcp14">MUST</span> contain at least one of the following values: digitalSignature
-or nonRepudiation. However, it <span class="bcp14">MUST NOT</span> contain other values.<a href="#section-6-2" class="pilcrow">¶</a></p>
+<p id="section-6-1">The intended application for the key is indicated in the keyUsage
+certificate extension; see Section 4.2.1.3 of <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.  If the
+keyUsage extension is present in a certificate that indicates
+id-alg-hss-lms-hashsig, id-alg-xmss-hashsig or id-alg-xmssmt-hashsig
+in the SubjectPublicKeyInfo, then the at least one of following
+<span class="bcp14">MUST</span> be present:<a href="#section-6-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-6-2">
+<pre>
+  digitalSignature; or
+  nonRepudiation; or
+  keyCertSign; or
+  cRLSign.
+</pre><a href="#section-6-2" class="pilcrow">¶</a>
+</div>
+<p id="section-6-3">If the keyUsage extension is present in a certificate that indicates
+id-alg-hss-lms-hashsig, id-alg-xmss-hashsig or id-alg-xmssmt-hashsig
+in the SubjectPublicKeyInfo, then the following <span class="bcp14">MUST NOT</span> be
+present:<a href="#section-6-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-6-4">
+<pre>
+  keyEncipherment; or
+  dataEncipherment; or
+  keyAgreement; or
+  encipherOnly; or
+  decipherOnly.
+</pre><a href="#section-6-4" class="pilcrow">¶</a>
+</div>
+<p id="section-6-5">Requirements about the keyUsage extension bits defined in <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>
+still apply.<a href="#section-6-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signature-algorithms">
@@ -1917,6 +1935,10 @@ registry <span>[<a href="#SMI-PKIX" class="cite xref">SMI-PKIX</a>]</span> with 
 <dt id="RFC3647">[RFC3647]</dt>
         <dd>
 <span class="refAuthor">Chokhani, S.</span>, <span class="refAuthor">Ford, W.</span>, <span class="refAuthor">Sabett, R.</span>, <span class="refAuthor">Merrill, C.</span>, and <span class="refAuthor">S. Wu</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure Certificate Policy and Certification Practices Framework"</span>, <span class="seriesInfo">RFC 3647</span>, <span class="seriesInfo">DOI 10.17487/RFC3647</span>, <time datetime="2003-11" class="refDate">November 2003</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3647">https://www.rfc-editor.org/rfc/rfc3647</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4949">[RFC4949]</dt>
+        <dd>
+<span class="refAuthor">Shirey, R.</span>, <span class="refTitle">"Internet Security Glossary, Version 2"</span>, <span class="seriesInfo">FYI 36</span>, <span class="seriesInfo">RFC 4949</span>, <span class="seriesInfo">DOI 10.17487/RFC4949</span>, <time datetime="2007-08" class="refDate">August 2007</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4949">https://www.rfc-editor.org/rfc/rfc4949</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8410">[RFC8410]</dt>
         <dd>
