@@ -62,6 +62,7 @@ normative:
 informative:
   RFC3279:
   RFC3647:
+  RFC4949:
   RFC8410:
   RFC8411:
   MCGREW:
@@ -215,13 +216,13 @@ manufactures use common and well-established key formats like X.509 for their
 code signing and update mechanisms. Also there are multi-party IoT ecosystems
 where publicly trusted code signing certificates are useful.
 
-In general, root CAs generate signatures in a more secure environment and issue
-fewer certificates than intermediate CAs. This makes the use of S-HBS public
-keys more appropriate in root CA certificates than in intermediate CA
-certificates. However, if an intermediate CA can match the security and
-signature count restrictions of a root CA, for example if the intermediate CA
+In general, root CAs [RFC4949] generate signatures in a more secure environment and issue
+fewer certificates than subordinate CAs [RFC4949]. This makes the use of S-HBS public
+keys more appropriate in root CA certificates than in subordinate CA
+certificates. However, if a subordinate CA can match the security and
+signature count restrictions of a root CA, for example if the subordinate CA
 only issues code-signing certificates, then using an S-HBS public key in the
-intermediate CA certificate may be possible.
+subordinate CA certificate may be possible.
 
 # Algorithm Identifiers and Parameters
 
