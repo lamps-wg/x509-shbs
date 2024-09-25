@@ -193,7 +193,7 @@ scheme once the implementation has been deployed.
 In addition, since an S-HBS private key can only generate a finite number of
 signatures, use cases for S-HBS public keys in certificates should have a
 predictable range of the number of signatures that will be generated, falling
-safely under the maximum number of signatures that a private key can generate.
+safely below the maximum number of signatures that a private key can generate.
 
 Use cases where S-HBS public keys in certificates may be appropriate due to
 the relatively small number of signatures generated and the signer's ability
