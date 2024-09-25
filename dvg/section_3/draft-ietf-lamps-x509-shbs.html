@@ -1037,7 +1037,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Van Geest, et al.</td>
-<td class="center">Expires 28 March 2025</td>
+<td class="center">Expires 29 March 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1050,12 +1050,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-lamps-x509-shbs-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-09-24" class="published">24 September 2024</time>
+<time datetime="2024-09-25" class="published">25 September 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-03-28">28 March 2025</time></dd>
+<dd class="expires"><time datetime="2025-03-29">29 March 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1125,7 +1125,7 @@ certificates and certificate revocation lists.<a href="#section-abstract-1" clas
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 28 March 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 29 March 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1363,9 +1363,9 @@ absent.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <p id="section-4.1-2">The object identifier for an HSS public key is <code>id-alg-hss-lms-hashsig</code>:<a href="#section-4.1-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.1-3">
 <pre>
-id-alg-hss-lms-hashsig  OBJECT IDENTIFIER ::= {
-   iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
-   smime(16) alg(3) 17 }
+   id-alg-hss-lms-hashsig  OBJECT IDENTIFIER ::= {
+      iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
+      smime(16) alg(3) 17 }
 </pre><a href="#section-4.1-3" class="pilcrow">¶</a>
 </div>
 <p id="section-4.1-4">Note that the <code>id-alg-hss-lms-hashsig</code> algorithm identifier is also referred to
@@ -1384,9 +1384,9 @@ HSS/LMS tree. <span>[<a href="#RFC8554" class="cite xref">RFC8554</a>]</span> an
 <p id="section-4.2-1">The object identifier for an XMSS public key is <code>id-alg-xmss-hashsig</code>:<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.2-2">
 <pre>
-id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
-   iso(1) identified-organization(3) dod(6) internet(1) security(5)
-   mechanisms(5) pkix(7) algorithms(6) 34 }
+   id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
+      iso(1) identified-organization(3) dod(6) internet(1)
+      security(5) mechanisms(5) pkix(7) algorithms(6) 34 }
 </pre><a href="#section-4.2-2" class="pilcrow">¶</a>
 </div>
 <p id="section-4.2-3">The public key and signature values identify the hash function and the height used in the
@@ -1402,9 +1402,9 @@ XMSS tree. <span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> and <
 <p id="section-4.3-1">The object identifier for an XMSS^MT public key is <code>id-alg-xmssmt-hashsig</code>:<a href="#section-4.3-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.3-2">
 <pre>
-id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
-   iso(1) identified-organization(3) dod(6) internet(1) security(5)
-   mechanisms(5) pkix(7) algorithms(6) 35 }
+   id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
+      iso(1) identified-organization(3) dod(6) internet(1)
+      security(5) mechanisms(5) pkix(7) algorithms(6) 35 }
 </pre><a href="#section-4.3-2" class="pilcrow">¶</a>
 </div>
 <p id="section-4.3-3">The public key and signature values identify the hash function and the height used in the
@@ -1440,18 +1440,18 @@ becomes the least significant bit of the BIT STRING.<a href="#section-5-3" class
 <p id="section-5.1-1">The HSS public key identifier is as follows:<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.1-2">
 <pre>
-pk-HSS-LMS-HashSig PUBLIC-KEY ::= {
-   IDENTIFIER id-alg-hss-lms-hashsig
-   -- KEY no ASN.1 wrapping --
-   PARAMS ARE absent
-   CERT-KEY-USAGE
-      { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+   pk-HSS-LMS-HashSig PUBLIC-KEY ::= {
+      IDENTIFIER id-alg-hss-lms-hashsig
+      -- KEY no ASN.1 wrapping --
+      PARAMS ARE absent
+      CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
 </pre><a href="#section-5.1-2" class="pilcrow">¶</a>
 </div>
 <p id="section-5.1-3">The HSS public key is defined as follows:<a href="#section-5.1-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.1-4">
 <pre>
-HSS-LMS-HashSig-PublicKey ::= OCTET STRING
+   HSS-LMS-HashSig-PublicKey ::= OCTET STRING
 </pre><a href="#section-5.1-4" class="pilcrow">¶</a>
 </div>
 <p id="section-5.1-5"><span>[<a href="#RFC8554" class="cite xref">RFC8554</a>]</span> defines the raw octet string encoding of an HSS public key using the
@@ -1468,18 +1468,18 @@ scheme LMS is instantiated as HSS with number of levels being equal to 1.<a href
 <p id="section-5.2-1">The XMSS public key identifier is as follows:<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.2-2">
 <pre>
-pk-XMSS-HashSig PUBLIC-KEY ::= {
-   IDENTIFIER id-alg-xmss-hashsig
-   -- KEY no ASN.1 wrapping --
-   PARAMS ARE absent
-   CERT-KEY-USAGE
-      { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+   pk-XMSS-HashSig PUBLIC-KEY ::= {
+      IDENTIFIER id-alg-xmss-hashsig
+      -- KEY no ASN.1 wrapping --
+      PARAMS ARE absent
+      CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
 </pre><a href="#section-5.2-2" class="pilcrow">¶</a>
 </div>
 <p id="section-5.2-3">The XMSS public key is defined as follows:<a href="#section-5.2-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.2-4">
 <pre>
-XMSS-HashSig-PublicKey ::= OCTET STRING
+   XMSS-HashSig-PublicKey ::= OCTET STRING
 </pre><a href="#section-5.2-4" class="pilcrow">¶</a>
 </div>
 <p id="section-5.2-5"><span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> defines the raw octet string encoding of an HSS public key using the
@@ -1495,18 +1495,18 @@ on the contents and format of an XMSS public key.<a href="#section-5.2-5" class=
 <p id="section-5.3-1">The XMSS^MT public key identifier is as follows:<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.3-2">
 <pre>
-pk-XMSSMT-HashSig PUBLIC-KEY ::= {
-   IDENTIFIER id-alg-xmssmt-hashsig
-   -- KEY no ASN.1 wrapping --
-   PARAMS ARE absent
-   CERT-KEY-USAGE
-      { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+   pk-XMSSMT-HashSig PUBLIC-KEY ::= {
+      IDENTIFIER id-alg-xmssmt-hashsig
+      -- KEY no ASN.1 wrapping --
+      PARAMS ARE absent
+      CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
 </pre><a href="#section-5.3-2" class="pilcrow">¶</a>
 </div>
 <p id="section-5.3-3">The XMSS^MT public key is defined as follows:<a href="#section-5.3-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.3-4">
 <pre>
-XMSSMT-HashSig-PublicKey ::= OCTET STRING
+   XMSSMT-HashSig-PublicKey ::= OCTET STRING
 </pre><a href="#section-5.3-4" class="pilcrow">¶</a>
 </div>
 <p id="section-5.3-5"><span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> defines the raw octet string encoding of an HSS public key using the
@@ -1521,35 +1521,17 @@ on the contents and format of an XMSS^MT public key.<a href="#section-5.3-5" cla
       <h2 id="name-key-usage-bits">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-key-usage-bits" class="section-name selfRef">Key Usage Bits</a>
       </h2>
-<p id="section-6-1">The intended application for the key is indicated in the keyUsage
-certificate extension; see Section 4.2.1.3 of <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.  If the
-keyUsage extension is present in a certificate that indicates
-id-alg-hss-lms-hashsig, id-alg-xmss-hashsig or id-alg-xmssmt-hashsig
-in the SubjectPublicKeyInfo, then the at least one of following
-<span class="bcp14">MUST</span> be present:<a href="#section-6-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6-2">
-<pre>
-  digitalSignature; or
-  nonRepudiation; or
-  keyCertSign; or
-  cRLSign.
-</pre><a href="#section-6-2" class="pilcrow">¶</a>
-</div>
-<p id="section-6-3">If the keyUsage extension is present in a certificate that indicates
-id-alg-hss-lms-hashsig, id-alg-xmss-hashsig or id-alg-xmssmt-hashsig
-in the SubjectPublicKeyInfo, then the following <span class="bcp14">MUST NOT</span> be
-present:<a href="#section-6-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6-4">
-<pre>
-  keyEncipherment; or
-  dataEncipherment; or
-  keyAgreement; or
-  encipherOnly; or
-  decipherOnly.
-</pre><a href="#section-6-4" class="pilcrow">¶</a>
-</div>
-<p id="section-6-5">Requirements about the keyUsage extension bits defined in <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>
-still apply.<a href="#section-6-5" class="pilcrow">¶</a></p>
+<p id="section-6-1">The intended application for the key is indicated in the keyUsage certificate
+extension <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.
+When id-alg-hss-lms-hashsig, id-alg-xmss-hashsig or id-alg-xmssmt-hashsig appears in the SubjectPublicKeyInfo
+field of a CA X.509 certificate <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>, the
+certificate key usage extension <span class="bcp14">MUST</span> contain at least one of the
+following values: digitalSignature, nonRepudiation, keyCertSign, or
+cRLSign. However, it <span class="bcp14">MUST NOT</span> contain other values.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-2">When id-alg-hss-lms-hashsig, id-alg-xmss-hashsig or id-alg-xmssmt-hashsig appears in the SubjectPublicKeyInfo
+field of an end entity X.509 certificate <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>, the certificate key usage
+extension <span class="bcp14">MUST</span> contain at least one of the following values: digitalSignature,
+nonRepudiation or cRLSign. However, it <span class="bcp14">MUST NOT</span> contain other values.<a href="#section-6-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signature-algorithms">
@@ -1583,9 +1565,9 @@ generated on the full message, i.e. the message was not hashed before being
 processed by the HSS signature algorithm.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-7.1-2">
 <pre>
-id-alg-hss-lms-hashsig OBJECT IDENTIFIER ::= {
-   iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
-   smime(16) alg(3) 17 }
+   id-alg-hss-lms-hashsig OBJECT IDENTIFIER ::= {
+      iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
+      smime(16) alg(3) 17 }
 </pre><a href="#section-7.1-2" class="pilcrow">¶</a>
 </div>
 <p id="section-7.1-3">See <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> and <span>[<a href="#RFC8554" class="cite xref">RFC8554</a>]</span> for more information on the contents and

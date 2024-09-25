@@ -5,14 +5,14 @@
 LAMPS - Limited Additional Mechanisms for PKIX and SMIME    D. Van Geest
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                              K. Bashiri
-Expires: 28 March 2025                                               BSI
+Expires: 29 March 2025                                               BSI
                                                               S. Fluhrer
                                                            Cisco Systems
                                                                S. Gazdag
                                                               genua GmbH
                                                              S. Kousidis
                                                                      BSI
-                                                       24 September 2024
+                                                       25 September 2024
 
 
 Internet X.509 Public Key Infrastructure: Algorithm Identifiers for HSS
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 March 2025.
+   This Internet-Draft will expire on 29 March 2025.
 
 Copyright Notice
 
@@ -208,9 +208,9 @@ Table of Contents
    The object identifier for an HSS public key is id-alg-hss-lms-
    hashsig:
 
-   id-alg-hss-lms-hashsig  OBJECT IDENTIFIER ::= {
-      iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
-      smime(16) alg(3) 17 }
+      id-alg-hss-lms-hashsig  OBJECT IDENTIFIER ::= {
+         iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
+         smime(16) alg(3) 17 }
 
    Note that the id-alg-hss-lms-hashsig algorithm identifier is also
    referred to as id-alg-mts-hashsig.  This synonym is based on the
@@ -226,9 +226,9 @@ Table of Contents
 
    The object identifier for an XMSS public key is id-alg-xmss-hashsig:
 
-   id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
-      iso(1) identified-organization(3) dod(6) internet(1) security(5)
-      mechanisms(5) pkix(7) algorithms(6) 34 }
+      id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
+         iso(1) identified-organization(3) dod(6) internet(1)
+         security(5) mechanisms(5) pkix(7) algorithms(6) 34 }
 
    The public key and signature values identify the hash function and
    the height used in the XMSS tree.  [RFC8391] and [SP800208] define
@@ -240,9 +240,9 @@ Table of Contents
    The object identifier for an XMSS^MT public key is id-alg-xmssmt-
    hashsig:
 
-   id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
-      iso(1) identified-organization(3) dod(6) internet(1) security(5)
-      mechanisms(5) pkix(7) algorithms(6) 35 }
+      id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
+         iso(1) identified-organization(3) dod(6) internet(1)
+         security(5) mechanisms(5) pkix(7) algorithms(6) 35 }
 
    The public key and signature values identify the hash function and
    the height used in the XMSS^MT tree.  [RFC8391] and [SP800208] define
@@ -273,16 +273,16 @@ Table of Contents
 
    The HSS public key identifier is as follows:
 
-   pk-HSS-LMS-HashSig PUBLIC-KEY ::= {
-      IDENTIFIER id-alg-hss-lms-hashsig
-      -- KEY no ASN.1 wrapping --
-      PARAMS ARE absent
-      CERT-KEY-USAGE
-         { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+      pk-HSS-LMS-HashSig PUBLIC-KEY ::= {
+         IDENTIFIER id-alg-hss-lms-hashsig
+         -- KEY no ASN.1 wrapping --
+         PARAMS ARE absent
+         CERT-KEY-USAGE
+            { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
 
    The HSS public key is defined as follows:
 
-   HSS-LMS-HashSig-PublicKey ::= OCTET STRING
+      HSS-LMS-HashSig-PublicKey ::= OCTET STRING
 
    [RFC8554] defines the raw octet string encoding of an HSS public key
    using the hss_public_key structure.  See [SP800208] and [RFC8554] for
@@ -294,16 +294,16 @@ Table of Contents
 
    The XMSS public key identifier is as follows:
 
-   pk-XMSS-HashSig PUBLIC-KEY ::= {
-      IDENTIFIER id-alg-xmss-hashsig
-      -- KEY no ASN.1 wrapping --
-      PARAMS ARE absent
-      CERT-KEY-USAGE
-         { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+      pk-XMSS-HashSig PUBLIC-KEY ::= {
+         IDENTIFIER id-alg-xmss-hashsig
+         -- KEY no ASN.1 wrapping --
+         PARAMS ARE absent
+         CERT-KEY-USAGE
+            { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
 
    The XMSS public key is defined as follows:
 
-   XMSS-HashSig-PublicKey ::= OCTET STRING
+      XMSS-HashSig-PublicKey ::= OCTET STRING
 
    [RFC8391] defines the raw octet string encoding of an HSS public key
    using the xmss_public_key structure.  See [SP800208] and [RFC8391]
@@ -314,16 +314,16 @@ Table of Contents
 
    The XMSS^MT public key identifier is as follows:
 
-   pk-XMSSMT-HashSig PUBLIC-KEY ::= {
-      IDENTIFIER id-alg-xmssmt-hashsig
-      -- KEY no ASN.1 wrapping --
-      PARAMS ARE absent
-      CERT-KEY-USAGE
-         { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+      pk-XMSSMT-HashSig PUBLIC-KEY ::= {
+         IDENTIFIER id-alg-xmssmt-hashsig
+         -- KEY no ASN.1 wrapping --
+         PARAMS ARE absent
+         CERT-KEY-USAGE
+            { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
 
    The XMSS^MT public key is defined as follows:
 
-   XMSSMT-HashSig-PublicKey ::= OCTET STRING
+      XMSSMT-HashSig-PublicKey ::= OCTET STRING
 
    [RFC8391] defines the raw octet string encoding of an HSS public key
    using the xmssmt_public_key structure.  See [SP800208] and [RFC8391]
@@ -333,29 +333,19 @@ Table of Contents
 6.  Key Usage Bits
 
    The intended application for the key is indicated in the keyUsage
-   certificate extension; see Section 4.2.1.3 of [RFC5280].  If the
-   keyUsage extension is present in a certificate that indicates id-alg-
-   hss-lms-hashsig, id-alg-xmss-hashsig or id-alg-xmssmt-hashsig in the
-   SubjectPublicKeyInfo, then the at least one of following MUST be
-   present:
+   certificate extension [RFC5280].  When id-alg-hss-lms-hashsig, id-
+   alg-xmss-hashsig or id-alg-xmssmt-hashsig appears in the
+   SubjectPublicKeyInfo field of a CA X.509 certificate [RFC5280], the
+   certificate key usage extension MUST contain at least one of the
+   following values: digitalSignature, nonRepudiation, keyCertSign, or
+   cRLSign.  However, it MUST NOT contain other values.
 
-     digitalSignature; or
-     nonRepudiation; or
-     keyCertSign; or
-     cRLSign.
-
-   If the keyUsage extension is present in a certificate that indicates
-   id-alg-hss-lms-hashsig, id-alg-xmss-hashsig or id-alg-xmssmt-hashsig
-   in the SubjectPublicKeyInfo, then the following MUST NOT be present:
-
-     keyEncipherment; or
-     dataEncipherment; or
-     keyAgreement; or
-     encipherOnly; or
-     decipherOnly.
-
-   Requirements about the keyUsage extension bits defined in [RFC5280]
-   still apply.
+   When id-alg-hss-lms-hashsig, id-alg-xmss-hashsig or id-alg-xmssmt-
+   hashsig appears in the SubjectPublicKeyInfo field of an end entity
+   X.509 certificate [RFC5280], the certificate key usage extension MUST
+   contain at least one of the following values: digitalSignature,
+   nonRepudiation or cRLSign.  However, it MUST NOT contain other
+   values.
 
 7.  Signature Algorithms
 
@@ -386,9 +376,9 @@ Table of Contents
    was generated on the full message, i.e. the message was not hashed
    before being processed by the HSS signature algorithm.
 
-   id-alg-hss-lms-hashsig OBJECT IDENTIFIER ::= {
-      iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
-      smime(16) alg(3) 17 }
+      id-alg-hss-lms-hashsig OBJECT IDENTIFIER ::= {
+         iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
+         smime(16) alg(3) 17 }
 
    See [SP800208] and [RFC8554] for more information on the contents and
    format of an HSS signature.
