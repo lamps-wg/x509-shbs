@@ -61,6 +61,8 @@ normative:
 
 informative:
   RFC3279:
+  RFC3647:
+  RFC4949:
   RFC8410:
   RFC8411:
   MCGREW:
@@ -121,6 +123,20 @@ informative:
     author:
       -
         ins: IANA
+  ANSSI:
+    target: https://cyber.gouv.fr/sites/default/files/document/follow_up_position_paper_on_post_quantum_cryptography.pdf
+    title: ANSSI views on the Post-Quantum Cryptography transition (2023 follow up)
+    author:
+      -
+        ins: Agence nationale de la sécurité des systèmes d'information (ANSSI)
+    date: 2023-12-21
+  BSI:
+    target: https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Publications/Brochure/quantum-safe-cryptography.pdf
+    title: Quantum-safe cryptography – fundamentals, current developments and recommendations
+    author:
+      -
+        ins: Bundesamt für Sicherheit in der Informationstechnik (BSI)
+    date: 2022-05-18
 
 --- abstract
 
@@ -160,38 +176,53 @@ and discussed later in {{use-cases-shbs-x509}}.
 
 # Use Cases of S-HBS in X.509 {#use-cases-shbs-x509}
 
-As many cryptographic algorithms that are considered to be quantum-resistant,
-S-HBS have several pros and cons regarding their practical usage. On the
-positive side they are considered to be secure against a classical as well as a
-quantum adversary, and a secure instantiation of S-HBS may always be built as
-long as a cryptographically secure hash function exists. Moreover, S-HBS offer
-small public key sizes, and, in comparison to other post-quantum signature
-schemes, the S-HBS can offer relatively small signature sizes (for certain
-parameter sets). While key generation and signature generation may take longer
-than classical alternatives, fast and minimal verification routines can be
-built.  The major negative aspect is the statefulness.  Private keys always
-have to be handled in a secure manner, S-HBS necessitate a special treatment of
-the private key in order to avoid security incidents like signature forgery
-[MCGREW], [SP800208]. Therefore, for S-HBS, a secure environment MUST be used
-for key generation and key management.
+As described in the Security Considerations of {{sec-security}}, it is
+imperative that S-HBS implementations do not reuse OTS signatures. This makes
+S-HBS algorithms inappropriate for general use cases. The exact conditions
+under which S-HBS certificates may be used is left to certificate policies [RFC3647].
+However the intended use of S-HBS as described by [SP800208] can be used as a
+guideline:
 
-Note that, in general, root CAs offer such a secure environment and the number
-of issued signatures (including signed certificates and CRLs) is often moderate
-due to the fact that many root CAs delegate OCSP services or the signing of
-end-entity certificates to other entities (such as subordinate CAs) that use
-stateless signature schemes. Therefore, many root CAs should be able to handle
-the required state management, and S-HBS offer a viable solution.
+{:quote}
+> 1) it is necessary to implement a digital signature scheme in the near
+future; \\
+> 2) the implementation will have a long lifetime; and \\
+> 3) it would not be practical to transition to a different digital signature
+scheme once the implementation has been deployed.
 
-As the above reasoning for root CAs usually does not apply for subordinate CAs,
-it is NOT RECOMMENDED for subordinate CAs to use S-HBS for issuing end-entity
-certificates. Moreover, S-HBS MUST NOT be used for end-entity certificates.
+In addition, since an S-HBS private key can only generate a finite number of
+signatures, use cases for S-HBS public keys in certificates should have a
+predictable range of the number of signatures that will be generated, falling
+safely below the maximum number of signatures that a private key can generate.
 
-However, S-HBS MAY be used for code signing certificates, since they are
-suitable and recommended in such non-interactive contexts. For example, see the
-recommendations for software and firmware signing in [CNSA2.0]. Some
+Use cases where S-HBS public keys in certificates may be appropriate due to
+the relatively small number of signatures generated and the signer's ability
+to enforce security restrictions on the signing environment include:
+
+- Firmware signing (Section 1.1 of [SP800208], Table IV of [CNSA2.0], Section
+6.7 of [BSI])
+- Software signing (Table IV of [CNSA2.0], [ANSSI])
+- Certification Authority (CA) certificates.
+
+In each of these cases, the operator is able to control their signing
+environment such that signatures are generated in hardware cryptographic
+modules and audited before the signature is published, in order to prevent OTS
+key reuse.
+
+Generally speaking, S-HBS public keys are not appropriate for use
+in end-entity certificates, however in the firmware and software signing cases
+signature generation will often be more tightly controlled. Some
 manufactures use common and well-established key formats like X.509 for their
 code signing and update mechanisms. Also there are multi-party IoT ecosystems
 where publicly trusted code signing certificates are useful.
+
+In general, root CAs [RFC4949] generate signatures in a more secure environment and issue
+fewer certificates than subordinate CAs [RFC4949]. This makes the use of S-HBS public
+keys more appropriate in root CA certificates than in subordinate CA
+certificates. However, if a subordinate CA can match the security and
+signature count restrictions of a root CA, for example if the subordinate CA
+only issues code-signing certificates, then using an S-HBS public key in the
+subordinate CA certificate may be possible.
 
 # Algorithm Identifiers and Parameters
 
@@ -207,9 +238,11 @@ The object identifier and public key algorithm identifier for HSS is defined in
 
 The object identifier for an HSS public key is `id-alg-hss-lms-hashsig`:
 
-    id-alg-hss-lms-hashsig  OBJECT IDENTIFIER ::= {
-       iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
-       smime(16) alg(3) 17 }
+~~~
+   id-alg-hss-lms-hashsig  OBJECT IDENTIFIER ::= {
+      iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
+      smime(16) alg(3) 17 }
+~~~
 
 Note that the `id-alg-hss-lms-hashsig` algorithm identifier is also referred to
 as `id-alg-mts-hashsig`. This synonym is based on the terminology used in an
@@ -223,9 +256,11 @@ HSS/LMS tree. [RFC8554] and [SP800208] define these values, but an IANA registry
 
 The object identifier for an XMSS public key is `id-alg-xmss-hashsig`:
 
-    id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
-       iso(1) identified-organization(3) dod(6) internet(1) security(5)
-       mechanisms(5) pkix(7) algorithms(6) 34 }
+~~~
+   id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
+      iso(1) identified-organization(3) dod(6) internet(1)
+      security(5) mechanisms(5) pkix(7) algorithms(6) 34 }
+~~~
 
 The public key and signature values identify the hash function and the height used in the
 XMSS tree. [RFC8391] and [SP800208] define these values, but an IANA registry
@@ -235,9 +270,11 @@ XMSS tree. [RFC8391] and [SP800208] define these values, but an IANA registry
 
 The object identifier for an XMSS^MT public key is `id-alg-xmssmt-hashsig`:
 
-    id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
-       iso(1) identified-organization(3) dod(6) internet(1) security(5)
-       mechanisms(5) pkix(7) algorithms(6) 35 }
+~~~
+   id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
+      iso(1) identified-organization(3) dod(6) internet(1)
+      security(5) mechanisms(5) pkix(7) algorithms(6) 35 }
+~~~
 
 The public key and signature values identify the hash function and the height used in the
 XMSS^MT tree. [RFC8391] and [SP800208] define these values, but an IANA registry
@@ -265,16 +302,20 @@ becomes the least significant bit of the BIT STRING.
 
 The HSS public key identifier is as follows:
 
-    pk-HSS-LMS-HashSig PUBLIC-KEY ::= {
-       IDENTIFIER id-alg-hss-lms-hashsig
-       -- KEY no ASN.1 wrapping --
-       PARAMS ARE absent
-       CERT-KEY-USAGE
-          { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+~~~
+   pk-HSS-LMS-HashSig PUBLIC-KEY ::= {
+      IDENTIFIER id-alg-hss-lms-hashsig
+      -- KEY no ASN.1 wrapping --
+      PARAMS ARE absent
+      CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+~~~
 
 The HSS public key is defined as follows:
 
-    HSS-LMS-HashSig-PublicKey ::= OCTET STRING
+~~~
+   HSS-LMS-HashSig-PublicKey ::= OCTET STRING
+~~~
 
 [RFC8554] defines the raw octet string encoding of an HSS public key using the
 `hss_public_key` structure. See [SP800208] and [RFC8554] for more information on
@@ -285,16 +326,20 @@ scheme LMS is instantiated as HSS with number of levels being equal to 1.
 
 The XMSS public key identifier is as follows:
 
-    pk-XMSS-HashSig PUBLIC-KEY ::= {
-       IDENTIFIER id-alg-xmss-hashsig
-       -- KEY no ASN.1 wrapping --
-       PARAMS ARE absent
-       CERT-KEY-USAGE
-          { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+~~~
+   pk-XMSS-HashSig PUBLIC-KEY ::= {
+      IDENTIFIER id-alg-xmss-hashsig
+      -- KEY no ASN.1 wrapping --
+      PARAMS ARE absent
+      CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+~~~
 
 The XMSS public key is defined as follows:
 
-    XMSS-HashSig-PublicKey ::= OCTET STRING
+~~~
+   XMSS-HashSig-PublicKey ::= OCTET STRING
+~~~
 
 [RFC8391] defines the raw octet string encoding of an HSS public key using the
 `xmss_public_key` structure. See [SP800208] and [RFC8391] for more information
@@ -304,16 +349,20 @@ on the contents and format of an XMSS public key.
 
 The XMSS^MT public key identifier is as follows:
 
-    pk-XMSSMT-HashSig PUBLIC-KEY ::= {
-       IDENTIFIER id-alg-xmssmt-hashsig
-       -- KEY no ASN.1 wrapping --
-       PARAMS ARE absent
-       CERT-KEY-USAGE
-          { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+~~~
+   pk-XMSSMT-HashSig PUBLIC-KEY ::= {
+      IDENTIFIER id-alg-xmssmt-hashsig
+      -- KEY no ASN.1 wrapping --
+      PARAMS ARE absent
+      CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+~~~
 
 The XMSS^MT public key is defined as follows:
 
-    XMSSMT-HashSig-PublicKey ::= OCTET STRING
+~~~
+   XMSSMT-HashSig-PublicKey ::= OCTET STRING
+~~~
 
 [RFC8391] defines the raw octet string encoding of an HSS public key using the
 `xmssmt_public_key` structure. See [SP800208] and [RFC8391] for more information
@@ -323,20 +372,16 @@ on the contents and format of an XMSS^MT public key.
 
 The intended application for the key is indicated in the keyUsage certificate
 extension [RFC5280].
-When one of the AlgorithmIdentifiers specified in this document appears in the SubjectPublicKeyInfo
-field of a certification authority (CA) X.509 certificate [RFC5280], the
+When id-alg-hss-lms-hashsig, id-alg-xmss-hashsig or id-alg-xmssmt-hashsig appears in the SubjectPublicKeyInfo
+field of a CA X.509 certificate [RFC5280], the
 certificate key usage extension MUST contain at least one of the
 following values: digitalSignature, nonRepudiation, keyCertSign, or
 cRLSign. However, it MUST NOT contain other values.
 
-When one of these AlgorithmIdentifiers appears in the SubjectPublicKeyInfo
+When id-alg-hss-lms-hashsig, id-alg-xmss-hashsig or id-alg-xmssmt-hashsig appears in the SubjectPublicKeyInfo
 field of an end entity X.509 certificate [RFC5280], the certificate key usage
-extension MUST contain at least one of the following values: digitalSignature
-or nonRepudiation. However, it MUST NOT contain other values.
-
-Note that for certificates that indicate `id-alg-hss-lms-hashsig` the above
-definitions are more restrictive than the requirement defined in {{Section 4 of
--rfc8708bis}}.
+extension MUST contain at least one of the following values: digitalSignature,
+nonRepudiation or cRLSign. However, it MUST NOT contain other values.
 
 # Signature Algorithms
 
@@ -365,9 +410,11 @@ The HSS public key OID is also used to specify that an HSS signature was
 generated on the full message, i.e. the message was not hashed before being
 processed by the HSS signature algorithm.
 
-    id-alg-hss-lms-hashsig OBJECT IDENTIFIER ::= {
-       iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
-       smime(16) alg(3) 17 }
+~~~
+   id-alg-hss-lms-hashsig OBJECT IDENTIFIER ::= {
+      iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
+      smime(16) alg(3) 17 }
+~~~
 
 See [SP800208] and [RFC8554] for more information on the contents and
 format of an HSS signature.
@@ -410,9 +457,15 @@ This ASN.1 Module builds upon the conventions established in [RFC5911].
 {::include X509-SHBS-2024.asn}
 ~~~
 
-# Security Considerations
+# Security Considerations {#sec-security}
 
 The security requirements of [SP800208] MUST be taken into account.
+
+As S-HBS private keys can only generate a limited number of signatures, a
+user needs to be aware of the total number of signatures they intend to
+generate in their use case, otherwise they risk exhausting the number of OTS
+keys in the private key associated with the S-HBS public key in their
+certificate.
 
 For S-HBS it is crucial to stress the importance of a correct state management.
 If an attacker were able to obtain signatures for two different messages
