@@ -18,18 +18,18 @@ variant of XMSS. This specification applies to the Internet X.509 Public Key
 infrastructure (PKI) when those digital signatures are used in Internet X.509
 certificates and certificate revocation lists. 
     " name="description">
-<meta content="xml2rfc 3.23.0" name="generator">
+<meta content="xml2rfc 3.23.1" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-lamps-x509-shbs-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.23.0
-    Python 3.12.3
+  xml2rfc 3.23.1
+    Python 3.12.6
     ConfigArgParse 1.7
-    google-i18n-address 3.1.0
+    google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.4
     lxml 4.9.4
-    platformdirs 4.2.2
+    platformdirs 4.3.6
     pycountry 22.3.5
     PyYAML 6.0.1
     requests 2.32.3
@@ -1037,7 +1037,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Van Geest, et al.</td>
-<td class="center">Expires 21 March 2025</td>
+<td class="center">Expires 29 March 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1050,12 +1050,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-lamps-x509-shbs-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-09-17" class="published">17 September 2024</time>
+<time datetime="2024-09-25" class="published">25 September 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-03-21">21 March 2025</time></dd>
+<dd class="expires"><time datetime="2025-03-29">29 March 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1125,7 +1125,7 @@ certificates and certificate revocation lists.<a href="#section-abstract-1" clas
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 21 March 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 29 March 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1293,35 +1293,55 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <h2 id="name-use-cases-of-s-hbs-in-x509">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-use-cases-of-s-hbs-in-x509" class="section-name selfRef">Use Cases of S-HBS in X.509</a>
       </h2>
-<p id="section-3-1">As many cryptographic algorithms that are considered to be quantum-resistant,
-S-HBS have several pros and cons regarding their practical usage. On the
-positive side they are considered to be secure against a classical as well as a
-quantum adversary, and a secure instantiation of S-HBS may always be built as
-long as a cryptographically secure hash function exists. Moreover, S-HBS offer
-small public key sizes, and, in comparison to other post-quantum signature
-schemes, the S-HBS can offer relatively small signature sizes (for certain
-parameter sets). While key generation and signature generation may take longer
-than classical alternatives, fast and minimal verification routines can be
-built.  The major negative aspect is the statefulness.  Private keys always
-have to be handled in a secure manner, S-HBS necessitate a special treatment of
-the private key in order to avoid security incidents like signature forgery
-<span>[<a href="#MCGREW" class="cite xref">MCGREW</a>]</span>, <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span>. Therefore, for S-HBS, a secure environment <span class="bcp14">MUST</span> be used
-for key generation and key management.<a href="#section-3-1" class="pilcrow">¶</a></p>
-<p id="section-3-2">Note that, in general, root CAs offer such a secure environment and the number
-of issued signatures (including signed certificates and CRLs) is often moderate
-due to the fact that many root CAs delegate OCSP services or the signing of
-end-entity certificates to other entities (such as subordinate CAs) that use
-stateless signature schemes. Therefore, many root CAs should be able to handle
-the required state management, and S-HBS offer a viable solution.<a href="#section-3-2" class="pilcrow">¶</a></p>
-<p id="section-3-3">As the above reasoning for root CAs usually does not apply for subordinate CAs,
-it is <span class="bcp14">NOT RECOMMENDED</span> for subordinate CAs to use S-HBS for issuing end-entity
-certificates. Moreover, S-HBS <span class="bcp14">MUST NOT</span> be used for end-entity certificates.<a href="#section-3-3" class="pilcrow">¶</a></p>
-<p id="section-3-4">However, S-HBS <span class="bcp14">MAY</span> be used for code signing certificates, since they are
-suitable and recommended in such non-interactive contexts. For example, see the
-recommendations for software and firmware signing in <span>[<a href="#CNSA2.0" class="cite xref">CNSA2.0</a>]</span>. Some
+<p id="section-3-1">As described in the Security Considerations of <a href="#sec-security" class="auto internal xref">Section 10</a>, it is
+imperative that S-HBS implementations do not reuse OTS signatures. This makes
+S-HBS algorithms inappropriate for general use cases. The exact conditions
+under which S-HBS certificates may be used is left to certificate policies <span>[<a href="#RFC3647" class="cite xref">RFC3647</a>]</span>.
+However the intended use of S-HBS as described by <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> can be used as a
+guideline:<a href="#section-3-1" class="pilcrow">¶</a></p>
+<blockquote id="section-3-2">
+        <p id="section-3-2.1">1) it is necessary to implement a digital signature scheme in the near
+future; <br>
+2) the implementation will have a long lifetime; and <br>
+3) it would not be practical to transition to a different digital signature
+scheme once the implementation has been deployed.<a href="#section-3-2.1" class="pilcrow">¶</a></p>
+</blockquote>
+<p id="section-3-3">In addition, since an S-HBS private key can only generate a finite number of
+signatures, use cases for S-HBS public keys in certificates should have a
+predictable range of the number of signatures that will be generated, falling
+safely below the maximum number of signatures that a private key can generate.<a href="#section-3-3" class="pilcrow">¶</a></p>
+<p id="section-3-4">Use cases where S-HBS public keys in certificates may be appropriate due to
+the relatively small number of signatures generated and the signer's ability
+to enforce security restrictions on the signing environment include:<a href="#section-3-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3-5.1">
+          <p id="section-3-5.1.1">Firmware signing (Section 1.1 of <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span>, Table IV of <span>[<a href="#CNSA2.0" class="cite xref">CNSA2.0</a>]</span>, Section
+6.7 of <span>[<a href="#BSI" class="cite xref">BSI</a>]</span>)<a href="#section-3-5.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-3-5.2">
+          <p id="section-3-5.2.1">Software signing (Table IV of <span>[<a href="#CNSA2.0" class="cite xref">CNSA2.0</a>]</span>, <span>[<a href="#ANSSI" class="cite xref">ANSSI</a>]</span>)<a href="#section-3-5.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-3-5.3">
+          <p id="section-3-5.3.1">Certification Authority (CA) certificates.<a href="#section-3-5.3.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-3-6">In each of these cases, the operator is able to control their signing
+environment such that signatures are generated in hardware cryptographic
+modules and audited before the signature is published, in order to prevent OTS
+key reuse.<a href="#section-3-6" class="pilcrow">¶</a></p>
+<p id="section-3-7">Generally speaking, S-HBS public keys are not appropriate for use
+in end-entity certificates, however in the firmware and software signing cases
+signature generation will often be more tightly controlled. Some
 manufactures use common and well-established key formats like X.509 for their
 code signing and update mechanisms. Also there are multi-party IoT ecosystems
-where publicly trusted code signing certificates are useful.<a href="#section-3-4" class="pilcrow">¶</a></p>
+where publicly trusted code signing certificates are useful.<a href="#section-3-7" class="pilcrow">¶</a></p>
+<p id="section-3-8">In general, root CAs <span>[<a href="#RFC4949" class="cite xref">RFC4949</a>]</span> generate signatures in a more secure environment and issue
+fewer certificates than subordinate CAs <span>[<a href="#RFC4949" class="cite xref">RFC4949</a>]</span>. This makes the use of S-HBS public
+keys more appropriate in root CA certificates than in subordinate CA
+certificates. However, if a subordinate CA can match the security and
+signature count restrictions of a root CA, for example if the subordinate CA
+only issues code-signing certificates, then using an S-HBS public key in the
+subordinate CA certificate may be possible.<a href="#section-3-8" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="algorithm-identifiers-and-parameters">
@@ -1343,9 +1363,9 @@ absent.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <p id="section-4.1-2">The object identifier for an HSS public key is <code>id-alg-hss-lms-hashsig</code>:<a href="#section-4.1-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.1-3">
 <pre>
-id-alg-hss-lms-hashsig  OBJECT IDENTIFIER ::= {
-   iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
-   smime(16) alg(3) 17 }
+   id-alg-hss-lms-hashsig  OBJECT IDENTIFIER ::= {
+      iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
+      smime(16) alg(3) 17 }
 </pre><a href="#section-4.1-3" class="pilcrow">¶</a>
 </div>
 <p id="section-4.1-4">Note that the <code>id-alg-hss-lms-hashsig</code> algorithm identifier is also referred to
@@ -1364,9 +1384,9 @@ HSS/LMS tree. <span>[<a href="#RFC8554" class="cite xref">RFC8554</a>]</span> an
 <p id="section-4.2-1">The object identifier for an XMSS public key is <code>id-alg-xmss-hashsig</code>:<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.2-2">
 <pre>
-id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
-   iso(1) identified-organization(3) dod(6) internet(1) security(5)
-   mechanisms(5) pkix(7) algorithms(6) 34 }
+   id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
+      iso(1) identified-organization(3) dod(6) internet(1)
+      security(5) mechanisms(5) pkix(7) algorithms(6) 34 }
 </pre><a href="#section-4.2-2" class="pilcrow">¶</a>
 </div>
 <p id="section-4.2-3">The public key and signature values identify the hash function and the height used in the
@@ -1382,9 +1402,9 @@ XMSS tree. <span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> and <
 <p id="section-4.3-1">The object identifier for an XMSS^MT public key is <code>id-alg-xmssmt-hashsig</code>:<a href="#section-4.3-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.3-2">
 <pre>
-id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
-   iso(1) identified-organization(3) dod(6) internet(1) security(5)
-   mechanisms(5) pkix(7) algorithms(6) 35 }
+   id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
+      iso(1) identified-organization(3) dod(6) internet(1)
+      security(5) mechanisms(5) pkix(7) algorithms(6) 35 }
 </pre><a href="#section-4.3-2" class="pilcrow">¶</a>
 </div>
 <p id="section-4.3-3">The public key and signature values identify the hash function and the height used in the
@@ -1420,18 +1440,18 @@ becomes the least significant bit of the BIT STRING.<a href="#section-5-3" class
 <p id="section-5.1-1">The HSS public key identifier is as follows:<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.1-2">
 <pre>
-pk-HSS-LMS-HashSig PUBLIC-KEY ::= {
-   IDENTIFIER id-alg-hss-lms-hashsig
-   -- KEY no ASN.1 wrapping --
-   PARAMS ARE absent
-   CERT-KEY-USAGE
-      { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+   pk-HSS-LMS-HashSig PUBLIC-KEY ::= {
+      IDENTIFIER id-alg-hss-lms-hashsig
+      -- KEY no ASN.1 wrapping --
+      PARAMS ARE absent
+      CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
 </pre><a href="#section-5.1-2" class="pilcrow">¶</a>
 </div>
 <p id="section-5.1-3">The HSS public key is defined as follows:<a href="#section-5.1-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.1-4">
 <pre>
-HSS-LMS-HashSig-PublicKey ::= OCTET STRING
+   HSS-LMS-HashSig-PublicKey ::= OCTET STRING
 </pre><a href="#section-5.1-4" class="pilcrow">¶</a>
 </div>
 <p id="section-5.1-5"><span>[<a href="#RFC8554" class="cite xref">RFC8554</a>]</span> defines the raw octet string encoding of an HSS public key using the
@@ -1448,18 +1468,18 @@ scheme LMS is instantiated as HSS with number of levels being equal to 1.<a href
 <p id="section-5.2-1">The XMSS public key identifier is as follows:<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.2-2">
 <pre>
-pk-XMSS-HashSig PUBLIC-KEY ::= {
-   IDENTIFIER id-alg-xmss-hashsig
-   -- KEY no ASN.1 wrapping --
-   PARAMS ARE absent
-   CERT-KEY-USAGE
-      { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+   pk-XMSS-HashSig PUBLIC-KEY ::= {
+      IDENTIFIER id-alg-xmss-hashsig
+      -- KEY no ASN.1 wrapping --
+      PARAMS ARE absent
+      CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
 </pre><a href="#section-5.2-2" class="pilcrow">¶</a>
 </div>
 <p id="section-5.2-3">The XMSS public key is defined as follows:<a href="#section-5.2-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.2-4">
 <pre>
-XMSS-HashSig-PublicKey ::= OCTET STRING
+   XMSS-HashSig-PublicKey ::= OCTET STRING
 </pre><a href="#section-5.2-4" class="pilcrow">¶</a>
 </div>
 <p id="section-5.2-5"><span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> defines the raw octet string encoding of an HSS public key using the
@@ -1475,18 +1495,18 @@ on the contents and format of an XMSS public key.<a href="#section-5.2-5" class=
 <p id="section-5.3-1">The XMSS^MT public key identifier is as follows:<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.3-2">
 <pre>
-pk-XMSSMT-HashSig PUBLIC-KEY ::= {
-   IDENTIFIER id-alg-xmssmt-hashsig
-   -- KEY no ASN.1 wrapping --
-   PARAMS ARE absent
-   CERT-KEY-USAGE
-      { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+   pk-XMSSMT-HashSig PUBLIC-KEY ::= {
+      IDENTIFIER id-alg-xmssmt-hashsig
+      -- KEY no ASN.1 wrapping --
+      PARAMS ARE absent
+      CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
 </pre><a href="#section-5.3-2" class="pilcrow">¶</a>
 </div>
 <p id="section-5.3-3">The XMSS^MT public key is defined as follows:<a href="#section-5.3-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.3-4">
 <pre>
-XMSSMT-HashSig-PublicKey ::= OCTET STRING
+   XMSSMT-HashSig-PublicKey ::= OCTET STRING
 </pre><a href="#section-5.3-4" class="pilcrow">¶</a>
 </div>
 <p id="section-5.3-5"><span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> defines the raw octet string encoding of an HSS public key using the
@@ -1503,17 +1523,15 @@ on the contents and format of an XMSS^MT public key.<a href="#section-5.3-5" cla
       </h2>
 <p id="section-6-1">The intended application for the key is indicated in the keyUsage certificate
 extension <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.
-When one of the AlgorithmIdentifiers specified in this document appears in the SubjectPublicKeyInfo
-field of a certification authority (CA) X.509 certificate <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>, the
+When id-alg-hss-lms-hashsig, id-alg-xmss-hashsig or id-alg-xmssmt-hashsig appears in the SubjectPublicKeyInfo
+field of a CA X.509 certificate <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>, the
 certificate key usage extension <span class="bcp14">MUST</span> contain at least one of the
 following values: digitalSignature, nonRepudiation, keyCertSign, or
 cRLSign. However, it <span class="bcp14">MUST NOT</span> contain other values.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">When one of these AlgorithmIdentifiers appears in the SubjectPublicKeyInfo
+<p id="section-6-2">When id-alg-hss-lms-hashsig, id-alg-xmss-hashsig or id-alg-xmssmt-hashsig appears in the SubjectPublicKeyInfo
 field of an end entity X.509 certificate <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>, the certificate key usage
-extension <span class="bcp14">MUST</span> contain at least one of the following values: digitalSignature
-or nonRepudiation. However, it <span class="bcp14">MUST NOT</span> contain other values.<a href="#section-6-2" class="pilcrow">¶</a></p>
-<p id="section-6-3">Note that for certificates that indicate <code>id-alg-hss-lms-hashsig</code> the above
-definitions are more restrictive than the requirement defined in <span><a href="https://rfc-editor.org/rfc/rfc8708#section-4" class="relref">Section 4</a> of [<a href="#I-D.draft-ietf-lamps-rfc8708bis" class="cite xref">I-D.draft-ietf-lamps-rfc8708bis</a>]</span>.<a href="#section-6-3" class="pilcrow">¶</a></p>
+extension <span class="bcp14">MUST</span> contain at least one of the following values: digitalSignature,
+nonRepudiation or cRLSign. However, it <span class="bcp14">MUST NOT</span> contain other values.<a href="#section-6-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signature-algorithms">
@@ -1547,9 +1565,9 @@ generated on the full message, i.e. the message was not hashed before being
 processed by the HSS signature algorithm.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-7.1-2">
 <pre>
-id-alg-hss-lms-hashsig OBJECT IDENTIFIER ::= {
-   iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
-   smime(16) alg(3) 17 }
+   id-alg-hss-lms-hashsig OBJECT IDENTIFIER ::= {
+      iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
+      smime(16) alg(3) 17 }
 </pre><a href="#section-7.1-2" class="pilcrow">¶</a>
 </div>
 <p id="section-7.1-3">See <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> and <span>[<a href="#RFC8554" class="cite xref">RFC8554</a>]</span> for more information on the contents and
@@ -1628,7 +1646,7 @@ IMPORTS
 -- Object Identifiers
 --
 
--- id-alg-hss-lms-hashsig is defined in [RFC8708]
+-- id-alg-hss-lms-hashsig is defined in {{I-D.draft-ietf-lamps-rfc8708bis}}
 
 id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
    iso(1) identified-organization(3) dod(6) internet(1) security(5)
@@ -1642,7 +1660,7 @@ id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
 -- Signature Algorithms and Public Keys
 --
 
--- sa-HSS-LMS-HashSig is defined in [RFC8708]
+-- sa-HSS-LMS-HashSig is defined in {{I-D.draft-ietf-lamps-rfc8708bis}}
 
 sa-XMSS-HashSig SIGNATURE-ALGORITHM ::= {
    IDENTIFIER id-alg-xmss-hashsig
@@ -1656,7 +1674,7 @@ sa-XMSSMT-HashSig SIGNATURE-ALGORITHM ::= {
    PUBLIC-KEYS { pk-XMSSMT-HashSig }
    SMIME-CAPS { IDENTIFIED BY id-alg-xmssmt-hashsig } }
 
--- pk-HSS-LMS-HashSig is defined in [RFC8708]
+-- pk-HSS-LMS-HashSig is defined in {{I-D.draft-ietf-lamps-rfc8708bis}}
 
 pk-XMSS-HashSig PUBLIC-KEY ::= {
    IDENTIFIER id-alg-xmss-hashsig
@@ -1699,37 +1717,42 @@ END
 </div>
 </section>
 </div>
-<div id="security-considerations">
+<div id="sec-security">
 <section id="section-10">
       <h2 id="name-security-considerations">
 <a href="#section-10" class="section-number selfRef">10. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
 <p id="section-10-1">The security requirements of <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> <span class="bcp14">MUST</span> be taken into account.<a href="#section-10-1" class="pilcrow">¶</a></p>
-<p id="section-10-2">For S-HBS it is crucial to stress the importance of a correct state management.
+<p id="section-10-2">As S-HBS private keys can only generate a limited number of signatures, a
+user needs to be aware of the total number of signatures they intend to
+generate in their use case, otherwise they risk exhausting the number of OTS
+keys in the private key associated with the S-HBS public key in their
+certificate.<a href="#section-10-2" class="pilcrow">¶</a></p>
+<p id="section-10-3">For S-HBS it is crucial to stress the importance of a correct state management.
 If an attacker were able to obtain signatures for two different messages
 created using the same OTS key, then it would become computationally feasible
 for that attacker to create forgeries <span>[<a href="#BH16" class="cite xref">BH16</a>]</span>. As noted in <span>[<a href="#MCGREW" class="cite xref">MCGREW</a>]</span> and
 <span>[<a href="#ETSI-TR-103-692" class="cite xref">ETSI-TR-103-692</a>]</span>, extreme care needs to be taken in order to avoid the risk
 that an OTS key will be reused accidentally.  This is a new requirement that
-most developers will not be familiar with and requires careful handling.<a href="#section-10-2" class="pilcrow">¶</a></p>
-<p id="section-10-3">Various strategies for a correct state management can be applied:<a href="#section-10-3" class="pilcrow">¶</a></p>
+most developers will not be familiar with and requires careful handling.<a href="#section-10-3" class="pilcrow">¶</a></p>
+<p id="section-10-4">Various strategies for a correct state management can be applied:<a href="#section-10-4" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-10-4.1">
-          <p id="section-10-4.1.1">Implement a track record of all signatures generated by a key pair associated
+<li class="normal" id="section-10-5.1">
+          <p id="section-10-5.1.1">Implement a track record of all signatures generated by a key pair associated
 to a S-HBS instance. This track record may be stored outside the
 device which is used to generate the signature. Check the track record to
 prevent OTS key reuse before a new signature is released. Drop the new
-signature and hit your PANIC button if you spot OTS key reuse.<a href="#section-10-4.1.1" class="pilcrow">¶</a></p>
+signature and hit your PANIC button if you spot OTS key reuse.<a href="#section-10-5.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-10-4.2">
-          <p id="section-10-4.2.1">Use a S-HBS instance only for a moderate number of signatures such
+        <li class="normal" id="section-10-5.2">
+          <p id="section-10-5.2.1">Use a S-HBS instance only for a moderate number of signatures such
 that it is always practical to keep a consistent track record and be able to
-unambiguously trace back all generated signatures.<a href="#section-10-4.2.1" class="pilcrow">¶</a></p>
+unambiguously trace back all generated signatures.<a href="#section-10-5.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-10-4.3">
-          <p id="section-10-4.3.1">Apply the state reservation strategy described in Section 5 of <span>[<a href="#MCGREW" class="cite xref">MCGREW</a>]</span>, where
+        <li class="normal" id="section-10-5.3">
+          <p id="section-10-5.3.1">Apply the state reservation strategy described in Section 5 of <span>[<a href="#MCGREW" class="cite xref">MCGREW</a>]</span>, where
 upcoming states are reserved in advance by the signer. In this way the number of
-state synchronisations between nonvolatile and volatile memory is reduced.<a href="#section-10-4.3.1" class="pilcrow">¶</a></p>
+state synchronisations between nonvolatile and volatile memory is reduced.<a href="#section-10-5.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
@@ -1855,9 +1878,17 @@ registry <span>[<a href="#SMI-PKIX" class="cite xref">SMI-PKIX</a>]</span> with 
 <a href="#section-13.2" class="section-number selfRef">13.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
+<dt id="ANSSI">[ANSSI]</dt>
+        <dd>
+<span class="refAuthor">Agence nationale de la sécurité des systèmes d'information (ANSSI)</span>, <span class="refTitle">"ANSSI views on the Post-Quantum Cryptography transition (2023 follow up)"</span>, <time datetime="2023-12-21" class="refDate">21 December 2023</time>, <span>&lt;<a href="https://cyber.gouv.fr/sites/default/files/document/follow_up_position_paper_on_post_quantum_cryptography.pdf">https://cyber.gouv.fr/sites/default/files/document/follow_up_position_paper_on_post_quantum_cryptography.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="BH16">[BH16]</dt>
         <dd>
 <span class="refAuthor">Bruinderink, L.</span> and <span class="refAuthor">S. Hülsing</span>, <span class="refTitle">"Oops, I did it again – Security of One-Time Signatures under Two-Message Attacks."</span>, <time datetime="2016" class="refDate">2016</time>, <span>&lt;<a href="https://eprint.iacr.org/2016/1042.pdf">https://eprint.iacr.org/2016/1042.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="BSI">[BSI]</dt>
+        <dd>
+<span class="refAuthor">Bundesamt für Sicherheit in der Informationstechnik (BSI)</span>, <span class="refTitle">"Quantum-safe cryptography – fundamentals, current developments and recommendations"</span>, <time datetime="2022-05-18" class="refDate">18 May 2022</time>, <span>&lt;<a href="https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Publications/Brochure/quantum-safe-cryptography.pdf">https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Publications/Brochure/quantum-safe-cryptography.pdf</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="CNSA2.0">[CNSA2.0]</dt>
         <dd>
@@ -1882,6 +1913,14 @@ registry <span>[<a href="#SMI-PKIX" class="cite xref">SMI-PKIX</a>]</span> with 
 <dt id="RFC3279">[RFC3279]</dt>
         <dd>
 <span class="refAuthor">Bassham, L.</span>, <span class="refAuthor">Polk, W.</span>, and <span class="refAuthor">R. Housley</span>, <span class="refTitle">"Algorithms and Identifiers for the Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile"</span>, <span class="seriesInfo">RFC 3279</span>, <span class="seriesInfo">DOI 10.17487/RFC3279</span>, <time datetime="2002-04" class="refDate">April 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3279">https://www.rfc-editor.org/rfc/rfc3279</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC3647">[RFC3647]</dt>
+        <dd>
+<span class="refAuthor">Chokhani, S.</span>, <span class="refAuthor">Ford, W.</span>, <span class="refAuthor">Sabett, R.</span>, <span class="refAuthor">Merrill, C.</span>, and <span class="refAuthor">S. Wu</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure Certificate Policy and Certification Practices Framework"</span>, <span class="seriesInfo">RFC 3647</span>, <span class="seriesInfo">DOI 10.17487/RFC3647</span>, <time datetime="2003-11" class="refDate">November 2003</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3647">https://www.rfc-editor.org/rfc/rfc3647</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4949">[RFC4949]</dt>
+        <dd>
+<span class="refAuthor">Shirey, R.</span>, <span class="refTitle">"Internet Security Glossary, Version 2"</span>, <span class="seriesInfo">FYI 36</span>, <span class="seriesInfo">RFC 4949</span>, <span class="seriesInfo">DOI 10.17487/RFC4949</span>, <time datetime="2007-08" class="refDate">August 2007</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4949">https://www.rfc-editor.org/rfc/rfc4949</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8410">[RFC8410]</dt>
         <dd>
