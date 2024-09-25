@@ -238,9 +238,11 @@ The object identifier and public key algorithm identifier for HSS is defined in
 
 The object identifier for an HSS public key is `id-alg-hss-lms-hashsig`:
 
-    id-alg-hss-lms-hashsig  OBJECT IDENTIFIER ::= {
-       iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
-       smime(16) alg(3) 17 }
+~~~
+   id-alg-hss-lms-hashsig  OBJECT IDENTIFIER ::= {
+      iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
+      smime(16) alg(3) 17 }
+~~~
 
 Note that the `id-alg-hss-lms-hashsig` algorithm identifier is also referred to
 as `id-alg-mts-hashsig`. This synonym is based on the terminology used in an
@@ -254,9 +256,11 @@ HSS/LMS tree. [RFC8554] and [SP800208] define these values, but an IANA registry
 
 The object identifier for an XMSS public key is `id-alg-xmss-hashsig`:
 
-    id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
-       iso(1) identified-organization(3) dod(6) internet(1) security(5)
-       mechanisms(5) pkix(7) algorithms(6) 34 }
+~~~
+   id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
+      iso(1) identified-organization(3) dod(6) internet(1)
+      security(5) mechanisms(5) pkix(7) algorithms(6) 34 }
+~~~
 
 The public key and signature values identify the hash function and the height used in the
 XMSS tree. [RFC8391] and [SP800208] define these values, but an IANA registry
@@ -266,9 +270,11 @@ XMSS tree. [RFC8391] and [SP800208] define these values, but an IANA registry
 
 The object identifier for an XMSS^MT public key is `id-alg-xmssmt-hashsig`:
 
-    id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
-       iso(1) identified-organization(3) dod(6) internet(1) security(5)
-       mechanisms(5) pkix(7) algorithms(6) 35 }
+~~~
+   id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
+      iso(1) identified-organization(3) dod(6) internet(1)
+      security(5) mechanisms(5) pkix(7) algorithms(6) 35 }
+~~~
 
 The public key and signature values identify the hash function and the height used in the
 XMSS^MT tree. [RFC8391] and [SP800208] define these values, but an IANA registry
@@ -296,16 +302,20 @@ becomes the least significant bit of the BIT STRING.
 
 The HSS public key identifier is as follows:
 
-    pk-HSS-LMS-HashSig PUBLIC-KEY ::= {
-       IDENTIFIER id-alg-hss-lms-hashsig
-       -- KEY no ASN.1 wrapping --
-       PARAMS ARE absent
-       CERT-KEY-USAGE
-          { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+~~~
+   pk-HSS-LMS-HashSig PUBLIC-KEY ::= {
+      IDENTIFIER id-alg-hss-lms-hashsig
+      -- KEY no ASN.1 wrapping --
+      PARAMS ARE absent
+      CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+~~~
 
 The HSS public key is defined as follows:
 
-    HSS-LMS-HashSig-PublicKey ::= OCTET STRING
+~~~
+   HSS-LMS-HashSig-PublicKey ::= OCTET STRING
+~~~
 
 [RFC8554] defines the raw octet string encoding of an HSS public key using the
 `hss_public_key` structure. See [SP800208] and [RFC8554] for more information on
@@ -316,16 +326,20 @@ scheme LMS is instantiated as HSS with number of levels being equal to 1.
 
 The XMSS public key identifier is as follows:
 
-    pk-XMSS-HashSig PUBLIC-KEY ::= {
-       IDENTIFIER id-alg-xmss-hashsig
-       -- KEY no ASN.1 wrapping --
-       PARAMS ARE absent
-       CERT-KEY-USAGE
-          { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+~~~
+   pk-XMSS-HashSig PUBLIC-KEY ::= {
+      IDENTIFIER id-alg-xmss-hashsig
+      -- KEY no ASN.1 wrapping --
+      PARAMS ARE absent
+      CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+~~~
 
 The XMSS public key is defined as follows:
 
-    XMSS-HashSig-PublicKey ::= OCTET STRING
+~~~
+   XMSS-HashSig-PublicKey ::= OCTET STRING
+~~~
 
 [RFC8391] defines the raw octet string encoding of an HSS public key using the
 `xmss_public_key` structure. See [SP800208] and [RFC8391] for more information
@@ -335,16 +349,20 @@ on the contents and format of an XMSS public key.
 
 The XMSS^MT public key identifier is as follows:
 
-    pk-XMSSMT-HashSig PUBLIC-KEY ::= {
-       IDENTIFIER id-alg-xmssmt-hashsig
-       -- KEY no ASN.1 wrapping --
-       PARAMS ARE absent
-       CERT-KEY-USAGE
-          { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+~~~
+   pk-XMSSMT-HashSig PUBLIC-KEY ::= {
+      IDENTIFIER id-alg-xmssmt-hashsig
+      -- KEY no ASN.1 wrapping --
+      PARAMS ARE absent
+      CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+~~~
 
 The XMSS^MT public key is defined as follows:
 
-    XMSSMT-HashSig-PublicKey ::= OCTET STRING
+~~~
+   XMSSMT-HashSig-PublicKey ::= OCTET STRING
+~~~
 
 [RFC8391] defines the raw octet string encoding of an HSS public key using the
 `xmssmt_public_key` structure. See [SP800208] and [RFC8391] for more information
@@ -392,9 +410,11 @@ The HSS public key OID is also used to specify that an HSS signature was
 generated on the full message, i.e. the message was not hashed before being
 processed by the HSS signature algorithm.
 
-    id-alg-hss-lms-hashsig OBJECT IDENTIFIER ::= {
-       iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
-       smime(16) alg(3) 17 }
+~~~
+   id-alg-hss-lms-hashsig OBJECT IDENTIFIER ::= {
+      iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
+      smime(16) alg(3) 17 }
+~~~
 
 See [SP800208] and [RFC8554] for more information on the contents and
 format of an HSS signature.
