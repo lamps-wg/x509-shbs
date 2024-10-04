@@ -12,17 +12,17 @@
 <meta content="Stavros Kousidis" name="author">
 <meta content="
        This document specifies algorithm identifiers and ASN.1 encoding formats for
-the Stateful Hash-Based Signature Schemes (S-HBS) Hierarchical Signature System
+the stateful hash-based signature (HBS) schemes Hierarchical Signature System
 (HSS), eXtended Merkle Signature Scheme (XMSS), and XMSS^MT, a multi-tree
 variant of XMSS. This specification applies to the Internet X.509 Public Key
 infrastructure (PKI) when those digital signatures are used in Internet X.509
 certificates and certificate revocation lists. 
     " name="description">
-<meta content="xml2rfc 3.23.1" name="generator">
+<meta content="xml2rfc 3.23.2" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-lamps-x509-shbs-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.23.1
+  xml2rfc 3.23.2
     Python 3.12.6
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
@@ -1033,11 +1033,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">HSS and XMSS for X.509</td>
-<td class="right">September 2024</td>
+<td class="right">October 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Van Geest, et al.</td>
-<td class="center">Expires 29 March 2025</td>
+<td class="center">Expires 7 April 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1050,12 +1050,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-lamps-x509-shbs-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-09-25" class="published">25 September 2024</time>
+<time datetime="2024-10-04" class="published">4 October 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-03-29">29 March 2025</time></dd>
+<dd class="expires"><time datetime="2025-04-07">7 April 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1085,7 +1085,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">This document specifies algorithm identifiers and ASN.1 encoding formats for
-the Stateful Hash-Based Signature Schemes (S-HBS) Hierarchical Signature System
+the stateful hash-based signature (HBS) schemes Hierarchical Signature System
 (HSS), eXtended Merkle Signature Scheme (XMSS), and XMSS^MT, a multi-tree
 variant of XMSS. This specification applies to the Internet X.509 Public Key
 infrastructure (PKI) when those digital signatures are used in Internet X.509
@@ -1125,7 +1125,7 @@ certificates and certificate revocation lists.<a href="#section-abstract-1" clas
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 29 March 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 7 April 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1161,7 +1161,7 @@ certificates and certificate revocation lists.<a href="#section-abstract-1" clas
             <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
-            <p id="section-toc.1-1.3.1" class="keepWithNext"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-use-cases-of-s-hbs-in-x509" class="internal xref">Use Cases of S-HBS in X.509</a></p>
+            <p id="section-toc.1-1.3.1" class="keepWithNext"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-use-cases-of-stateful-hbs-s" class="internal xref">Use Cases of Stateful HBS Schemes in X.509</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-algorithm-identifiers-and-p" class="internal xref">Algorithm Identifiers and Parameters</a></p>
@@ -1258,23 +1258,23 @@ certificates and certificate revocation lists.<a href="#section-abstract-1" clas
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">Stateful Hash-Based Signature Schemes (S-HBS) such as HSS, XMSS and XMSS^MT
+<p id="section-1-1">Stateful HBS schemes such as HSS, XMSS and XMSS^MT
 combine Merkle trees with One Time Signatures (OTS) in order to provide digital
 signature schemes that remain secure even when quantum computers become
 available. Their theoretic security is well understood and depends only on the
 security of the underlying hash function. As such they can serve as an
 important building block for quantum computer resistant information and
 communication technology.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">The private key of S-HBS is a finite collection of OTS keys, hence only a
+<p id="section-1-2">A stateful HBS private key is a finite collection of OTS keys, hence only a
 limited number of messages can be signed and the private key's state must be
 updated and persisted after signing to prevent reuse of OTS keys.  While the
 right selection of algorithm parameters would allow a private key to sign a
 virtually unbounded number of messages (e.g. 2^60), this is at the cost of a
 larger signature size and longer signing time. Due to the statefulness of the
-private key and the limited number of signatures that can be created, S-HBS
+private key and the limited number of signatures that can be created, stateful HBS schemes
 might not be appropriate for use in interactive protocols. However, in some use
-cases the deployment of S-HBS may be appropriate. Such use cases are described
-and discussed later in <a href="#use-cases-shbs-x509" class="auto internal xref">Section 3</a>.<a href="#section-1-2" class="pilcrow">¶</a></p>
+cases the deployment of stateful HBS schemes may be appropriate. Such use cases are described
+and discussed in <a href="#use-cases-shbs-x509" class="auto internal xref">Section 3</a>.<a href="#section-1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1290,14 +1290,14 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 </div>
 <div id="use-cases-shbs-x509">
 <section id="section-3">
-      <h2 id="name-use-cases-of-s-hbs-in-x509">
-<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-use-cases-of-s-hbs-in-x509" class="section-name selfRef">Use Cases of S-HBS in X.509</a>
+      <h2 id="name-use-cases-of-stateful-hbs-s">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-use-cases-of-stateful-hbs-s" class="section-name selfRef">Use Cases of Stateful HBS Schemes in X.509</a>
       </h2>
 <p id="section-3-1">As described in the Security Considerations of <a href="#sec-security" class="auto internal xref">Section 10</a>, it is
-imperative that S-HBS implementations do not reuse OTS signatures. This makes
-S-HBS algorithms inappropriate for general use cases. The exact conditions
-under which S-HBS certificates may be used is left to certificate policies <span>[<a href="#RFC3647" class="cite xref">RFC3647</a>]</span>.
-However the intended use of S-HBS as described by <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> can be used as a
+imperative that stateful HBS implementations do not reuse OTS signatures. This makes
+stateful HBS algorithms inappropriate for general use cases. The exact conditions
+under which stateful HBS certificates may be used is left to certificate policies <span>[<a href="#RFC3647" class="cite xref">RFC3647</a>]</span>.
+However the intended use of stateful HBS schemes as described by <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> can be used as a
 guideline:<a href="#section-3-1" class="pilcrow">¶</a></p>
 <blockquote id="section-3-2">
         <p id="section-3-2.1">1) it is necessary to implement a digital signature scheme in the near
@@ -1306,11 +1306,11 @@ future; <br>
 3) it would not be practical to transition to a different digital signature
 scheme once the implementation has been deployed.<a href="#section-3-2.1" class="pilcrow">¶</a></p>
 </blockquote>
-<p id="section-3-3">In addition, since an S-HBS private key can only generate a finite number of
-signatures, use cases for S-HBS public keys in certificates should have a
+<p id="section-3-3">In addition, since a stateful HBS private key can only generate a finite number of
+signatures, use cases for stateful HBS public keys in certificates should have a
 predictable range of the number of signatures that will be generated, falling
 safely below the maximum number of signatures that a private key can generate.<a href="#section-3-3" class="pilcrow">¶</a></p>
-<p id="section-3-4">Use cases where S-HBS public keys in certificates may be appropriate due to
+<p id="section-3-4">Use cases where stateful HBS public keys in certificates may be appropriate due to
 the relatively small number of signatures generated and the signer's ability
 to enforce security restrictions on the signing environment include:<a href="#section-3-4" class="pilcrow">¶</a></p>
 <ul class="normal">
@@ -1329,18 +1329,18 @@ to enforce security restrictions on the signing environment include:<a href="#se
 environment such that signatures are generated in hardware cryptographic
 modules and audited before the signature is published, in order to prevent OTS
 key reuse.<a href="#section-3-6" class="pilcrow">¶</a></p>
-<p id="section-3-7">Generally speaking, S-HBS public keys are not appropriate for use
+<p id="section-3-7">Generally speaking, stateful HBS public keys are not appropriate for use
 in end-entity certificates, however in the firmware and software signing cases
 signature generation will often be more tightly controlled. Some
 manufactures use common and well-established key formats like X.509 for their
 code signing and update mechanisms. Also there are multi-party IoT ecosystems
 where publicly trusted code signing certificates are useful.<a href="#section-3-7" class="pilcrow">¶</a></p>
 <p id="section-3-8">In general, root CAs <span>[<a href="#RFC4949" class="cite xref">RFC4949</a>]</span> generate signatures in a more secure environment and issue
-fewer certificates than subordinate CAs <span>[<a href="#RFC4949" class="cite xref">RFC4949</a>]</span>. This makes the use of S-HBS public
+fewer certificates than subordinate CAs <span>[<a href="#RFC4949" class="cite xref">RFC4949</a>]</span>. This makes the use of stateful HBS public
 keys more appropriate in root CA certificates than in subordinate CA
 certificates. However, if a subordinate CA can match the security and
 signature count restrictions of a root CA, for example if the subordinate CA
-only issues code-signing certificates, then using an S-HBS public key in the
+only issues code-signing certificates, then using a stateful HBS public key in the
 subordinate CA certificate may be possible.<a href="#section-3-8" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1632,7 +1632,7 @@ EXPORTS ALL;
 
 IMPORTS
   PUBLIC-KEY, SIGNATURE-ALGORITHM
-    FROM AlgorithmInformation-2009  -- RFC 5911 [CMSASN1]
+    FROM AlgorithmInformation-2009  -- [RFC5911]
       { iso(1) identified-organization(3) dod(6) internet(1)
         security(5) mechanisms(5) pkix(7) id-mod(0)
         id-mod-algorithmInformation-02(58) }
@@ -1723,12 +1723,11 @@ END
 <a href="#section-10" class="section-number selfRef">10. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
 <p id="section-10-1">The security requirements of <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> <span class="bcp14">MUST</span> be taken into account.<a href="#section-10-1" class="pilcrow">¶</a></p>
-<p id="section-10-2">As S-HBS private keys can only generate a limited number of signatures, a
+<p id="section-10-2">As stateful HBS private keys can only generate a limited number of signatures, a
 user needs to be aware of the total number of signatures they intend to
 generate in their use case, otherwise they risk exhausting the number of OTS
-keys in the private key associated with the S-HBS public key in their
-certificate.<a href="#section-10-2" class="pilcrow">¶</a></p>
-<p id="section-10-3">For S-HBS it is crucial to stress the importance of a correct state management.
+keys in their private key.<a href="#section-10-2" class="pilcrow">¶</a></p>
+<p id="section-10-3">For stateful HBS schemes, it is crucial to stress the importance of correct state management.
 If an attacker were able to obtain signatures for two different messages
 created using the same OTS key, then it would become computationally feasible
 for that attacker to create forgeries <span>[<a href="#BH16" class="cite xref">BH16</a>]</span>. As noted in <span>[<a href="#MCGREW" class="cite xref">MCGREW</a>]</span> and
@@ -1738,15 +1737,15 @@ most developers will not be familiar with and requires careful handling.<a href=
 <p id="section-10-4">Various strategies for a correct state management can be applied:<a href="#section-10-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-10-5.1">
-          <p id="section-10-5.1.1">Implement a track record of all signatures generated by a key pair associated
-to a S-HBS instance. This track record may be stored outside the
-device which is used to generate the signature. Check the track record to
+          <p id="section-10-5.1.1">Implement a record of all signatures generated by a key pair associated
+with a stateful HBS instance. This record may be stored outside the
+device which is used to generate the signature. Check the record to
 prevent OTS key reuse before a new signature is released. Drop the new
 signature and hit your PANIC button if you spot OTS key reuse.<a href="#section-10-5.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-10-5.2">
-          <p id="section-10-5.2.1">Use a S-HBS instance only for a moderate number of signatures such
-that it is always practical to keep a consistent track record and be able to
+          <p id="section-10-5.2.1">Use a stateful HBS instance only for a moderate number of signatures such
+that it is always practical to keep a consistent record and be able to
 unambiguously trace back all generated signatures.<a href="#section-10-5.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-10-5.3">
@@ -1769,7 +1768,7 @@ of signature generation throughout the validity period of signing key pairs.<a h
 redundant signing devices or to store and safeguard a copy of the private
 keying material such that it can be used to set up a new signing device in case
 of technical difficulties.<a href="#section-11-2" class="pilcrow">¶</a></p>
-<p id="section-11-3">For S-HBS such straightforward backup and restore strategies will lead to OTS
+<p id="section-11-3">For stateful HBS schemes, such straightforward backup and restore strategies will lead to OTS
 reuse with high probability as a correct state management is not guaranteed.
 Strategies for maintaining availability and keeping a correct state are
 described in Section 7 of <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span>.<a href="#section-11-3" class="pilcrow">¶</a></p>
@@ -1780,7 +1779,7 @@ described in Section 7 of <span>[<a href="#SP800208" class="cite xref">SP800208<
       <h2 id="name-iana-considerations">
 <a href="#section-12" class="section-number selfRef">12. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-12-1">One object identifier for the ASN.1 module in Appendix A is requested
+<p id="section-12-1">One object identifier for the ASN.1 module in {sec-asn1} is requested
 for the SMI Security for PKIX Module Identifiers (1.3.6.1.5.5.7.0)
 registry:<a href="#section-12-1" class="pilcrow">¶</a></p>
 <table class="center" id="table-1">
@@ -1908,7 +1907,7 @@ registry <span>[<a href="#SMI-PKIX" class="cite xref">SMI-PKIX</a>]</span> with 
 <dd class="break"></dd>
 <dt id="MCGREW">[MCGREW]</dt>
         <dd>
-<span class="refAuthor">McGrew, D.</span>, <span class="refAuthor">Kampanakis, P.</span>, <span class="refAuthor">Fluhrer, S.</span>, <span class="refAuthor">Gazdag, S.</span>, <span class="refAuthor">Butin, D.</span>, and <span class="refAuthor">J. Buchmann</span>, <span class="refTitle">"State Management for Hash-Based Signatures"</span>, <time datetime="2016-11-02" class="refDate">2 November 2016</time>, <span>&lt;<a href="https://tubiblio.ulb.tu-darmstadt.de/id/eprint/101633">https://tubiblio.ulb.tu-darmstadt.de/id/eprint/101633</a>&gt;</span>. </dd>
+<span class="refAuthor">McGrew, D.</span>, <span class="refAuthor">Kampanakis, P.</span>, <span class="refAuthor">Fluhrer, S.</span>, <span class="refAuthor">Gazdag, S.</span>, <span class="refAuthor">Butin, D.</span>, and <span class="refAuthor">J. Buchmann</span>, <span class="refTitle">"State Management for Hash-Based Signatures"</span>, <time datetime="2016-11-02" class="refDate">2 November 2016</time>, <span>&lt;<a href="https://eprint.iacr.org/2016/357">https://eprint.iacr.org/2016/357</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC3279">[RFC3279]</dt>
         <dd>
