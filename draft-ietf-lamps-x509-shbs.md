@@ -66,7 +66,7 @@ informative:
   RFC8410:
   RFC8411:
   MCGREW:
-    target: https://tubiblio.ulb.tu-darmstadt.de/id/eprint/101633
+    target: https://eprint.iacr.org/2016/357
     title: State Management for Hash-Based Signatures
     author:
       -
@@ -141,7 +141,7 @@ informative:
 --- abstract
 
 This document specifies algorithm identifiers and ASN.1 encoding formats for
-the Stateful Hash-Based Signature Schemes (S-HBS) Hierarchical Signature System
+the stateful hash-based signature (HBS) schemes Hierarchical Signature System
 (HSS), eXtended Merkle Signature Scheme (XMSS), and XMSS^MT, a multi-tree
 variant of XMSS. This specification applies to the Internet X.509 Public Key
 infrastructure (PKI) when those digital signatures are used in Internet X.509
@@ -151,7 +151,7 @@ certificates and certificate revocation lists.
 
 # Introduction
 
-Stateful Hash-Based Signature Schemes (S-HBS) such as HSS, XMSS and XMSS^MT
+Stateful HBS schemes such as HSS, XMSS and XMSS^MT
 combine Merkle trees with One Time Signatures (OTS) in order to provide digital
 signature schemes that remain secure even when quantum computers become
 available. Their theoretic security is well understood and depends only on the
@@ -159,28 +159,28 @@ security of the underlying hash function. As such they can serve as an
 important building block for quantum computer resistant information and
 communication technology.
 
-The private key of S-HBS is a finite collection of OTS keys, hence only a
+A stateful HBS private key is a finite collection of OTS keys, hence only a
 limited number of messages can be signed and the private key's state must be
 updated and persisted after signing to prevent reuse of OTS keys.  While the
 right selection of algorithm parameters would allow a private key to sign a
 virtually unbounded number of messages (e.g. 2^60), this is at the cost of a
 larger signature size and longer signing time. Due to the statefulness of the
-private key and the limited number of signatures that can be created, S-HBS
+private key and the limited number of signatures that can be created, stateful HBS schemes
 might not be appropriate for use in interactive protocols. However, in some use
-cases the deployment of S-HBS may be appropriate. Such use cases are described
-and discussed later in {{use-cases-shbs-x509}}.
+cases the deployment of stateful HBS schemes may be appropriate. Such use cases are described
+and discussed in {{use-cases-shbs-x509}}.
 
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
 
-# Use Cases of S-HBS in X.509 {#use-cases-shbs-x509}
+# Use Cases of Stateful HBS Schemes in X.509 {#use-cases-shbs-x509}
 
 As described in the Security Considerations of {{sec-security}}, it is
-imperative that S-HBS implementations do not reuse OTS signatures. This makes
-S-HBS algorithms inappropriate for general use cases. The exact conditions
-under which S-HBS certificates may be used is left to certificate policies [RFC3647].
-However the intended use of S-HBS as described by [SP800208] can be used as a
+imperative that stateful HBS implementations do not reuse OTS signatures. This makes
+stateful HBS algorithms inappropriate for general use cases. The exact conditions
+under which stateful HBS certificates may be used is left to certificate policies [RFC3647].
+However the intended use of stateful HBS schemes as described by [SP800208] can be used as a
 guideline:
 
 {:quote}
@@ -190,12 +190,12 @@ future; \\
 > 3) it would not be practical to transition to a different digital signature
 scheme once the implementation has been deployed.
 
-In addition, since an S-HBS private key can only generate a finite number of
-signatures, use cases for S-HBS public keys in certificates should have a
+In addition, since a stateful HBS private key can only generate a finite number of
+signatures, use cases for stateful HBS public keys in certificates should have a
 predictable range of the number of signatures that will be generated, falling
 safely below the maximum number of signatures that a private key can generate.
 
-Use cases where S-HBS public keys in certificates may be appropriate due to
+Use cases where stateful HBS public keys in certificates may be appropriate due to
 the relatively small number of signatures generated and the signer's ability
 to enforce security restrictions on the signing environment include:
 
@@ -209,7 +209,7 @@ environment such that signatures are generated in hardware cryptographic
 modules and audited before the signature is published, in order to prevent OTS
 key reuse.
 
-Generally speaking, S-HBS public keys are not appropriate for use
+Generally speaking, stateful HBS public keys are not appropriate for use
 in end-entity certificates, however in the firmware and software signing cases
 signature generation will often be more tightly controlled. Some
 manufactures use common and well-established key formats like X.509 for their
@@ -217,11 +217,11 @@ code signing and update mechanisms. Also there are multi-party IoT ecosystems
 where publicly trusted code signing certificates are useful.
 
 In general, root CAs [RFC4949] generate signatures in a more secure environment and issue
-fewer certificates than subordinate CAs [RFC4949]. This makes the use of S-HBS public
+fewer certificates than subordinate CAs [RFC4949]. This makes the use of stateful HBS public
 keys more appropriate in root CA certificates than in subordinate CA
 certificates. However, if a subordinate CA can match the security and
 signature count restrictions of a root CA, for example if the subordinate CA
-only issues code-signing certificates, then using an S-HBS public key in the
+only issues code-signing certificates, then using a stateful HBS public key in the
 subordinate CA certificate may be possible.
 
 # Algorithm Identifiers and Parameters
@@ -461,13 +461,12 @@ This ASN.1 Module builds upon the conventions established in [RFC5911].
 
 The security requirements of [SP800208] MUST be taken into account.
 
-As S-HBS private keys can only generate a limited number of signatures, a
+As stateful HBS private keys can only generate a limited number of signatures, a
 user needs to be aware of the total number of signatures they intend to
 generate in their use case, otherwise they risk exhausting the number of OTS
-keys in the private key associated with the S-HBS public key in their
-certificate.
+keys in their private key.
 
-For S-HBS it is crucial to stress the importance of a correct state management.
+For stateful HBS schemes, it is crucial to stress the importance of correct state management.
 If an attacker were able to obtain signatures for two different messages
 created using the same OTS key, then it would become computationally feasible
 for that attacker to create forgeries [BH16]. As noted in [MCGREW] and
@@ -477,14 +476,14 @@ most developers will not be familiar with and requires careful handling.
 
 Various strategies for a correct state management can be applied:
 
-- Implement a track record of all signatures generated by a key pair associated
-  to a S-HBS instance. This track record may be stored outside the
-  device which is used to generate the signature. Check the track record to
+- Implement a record of all signatures generated by a key pair associated
+  with a stateful HBS instance. This record may be stored outside the
+  device which is used to generate the signature. Check the record to
   prevent OTS key reuse before a new signature is released. Drop the new
   signature and hit your PANIC button if you spot OTS key reuse.
 
-- Use a S-HBS instance only for a moderate number of signatures such
-  that it is always practical to keep a consistent track record and be able to
+- Use a stateful HBS instance only for a moderate number of signatures such
+  that it is always practical to keep a consistent record and be able to
   unambiguously trace back all generated signatures.
 
 - Apply the state reservation strategy described in Section 5 of [MCGREW], where
@@ -503,14 +502,14 @@ redundant signing devices or to store and safeguard a copy of the private
 keying material such that it can be used to set up a new signing device in case
 of technical difficulties.
 
-For S-HBS such straightforward backup and restore strategies will lead to OTS
+For stateful HBS schemes, such straightforward backup and restore strategies will lead to OTS
 reuse with high probability as a correct state management is not guaranteed.
 Strategies for maintaining availability and keeping a correct state are
 described in Section 7 of [SP800208].
 
 # IANA Considerations
 
-One object identifier for the ASN.1 module in Appendix A is requested
+One object identifier for the ASN.1 module in {sec-asn1} is requested
 for the SMI Security for PKIX Module Identifiers (1.3.6.1.5.5.7.0)
 registry:
 
