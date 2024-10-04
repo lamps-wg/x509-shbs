@@ -509,7 +509,7 @@ described in Section 7 of [SP800208].
 
 # IANA Considerations
 
-One object identifier for the ASN.1 module in {sec-asn1} is requested
+One object identifier for the ASN.1 module in {{sec-asn1}} is requested
 for the SMI Security for PKIX Module Identifiers (1.3.6.1.5.5.7.0)
 registry:
 
