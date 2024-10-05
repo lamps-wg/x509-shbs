@@ -36,7 +36,7 @@ author:
     email: sfluhrer@cisco.com
 -
     ins: S. Gazdag
-    name: Stefan Gazdag
+    name: Stefan-Lukas Gazdag
     org: genua GmbH
     email: ietf@gazdag.de
 -
