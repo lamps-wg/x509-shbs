@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-03T01:41:27.064300+00:00",
+  "timestamp": "2024-10-06T01:47:35.463475+00:00",
   "repo": "lamps-wg/x509-shbs",
   "labels": [
     {
@@ -918,6 +918,48 @@
               "updatedAt": "2024-09-25T14:17:03Z"
             }
           ]
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "id": "PR_kwDOLS-xBM59rvdH",
+      "title": "Update draft-ietf-lamps-x509-shbs.md",
+      "url": "https://github.com/lamps-wg/x509-shbs/pull/14",
+      "state": "MERGED",
+      "author": "exception42",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Quick fix for my name.",
+      "createdAt": "2024-10-05T06:47:07Z",
+      "updatedAt": "2024-10-05T17:44:14Z",
+      "baseRepository": "lamps-wg/x509-shbs",
+      "baseRefName": "main",
+      "baseRefOid": "f204717489351891903ad5899427a4ce1cfe4f86",
+      "headRepository": "lamps-wg/x509-shbs",
+      "headRefName": "exception42-patch-1",
+      "headRefOid": "e0d9f90a87e35965dcbc50c039597b136c0f7ff4",
+      "closedAt": "2024-10-05T17:44:14Z",
+      "mergedAt": "2024-10-05T17:44:13Z",
+      "mergedBy": "danvangeest",
+      "mergeCommit": {
+        "oid": "9943450c94a7a33b5f20e091d26d9b3939c4607b"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLS-xBM6MEIKp",
+          "commit": {
+            "abbreviatedOid": "e0d9f90"
+          },
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-05T17:44:02Z",
+          "updatedAt": "2024-10-05T17:44:02Z",
+          "comments": []
         }
       ]
     }
