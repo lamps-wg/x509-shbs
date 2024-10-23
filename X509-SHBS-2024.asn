@@ -14,7 +14,7 @@ IMPORTS
         id-mod-algorithmInformation-02(58) }
 
   sa-HSS-LMS-HashSig, pk-HSS-LMS-HashSig
-    FROM MTS-HashSig-2013
+    FROM MTS-HashSig-2013 -- [-rfc8708bis]
       { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
         id-smime(16) id-mod(0) id-mod-mts-hashsig-2013(64) };
 
