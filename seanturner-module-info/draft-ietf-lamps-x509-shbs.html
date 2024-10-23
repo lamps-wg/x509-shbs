@@ -1426,7 +1426,7 @@ identifier. An algorithm identifier consists of an OID and optional parameters.<
 keys used in this document. When used in a SubjectPublicKeyInfo type, the
 subjectPublicKey BIT STRING contains the raw octet string encodings of the
 public keys.<a href="#section-5-2" class="pilcrow">¶</a></p>
-<p id="section-5-3">This document defines ASN.1 OCTET STRING types for encoding the public keys
+<p id="section-5-3">This document defines ASN.1 <span>[<a href="#X680" class="cite xref">X680</a>]</span> OCTET STRING types for encoding the public keys
 when not used in a SubjectPublicKeyInfo. The OCTET STRING is mapped to a
 subjectPublicKey (a value of type BIT STRING) as follows: the most significant
 bit of the OCTET STRING value becomes the most significant bit of the BIT
@@ -1618,8 +1618,11 @@ format of an XMSS^MT signature.<a href="#section-7.3-2" class="pilcrow">¶</a></
       <h2 id="name-asn1-module">
 <a href="#section-9" class="section-number selfRef">9. </a><a href="#name-asn1-module" class="section-name selfRef">ASN.1 Module</a>
       </h2>
-<p id="section-9-1">For reference purposes, the ASN.1 syntax is presented as an ASN.1 module here.
-This ASN.1 Module builds upon the conventions established in <span>[<a href="#RFC5911" class="cite xref">RFC5911</a>]</span>.<a href="#section-9-1" class="pilcrow">¶</a></p>
+<p id="section-9-1">For reference purposes, the ASN.1 syntax is presented as an ASN.1 module here <span>[<a href="#X680" class="cite xref">X680</a>]</span>.
+Note that as per <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>, certificates use the Distinguished Encoding Rules; see
+<span>[<a href="#X690" class="cite xref">X690</a>]</span>.
+This ASN.1 Module builds upon the conventions established in <span>[<a href="#RFC5911" class="cite xref">RFC5911</a>]</span>. This
+module imports objects from <span>[<a href="#RFC5911" class="cite xref">RFC5911</a>]</span> and <span>[<a href="#I-D.draft-ietf-lamps-rfc8708bis" class="cite xref">I-D.draft-ietf-lamps-rfc8708bis</a>]</span>.<a href="#section-9-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-9-2">
 <pre>
 X509-SHBS-2024
@@ -1865,8 +1868,16 @@ registry <span>[<a href="#SMI-PKIX" class="cite xref">SMI-PKIX</a>]</span> with 
 <span class="refAuthor">McGrew, D.</span>, <span class="refAuthor">Curcio, M.</span>, and <span class="refAuthor">S. Fluhrer</span>, <span class="refTitle">"Leighton-Micali Hash-Based Signatures"</span>, <span class="seriesInfo">RFC 8554</span>, <span class="seriesInfo">DOI 10.17487/RFC8554</span>, <time datetime="2019-04" class="refDate">April 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8554">https://www.rfc-editor.org/rfc/rfc8554</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="SP800208">[SP800208]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">National Institute of Standards and Technology (NIST)</span>, <span class="refTitle">"Recommendation for Stateful Hash-Based Signature Schemes"</span>, <time datetime="2020-10-29" class="refDate">29 October 2020</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-208">https://doi.org/10.6028/NIST.SP.800-208</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="X680">[X680]</dt>
+        <dd>
+<span class="refAuthor">ITU-T</span>, <span class="refTitle">"Information technology - Abstract Syntax Notation One (ASN.1): Specification of basic notation"</span>, <span class="seriesInfo">ITU-T Recommendation X.680</span>, <span class="seriesInfo">ISO/IEC 8824-1:2021</span>, <time datetime="2021-02" class="refDate">February 2021</time>, <span>&lt;<a href="https://www.itu.int/rec/T-REC-X.680">https://www.itu.int/rec/T-REC-X.680</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="X690">[X690]</dt>
+      <dd>
+<span class="refAuthor">ITU-T</span>, <span class="refTitle">"Information technology - Abstract Syntax Notation One (ASN.1): ASN.1 encoding rules: Specification of Basic Encoding Rules (BER), Canonical Encoding Rules (CER) and Distinguished Encoding Rules (DER)"</span>, <span class="seriesInfo">ITU-T Recommendation X.690</span>, <span class="seriesInfo">ISO/IEC 8825-1:2021</span>, <time datetime="2021-02" class="refDate">February 2021</time>, <span>&lt;<a href="https://www.itu.int/rec/T-REC-X.690">https://www.itu.int/rec/T-REC-X.690</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
