@@ -5,14 +5,14 @@
 LAMPS - Limited Additional Mechanisms for PKIX and SMIME    D. Van Geest
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                              K. Bashiri
-Expires: 8 April 2025                                                BSI
+Expires: 28 April 2025                                               BSI
                                                               S. Fluhrer
                                                            Cisco Systems
                                                                S. Gazdag
                                                               genua GmbH
                                                              S. Kousidis
                                                                      BSI
-                                                          5 October 2024
+                                                         25 October 2024
 
 
 Internet X.509 Public Key Infrastructure: Algorithm Identifiers for HSS
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 April 2025.
+   This Internet-Draft will expire on 28 April 2025.
 
 Copyright Notice
 
@@ -264,8 +264,8 @@ Table of Contents
    SubjectPublicKeyInfo type, the subjectPublicKey BIT STRING contains
    the raw octet string encodings of the public keys.
 
-   This document defines ASN.1 OCTET STRING types for encoding the
-   public keys when not used in a SubjectPublicKeyInfo.  The OCTET
+   This document defines ASN.1 [X680] OCTET STRING types for encoding
+   the public keys when not used in a SubjectPublicKeyInfo.  The OCTET
    STRING is mapped to a subjectPublicKey (a value of type BIT STRING)
    as follows: the most significant bit of the OCTET STRING value
    becomes the most significant bit of the BIT STRING value, and so on;
@@ -420,8 +420,10 @@ Table of Contents
 9.  ASN.1 Module
 
    For reference purposes, the ASN.1 syntax is presented as an ASN.1
-   module here.  This ASN.1 Module builds upon the conventions
-   established in [RFC5911].
+   module here [X680].  Note that as per [RFC5280], certificates use the
+   Distinguished Encoding Rules; see [X690].  This ASN.1 Module builds
+   upon the conventions established in [RFC5911].  This module imports
+   objects from [RFC5911] and [I-D.draft-ietf-lamps-rfc8708bis].
 
 X509-SHBS-2024
   { iso(1) identified-organization(3) dod(6) internet(1) security(5)
@@ -439,7 +441,7 @@ IMPORTS
         id-mod-algorithmInformation-02(58) }
 
   sa-HSS-LMS-HashSig, pk-HSS-LMS-HashSig
-    FROM MTS-HashSig-2013
+    FROM MTS-HashSig-2013 -- [-rfc8708bis]
       { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
         id-smime(16) id-mod(0) id-mod-mts-hashsig-2013(64) };
 
@@ -640,6 +642,18 @@ END
               "Recommendation for Stateful Hash-Based Signature
               Schemes", 29 October 2020,
               <https://doi.org/10.6028/NIST.SP.800-208>.
+
+   [X680]     ITU-T, "Information technology - Abstract Syntax Notation
+              One (ASN.1): Specification of basic notation", ITU-T
+              Recommendation X.680, ISO/IEC 8824-1:2021, February 2021,
+              <https://www.itu.int/rec/T-REC-X.680>.
+
+   [X690]     ITU-T, "Information technology - Abstract Syntax Notation
+              One (ASN.1): ASN.1 encoding rules: Specification of Basic
+              Encoding Rules (BER), Canonical Encoding Rules (CER) and
+              Distinguished Encoding Rules (DER)", ITU-T
+              Recommendation X.690, ISO/IEC 8825-1:2021, February 2021,
+              <https://www.itu.int/rec/T-REC-X.690>.
 
 13.2.  Informative References
 
