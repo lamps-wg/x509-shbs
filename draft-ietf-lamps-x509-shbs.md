@@ -58,6 +58,29 @@ normative:
       -
         ins: National Institute of Standards and Technology (NIST)
     date: 2020-10-29
+  X680:
+    target: https://www.itu.int/rec/T-REC-X.680
+    title: >
+      Information technology - Abstract Syntax Notation One (ASN.1):
+      Specification of basic notation
+    date: 2021-02
+    author:
+    -  org: ITU-T
+    seriesinfo:
+      ITU-T Recommendation: X.680
+      ISO/IEC: 8824-1:2021
+  X690:
+    target: https://www.itu.int/rec/T-REC-X.690
+    title: >
+      Information technology - Abstract Syntax Notation One (ASN.1):
+      ASN.1 encoding rules: Specification of Basic Encoding Rules (BER),
+      Canonical Encoding Rules (CER) and Distinguished Encoding Rules (DER)
+    date: 2021-02
+    author:
+    -  org: ITU-T
+    seriesinfo:
+      ITU-T Recommendation: X.690
+      ISO/IEC: 8825-1:2021
 
 informative:
   RFC3279:
@@ -291,7 +314,7 @@ keys used in this document. When used in a SubjectPublicKeyInfo type, the
 subjectPublicKey BIT STRING contains the raw octet string encodings of the
 public keys.
 
-This document defines ASN.1 OCTET STRING types for encoding the public keys
+This document defines ASN.1 {{X680}} OCTET STRING types for encoding the public keys
 when not used in a SubjectPublicKeyInfo. The OCTET STRING is mapped to a
 subjectPublicKey (a value of type BIT STRING) as follows: the most significant
 bit of the OCTET STRING value becomes the most significant bit of the BIT
@@ -450,8 +473,11 @@ The key generation for XMSS and XMSS^MT MUST be performed according to 7.2 of
 
 # ASN.1 Module {#sec-asn1}
 
-For reference purposes, the ASN.1 syntax is presented as an ASN.1 module here.
-This ASN.1 Module builds upon the conventions established in [RFC5911].
+For reference purposes, the ASN.1 syntax is presented as an ASN.1 module here {{X680}}.
+Note that as per [RFC5280], certificates use the Distinguished Encoding Rules; see
+{{X690}}.
+This ASN.1 Module builds upon the conventions established in [RFC5911]. This
+module imports objects from [RFC5911] and {{-rfc8708bis}}.
 
 ~~~
 {::include X509-SHBS-2024.asn}
