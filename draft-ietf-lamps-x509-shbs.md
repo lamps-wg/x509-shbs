@@ -251,15 +251,42 @@ subordinate CA certificate may be possible.
 
 In this document, we define new OIDs for identifying the different stateful
 hash-based signature algorithms. An additional OID is defined in {{-rfc8708bis}} and
-repeated here for convenience. For all of the OIDs, the parameters MUST be
-absent.
+repeated here for convenience.
+
+The AlgorithmIdentifier type, which is included herein for convenience,
+is defined as follows:
+
+~~~
+  AlgorithmIdentifier{ALGORITHM-TYPE, ALGORITHM-TYPE:AlgorithmSet} ::=
+    SEQUENCE {
+      algorithm   ALGORITHM-TYPE.&id({AlgorithmSet}),
+      parameters  ALGORITHM-TYPE.
+                    &Params({AlgorithmSet}{@algorithm}) OPTIONAL
+    }
+~~~
+
+<aside markdown="block">
+  NOTE: The above syntax is from {{!RFC5912}} and is compatible with the
+  2021 ASN.1 syntax {{X680}}. See {{RFC5280}} for the 1988 ASN.1 syntax.
+</aside>
+
+The fields in AlgorithmIdentifier have the following meanings:
+
+* algorithm identifies the cryptographic algorithm with an object
+  identifier.
+
+* parameters, which are optional, are the associated parameters for
+  the algorithm identifier in the algorithm field.
+
+The parameters field of the AlgorithmIdentifier for HSS, XMSS, and XMSS^MT
+public keys MUST be absent.
 
 ## HSS Algorithm Identifier
 
 The object identifier and public key algorithm identifier for HSS is defined in
 {{-rfc8708bis}}. The definitions are repeated here for reference.
 
-The object identifier for an HSS public key is `id-alg-hss-lms-hashsig`:
+The AlgorithmIdentifier for an HSS public key MUST use the id-alg-hss-lms-hashsig object identifier.
 
 ~~~
    id-alg-hss-lms-hashsig  OBJECT IDENTIFIER ::= {
@@ -267,8 +294,8 @@ The object identifier for an HSS public key is `id-alg-hss-lms-hashsig`:
       smime(16) alg(3) 17 }
 ~~~
 
-Note that the `id-alg-hss-lms-hashsig` algorithm identifier is also referred to
-as `id-alg-mts-hashsig`. This synonym is based on the terminology used in an
+Note that the id-alg-hss-lms-hashsig algorithm identifier is also referred to
+as id-alg-mts-hashsig. This synonym is based on the terminology used in an
 early draft of the document that became [RFC8554].
 
 The public key and signature values identify the hash function and the height used in the
@@ -277,7 +304,7 @@ HSS/LMS tree. [RFC8554] and [SP800208] define these values, but an IANA registry
 
 ## XMSS Algorithm Identifier
 
-The object identifier for an XMSS public key is `id-alg-xmss-hashsig`:
+The AlgorithmIdentifier for an XMSS public key MUST use the id-alg-xmss-hashsig object identifier.
 
 ~~~
    id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
@@ -291,7 +318,7 @@ XMSS tree. [RFC8391] and [SP800208] define these values, but an IANA registry
 
 ## XMSS^MT Algorithm Identifier
 
-The object identifier for an XMSS^MT public key is `id-alg-xmssmt-hashsig`:
+The AlgorithmIdentifier for an XMSS^MT public key MUST use the id-alg-xmssmt-hashsig object identifier.
 
 ~~~
    id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
@@ -408,8 +435,8 @@ nonRepudiation or cRLSign. However, it MUST NOT contain other values.
 
 # Signature Algorithms
 
-This section identifies OIDs for signing using HSS, XMSS, and XMSS^MT. When
-these algorithm identifiers appear in the algorithm field as an
+The same OIDs used to identify HSS, XMSS, and XMSS^MT public keys are also used to identify their respective signatures.
+When these algorithm identifiers appear in the algorithm field of an
 AlgorithmIdentifier, the encoding MUST omit the parameters field. That is, the
 AlgorithmIdentifier SHALL be a SEQUENCE of one component, one of the OIDs
 defined in the following subsections.
@@ -429,22 +456,16 @@ in the "signatureValue" BIT STRING field.
 
 ## HSS Signature Algorithm
 
-The HSS public key OID is also used to specify that an HSS signature was
+The id-alg-hss-lms-hashsig OID is used to specify that an HSS signature was
 generated on the full message, i.e. the message was not hashed before being
 processed by the HSS signature algorithm.
-
-~~~
-   id-alg-hss-lms-hashsig OBJECT IDENTIFIER ::= {
-      iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
-      smime(16) alg(3) 17 }
-~~~
 
 See [SP800208] and [RFC8554] for more information on the contents and
 format of an HSS signature.
 
 ## XMSS Signature Algorithm
 
-The id-alg-xmss-hashsig public key OID is also used to specify that an XMSS signature was
+The id-alg-xmss-hashsig OID is used to specify that an XMSS signature was
 generated on the full message, i.e. the message was not hashed before being
 processed by the XMSS signature algorithm.
 
@@ -456,7 +477,7 @@ The signature generation MUST be performed according to 7.2 of
 
 ## XMSS^MT Signature Algorithm
 
-The id-alg-xmssmt-hashsig public key OID is also used to specify that an XMSS^MT signature
+The id-alg-xmssmt-hashsig OID is used to specify that an XMSS^MT signature
 was generated on the full message, i.e. the message was not hashed before being
 processed by the XMSS^MT signature algorithm.
 
