@@ -15,8 +15,8 @@ Expires: 28 April 2025                                               BSI
                                                          25 October 2024
 
 
-Use of the HSS and LMS Hash-Based Signature Algorithms in Internet X.509
-                       Public Key Infrastructure
+  Use of the HSS and XMSS Hash-Based Signature Algorithms in Internet
+                    X.509 Public Key Infrastructure
                    draft-ietf-lamps-x509-shbs-latest
 
 Abstract
