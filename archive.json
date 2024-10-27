@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-24T01:41:30.682728+00:00",
+  "timestamp": "2024-10-27T01:47:46.123576+00:00",
   "repo": "lamps-wg/x509-shbs",
   "labels": [
     {
@@ -968,20 +968,171 @@
       "id": "PR_kwDOLS-xBM5_oCU2",
       "title": "Update workflow",
       "url": "https://github.com/lamps-wg/x509-shbs/pull/15",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "seanturner",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-10-23T14:18:56Z",
-      "updatedAt": "2024-10-23T14:20:53Z",
+      "updatedAt": "2024-10-25T14:00:05Z",
       "baseRepository": "lamps-wg/x509-shbs",
       "baseRefName": "main",
       "baseRefOid": "9943450c94a7a33b5f20e091d26d9b3939c4607b",
       "headRepository": "lamps-wg/x509-shbs",
       "headRefName": "seanturner-workflow-update",
       "headRefOid": "a9d4458c2a1895b36ea12b5a984a3297c496ffde",
+      "closedAt": "2024-10-25T14:00:05Z",
+      "mergedAt": "2024-10-25T14:00:05Z",
+      "mergedBy": "danvangeest",
+      "mergeCommit": {
+        "oid": "6e6ba522eef0ef1aa964a87e45645942738c8425"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLS-xBM6Oxqlc",
+          "commit": {
+            "abbreviatedOid": "a9d4458"
+          },
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-25T13:59:56Z",
+          "updatedAt": "2024-10-25T13:59:56Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "id": "PR_kwDOLS-xBM5_oKFF",
+      "title": "Add ref to MTS-HASHSig-2013",
+      "url": "https://github.com/lamps-wg/x509-shbs/pull/16",
+      "state": "MERGED",
+      "author": "seanturner",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-23T14:30:18Z",
+      "updatedAt": "2024-10-25T13:59:38Z",
+      "baseRepository": "lamps-wg/x509-shbs",
+      "baseRefName": "main",
+      "baseRefOid": "9943450c94a7a33b5f20e091d26d9b3939c4607b",
+      "headRepository": "lamps-wg/x509-shbs",
+      "headRefName": "seanturner-module-info",
+      "headRefOid": "7078e861927d5391d036914ed1287ef91af950c9",
+      "closedAt": "2024-10-25T13:59:38Z",
+      "mergedAt": "2024-10-25T13:59:38Z",
+      "mergedBy": "danvangeest",
+      "mergeCommit": {
+        "oid": "d8231aecdb99af9648e7b8bd7aaceb4a673faa72"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLS-xBM6OxqTm",
+          "commit": {
+            "abbreviatedOid": "7078e86"
+          },
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-25T13:59:29Z",
+          "updatedAt": "2024-10-25T13:59:29Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "id": "PR_kwDOLS-xBM5_3Xki",
+      "title": "Change title per Magnus Nystr\u00f6m's review",
+      "url": "https://github.com/lamps-wg/x509-shbs/pull/17",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-25T07:41:38Z",
+      "updatedAt": "2024-10-25T14:47:12Z",
+      "baseRepository": "lamps-wg/x509-shbs",
+      "baseRefName": "main",
+      "baseRefOid": "9943450c94a7a33b5f20e091d26d9b3939c4607b",
+      "headRepository": "lamps-wg/x509-shbs",
+      "headRefName": "dvg/change_title",
+      "headRefOid": "c5d901df28015a3462427b4e9aeefb5f17b1d7ba",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLS-xBM6Oun80",
+          "commit": {
+            "abbreviatedOid": "de520a7"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2024-10-25T08:30:18Z",
+          "updatedAt": "2024-10-25T08:30:31Z",
+          "comments": [
+            {
+              "originalPosition": 3,
+              "body": "```suggestion\ntitle: \"Use of the HSS and XMSS Hash-Based Signature Algorithms in Internet X.509 Public Key Infrastructure\"\n```\n",
+              "createdAt": "2024-10-25T08:30:18Z",
+              "updatedAt": "2024-10-25T08:30:31Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLS-xBM6OyM9G",
+          "commit": {
+            "abbreviatedOid": "de520a7"
+          },
+          "author": "danvangeest",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-25T14:47:12Z",
+          "updatedAt": "2024-10-25T14:47:12Z",
+          "comments": [
+            {
+              "originalPosition": 3,
+              "body": "Well that was dumb of me!",
+              "createdAt": "2024-10-25T14:47:12Z",
+              "updatedAt": "2024-10-25T14:47:13Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "id": "PR_kwDOLS-xBM5_6WNy",
+      "title": "Attmept to Address Magnus' comment (c)",
+      "url": "https://github.com/lamps-wg/x509-shbs/pull/18",
+      "state": "OPEN",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-25T14:19:54Z",
+      "updatedAt": "2024-10-25T14:19:54Z",
+      "baseRepository": "lamps-wg/x509-shbs",
+      "baseRefName": "main",
+      "baseRefOid": "6e6ba522eef0ef1aa964a87e45645942738c8425",
+      "headRepository": "lamps-wg/x509-shbs",
+      "headRefName": "dvg/Macnus_comment_c",
+      "headRefOid": "ba48b92a6ad0dfce52ee224a3e1dacf2029f5e71",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -990,24 +1141,24 @@
       "reviews": []
     },
     {
-      "number": 16,
-      "id": "PR_kwDOLS-xBM5_oKFF",
-      "title": "Add ref to MTS-HASHSig-2013",
-      "url": "https://github.com/lamps-wg/x509-shbs/pull/16",
+      "number": 19,
+      "id": "PR_kwDOLS-xBM5_66Xn",
+      "title": "'hit your PANIC button' isn't very helpful, try to be a bit more desc\u2026",
+      "url": "https://github.com/lamps-wg/x509-shbs/pull/19",
       "state": "OPEN",
-      "author": "seanturner",
-      "authorAssociation": "NONE",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
-      "body": "",
-      "createdAt": "2024-10-23T14:30:18Z",
-      "updatedAt": "2024-10-23T14:39:28Z",
+      "body": "\u2026riptive",
+      "createdAt": "2024-10-25T15:28:56Z",
+      "updatedAt": "2024-10-25T15:28:56Z",
       "baseRepository": "lamps-wg/x509-shbs",
       "baseRefName": "main",
-      "baseRefOid": "9943450c94a7a33b5f20e091d26d9b3939c4607b",
+      "baseRefOid": "6e6ba522eef0ef1aa964a87e45645942738c8425",
       "headRepository": "lamps-wg/x509-shbs",
-      "headRefName": "seanturner-module-info",
-      "headRefOid": "7078e861927d5391d036914ed1287ef91af950c9",
+      "headRefName": "dvg/expand_PANIC",
+      "headRefOid": "8b9ea853a248aa06ebbd9329865bbbd64beae757",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
