@@ -1800,7 +1800,7 @@ device which is used to generate the signature. Check the record to
 prevent OTS key reuse before a new signature is released. If OTS key reuse
 is detected, freeze all new signature generation by the private key,
 re-audit previously released signatures (possibly revoking the private key
-if previously released signatures showed OTS key reuse).<a href="#section-10-5.1.1" class="pilcrow">¶</a></p>
+if previously released signatures showed OTS key reuse), and perform a post-failure audit.<a href="#section-10-5.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-10-5.2">
           <p id="section-10-5.2.1">Use a stateful HBS instance only for a moderate number of signatures such
