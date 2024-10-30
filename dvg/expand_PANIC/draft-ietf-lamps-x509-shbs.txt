@@ -5,14 +5,14 @@
 LAMPS - Limited Additional Mechanisms for PKIX and SMIME    D. Van Geest
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                              K. Bashiri
-Expires: 28 April 2025                                               BSI
+Expires: 3 May 2025                                                  BSI
                                                               S. Fluhrer
                                                            Cisco Systems
                                                                S. Gazdag
                                                               genua GmbH
                                                              S. Kousidis
                                                                      BSI
-                                                         25 October 2024
+                                                         30 October 2024
 
 
 Internet X.509 Public Key Infrastructure: Algorithm Identifiers for HSS
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 April 2025.
+   This Internet-Draft will expire on 3 May 2025.
 
 Copyright Notice
 
@@ -545,9 +545,7 @@ END
       signature is released.  If OTS key reuse is detected, freeze all
       new signature generation by the private key, re-audit previously
       released signatures (possibly revoking the private key if
-      previously released signatures showed OTS key reuse), and spend a
-      lot of money trying to figure out you ended up with a OTS key
-      reuse.
+      previously released signatures showed OTS key reuse).
 
    *  Use a stateful HBS instance only for a moderate number of
       signatures such that it is always practical to keep a consistent
