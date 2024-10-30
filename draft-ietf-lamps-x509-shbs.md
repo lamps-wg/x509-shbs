@@ -509,7 +509,7 @@ Various strategies for a correct state management can be applied:
   prevent OTS key reuse before a new signature is released. If OTS key reuse
   is detected, freeze all new signature generation by the private key,
   re-audit previously released signatures (possibly revoking the private key
-  if previously released signatures showed OTS key reuse).
+  if previously released signatures showed OTS key reuse), and perform a post-failure audit.
 
 - Use a stateful HBS instance only for a moderate number of signatures such
   that it is always practical to keep a consistent record and be able to
