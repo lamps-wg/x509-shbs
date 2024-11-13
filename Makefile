@@ -1,3 +1,4 @@
+DEPS_FILES := X509-SHBS-2024.asn
 LIBDIR := lib
 include $(LIBDIR)/main.mk
 
