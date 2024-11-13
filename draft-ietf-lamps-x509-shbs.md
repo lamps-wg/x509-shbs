@@ -1,5 +1,5 @@
 ---
-title: "Internet X.509 Public Key Infrastructure: Algorithm Identifiers for HSS and XMSS"
+title: "Use of the HSS and XMSS Hash-Based Signature Algorithms in Internet X.509 Public Key Infrastructure"
 abbrev: "HSS and XMSS for X.509"
 category: std
 stand_alone: true # This lets us do fancy auto-generation of references
