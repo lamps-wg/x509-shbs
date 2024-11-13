@@ -199,18 +199,18 @@ Table of Contents
 
    In this document, we define new OIDs for identifying the different
    stateful hash-based signature algorithms.  An additional OID is
-   defined in [I-D.draft-ietf-lamps-rfc8708bis] and repeated here for
+   defined in [I-D.ietf-lamps-rfc8708bis] and repeated here for
    convenience.
 
    The AlgorithmIdentifier type, which is included herein for
    convenience, is defined as follows:
 
-    AlgorithmIdentifier{ALGORITHM-TYPE, ALGORITHM-TYPE:AlgorithmSet} ::=
-      SEQUENCE {
-        algorithm   ALGORITHM-TYPE.&id({AlgorithmSet}),
-        parameters  ALGORITHM-TYPE.
+   AlgorithmIdentifier{ALGORITHM-TYPE, ALGORITHM-TYPE:AlgorithmSet} ::=
+           SEQUENCE {
+               algorithm   ALGORITHM-TYPE.&id({AlgorithmSet}),
+               parameters  ALGORITHM-TYPE.
                       &Params({AlgorithmSet}{@algorithm}) OPTIONAL
-      }
+           }
 
       |  NOTE: The above syntax is from [RFC5912] and is compatible with
       |  the 2021 ASN.1 syntax [X680].  See [RFC5280] for the 1988 ASN.1
@@ -230,8 +230,8 @@ Table of Contents
 4.1.  HSS Algorithm Identifier
 
    The object identifier and public key algorithm identifier for HSS is
-   defined in [I-D.draft-ietf-lamps-rfc8708bis].  The definitions are
-   repeated here for reference.
+   defined in [I-D.ietf-lamps-rfc8708bis].  The definitions are repeated
+   here for reference.
 
    The AlgorithmIdentifier for an HSS public key MUST use the id-alg-
    hss-lms-hashsig object identifier.
@@ -288,7 +288,7 @@ Table of Contents
    [RFC8554] and [RFC8391] define the raw octet string encodings of the
    public keys used in this document.  When used in a
    SubjectPublicKeyInfo type, the subjectPublicKey BIT STRING contains
-   the raw octet string encodings of the public keys.
+   the raw octet string encoding of the public key.
 
    This document defines ASN.1 [X680] OCTET STRING types for encoding
    the public keys when not used in a SubjectPublicKeyInfo.  The OCTET
@@ -443,99 +443,102 @@ Table of Contents
    module here [X680].  Note that as per [RFC5280], certificates use the
    Distinguished Encoding Rules; see [X690].  This ASN.1 Module builds
    upon the conventions established in [RFC5911].  This module imports
-   objects from [RFC5911] and [I-D.draft-ietf-lamps-rfc8708bis].
+   objects from [RFC5911] and [I-D.ietf-lamps-rfc8708bis].
 
-X509-SHBS-2024
-  { iso(1) identified-organization(3) dod(6) internet(1) security(5)
-    mechanisms(5) pkix(7) id-mod(0) id-mod-pkix1-shbs-2024(TBD) }
+   RFC EDITOR: Please replace [I-D.ietf-lamps-rfc8708bis] in the module
+   with a reference to the published RFC.
 
-DEFINITIONS IMPLICIT TAGS ::= BEGIN
+   X509-SHBS-2024
+     { iso(1) identified-organization(3) dod(6) internet(1) security(5)
+       mechanisms(5) pkix(7) id-mod(0) id-mod-pkix1-shbs-2024(TBD) }
 
-EXPORTS ALL;
+   DEFINITIONS IMPLICIT TAGS ::= BEGIN
 
-IMPORTS
-  PUBLIC-KEY, SIGNATURE-ALGORITHM
-    FROM AlgorithmInformation-2009  -- [RFC5911]
-      { iso(1) identified-organization(3) dod(6) internet(1)
-        security(5) mechanisms(5) pkix(7) id-mod(0)
-        id-mod-algorithmInformation-02(58) }
+   EXPORTS ALL;
 
-  sa-HSS-LMS-HashSig, pk-HSS-LMS-HashSig
-    FROM MTS-HashSig-2013 -- [-rfc8708bis]
-      { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
-        id-smime(16) id-mod(0) id-mod-mts-hashsig-2013(64) };
+   IMPORTS
+     PUBLIC-KEY, SIGNATURE-ALGORITHM
+       FROM AlgorithmInformation-2009  -- [RFC5911]
+         { iso(1) identified-organization(3) dod(6) internet(1)
+           security(5) mechanisms(5) pkix(7) id-mod(0)
+           id-mod-algorithmInformation-02(58) }
 
---
--- Object Identifiers
---
+     sa-HSS-LMS-HashSig, pk-HSS-LMS-HashSig
+       FROM MTS-HashSig-2013 -- [I-D.ietf-lamps-rfc8708bis]
+         { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
+           id-smime(16) id-mod(0) id-mod-mts-hashsig-2013(64) };
 
--- id-alg-hss-lms-hashsig is defined in {{I-D.draft-ietf-lamps-rfc8708bis}}
+   --
+   -- Object Identifiers
+   --
 
-id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
-   iso(1) identified-organization(3) dod(6) internet(1) security(5)
-   mechanisms(5) pkix(7) algorithms(6) 34 }
+   -- id-alg-hss-lms-hashsig is defined in [I-D.ietf-lamps-rfc8708bis]
 
-id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
-   iso(1) identified-organization(3) dod(6) internet(1) security(5)
-   mechanisms(5) pkix(7) algorithms(6) 35 }
+   id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
+      iso(1) identified-organization(3) dod(6) internet(1) security(5)
+      mechanisms(5) pkix(7) algorithms(6) 34 }
 
---
--- Signature Algorithms and Public Keys
---
+   id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
+      iso(1) identified-organization(3) dod(6) internet(1) security(5)
+      mechanisms(5) pkix(7) algorithms(6) 35 }
 
--- sa-HSS-LMS-HashSig is defined in {{I-D.draft-ietf-lamps-rfc8708bis}}
+   --
+   -- Signature Algorithms and Public Keys
+   --
 
-sa-XMSS-HashSig SIGNATURE-ALGORITHM ::= {
-   IDENTIFIER id-alg-xmss-hashsig
-   PARAMS ARE absent
-   PUBLIC-KEYS { pk-XMSS-HashSig }
-   SMIME-CAPS { IDENTIFIED BY id-alg-xmss-hashsig } }
+   -- sa-HSS-LMS-HashSig is defined in [I-D.ietf-lamps-rfc8708bis]
 
-sa-XMSSMT-HashSig SIGNATURE-ALGORITHM ::= {
-   IDENTIFIER id-alg-xmssmt-hashsig
-   PARAMS ARE absent
-   PUBLIC-KEYS { pk-XMSSMT-HashSig }
-   SMIME-CAPS { IDENTIFIED BY id-alg-xmssmt-hashsig } }
+   sa-XMSS-HashSig SIGNATURE-ALGORITHM ::= {
+      IDENTIFIER id-alg-xmss-hashsig
+      PARAMS ARE absent
+      PUBLIC-KEYS { pk-XMSS-HashSig }
+      SMIME-CAPS { IDENTIFIED BY id-alg-xmss-hashsig } }
 
--- pk-HSS-LMS-HashSig is defined in {{I-D.draft-ietf-lamps-rfc8708bis}}
+   sa-XMSSMT-HashSig SIGNATURE-ALGORITHM ::= {
+      IDENTIFIER id-alg-xmssmt-hashsig
+      PARAMS ARE absent
+      PUBLIC-KEYS { pk-XMSSMT-HashSig }
+      SMIME-CAPS { IDENTIFIED BY id-alg-xmssmt-hashsig } }
 
-pk-XMSS-HashSig PUBLIC-KEY ::= {
-   IDENTIFIER id-alg-xmss-hashsig
-   -- KEY no ASN.1 wrapping --
-   PARAMS ARE absent
-   CERT-KEY-USAGE
-      { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+   -- pk-HSS-LMS-HashSig is defined in [I-D.ietf-lamps-rfc8708bis]
 
-pk-XMSSMT-HashSig PUBLIC-KEY ::= {
-   IDENTIFIER id-alg-xmssmt-hashsig
-   -- KEY no ASN.1 wrapping --
-   PARAMS ARE absent
-   CERT-KEY-USAGE
-      { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+   pk-XMSS-HashSig PUBLIC-KEY ::= {
+      IDENTIFIER id-alg-xmss-hashsig
+      -- KEY no ASN.1 wrapping --
+      PARAMS ARE absent
+      CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
 
---
--- Public Key (pk-) Algorithms
---
-PublicKeys PUBLIC-KEY ::= {
-   -- This expands PublicKeys from RFC 5912
-   pk-HSS-LMS-HashSig |
-   pk-XMSS-HashSig |
-   pk-XMSSMT-HashSig,
-   ...
-}
+   pk-XMSSMT-HashSig PUBLIC-KEY ::= {
+      IDENTIFIER id-alg-xmssmt-hashsig
+      -- KEY no ASN.1 wrapping --
+      PARAMS ARE absent
+      CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
 
---
--- Signature Algorithms (sa-)
---
-SignatureAlgs SIGNATURE-ALGORITHM ::= {
-   -- This expands SignatureAlgorithms from RFC 5912
-   sa-HSS-LMS-HashSig |
-   sa-XMSS-HashSig |
-   sa-XMSSMT-HashSig,
-   ...
-}
+   --
+   -- Public Key (pk-) Algorithms
+   --
+   PublicKeys PUBLIC-KEY ::= {
+      -- This expands PublicKeys from RFC 5912
+      pk-HSS-LMS-HashSig |
+      pk-XMSS-HashSig |
+      pk-XMSSMT-HashSig,
+      ...
+   }
 
-END
+   --
+   -- Signature Algorithms (sa-)
+   --
+   SignatureAlgs SIGNATURE-ALGORITHM ::= {
+      -- This expands SignatureAlgorithms from RFC 5912
+      sa-HSS-LMS-HashSig |
+      sa-XMSS-HashSig |
+      sa-XMSSMT-HashSig,
+      ...
+   }
+
+   END
 
 10.  Security Considerations
 
@@ -627,11 +630,13 @@ END
 
 13.1.  Normative References
 
-   [I-D.draft-ietf-lamps-rfc8708bis]
+   [I-D.ietf-lamps-rfc8708bis]
               Housley, R., "Use of the HSS/LMS Hash-Based Signature
-              Algorithm in the Cryptographic Message Syntax (CMS)",
-              RFC 8708, DOI 10.17487/RFC8708, February 2020,
-              <https://www.rfc-editor.org/rfc/rfc8708>.
+              Algorithm in the Cryptographic Message Syntax (CMS)", Work
+              in Progress, Internet-Draft, draft-ietf-lamps-rfc8708bis-
+              03, 19 September 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-lamps-
+              rfc8708bis-03>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -648,11 +653,6 @@ END
               Cryptographic Message Syntax (CMS) and S/MIME", RFC 5911,
               DOI 10.17487/RFC5911, June 2010,
               <https://www.rfc-editor.org/rfc/rfc5911>.
-
-   [RFC5912]  Hoffman, P. and J. Schaad, "New ASN.1 Modules for the
-              Public Key Infrastructure Using X.509 (PKIX)", RFC 5912,
-              DOI 10.17487/RFC5912, June 2010,
-              <https://www.rfc-editor.org/rfc/rfc5912>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -744,6 +744,11 @@ END
    [RFC4949]  Shirey, R., "Internet Security Glossary, Version 2",
               FYI 36, RFC 4949, DOI 10.17487/RFC4949, August 2007,
               <https://www.rfc-editor.org/rfc/rfc4949>.
+
+   [RFC5912]  Hoffman, P. and J. Schaad, "New ASN.1 Modules for the
+              Public Key Infrastructure Using X.509 (PKIX)", RFC 5912,
+              DOI 10.17487/RFC5912, June 2010,
+              <https://www.rfc-editor.org/rfc/rfc5912>.
 
    [RFC8410]  Josefsson, S. and J. Schaad, "Algorithm Identifiers for
               Ed25519, Ed448, X25519, and X448 for Use in the Internet
@@ -1586,10 +1591,9 @@ Acknowledgments
    Bonnell for helpful suggestions and reviews.
 
    This document uses a lot of text from similar documents [SP800208],
-   ([RFC3279] and [RFC8410]) as well as
-   [I-D.draft-ietf-lamps-rfc8708bis].  Thanks go to the authors of those
-   documents.  "Copying always makes things easier and less error prone"
-   - [RFC8411].
+   ([RFC3279] and [RFC8410]) as well as [I-D.ietf-lamps-rfc8708bis].
+   Thanks go to the authors of those documents.  "Copying always makes
+   things easier and less error prone" - [RFC8411].
 
 Authors' Addresses
 
