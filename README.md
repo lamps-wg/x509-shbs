@@ -1,17 +1,17 @@
-# Internet X.509 Public Key Infrastructure: Algorithm Identifiers for HSS and XMSS
+# Use of the HSS and XMSS Hash-Based Signature Algorithms in Internet X.509 Public Key Infrastructure
 
-This is the working area for the individual Internet-Draft, "Internet X.509 Public Key Infrastructure: Algorithm Identifiers for HSS and XMSS".
+This is the working area for the IETF [LAMPS Working Group](https://datatracker.ietf.org/wg/lamps/documents/) Internet-Draft, "Use of the HSS and XMSS Hash-Based Signature Algorithms in Internet X.509 Public Key Infrastructure".
 
-* [Editor's Copy](https://x509-hbs.github.io/draft-x509-shbs/#go.draft-gazdag-x509-shbs.html)
-* [Datatracker Page](https://datatracker.ietf.org/doc/draft-gazdag-x509-shbs)
-* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-gazdag-x509-shbs)
-* [Compare Editor's Copy to Individual Draft](https://x509-hbs.github.io/draft-x509-shbs/#go.draft-gazdag-x509-shbs.diff)
+* [Editor's Copy](https://lamps-wg.github.io/x509-shbs/#go.draft-ietf-lamps-x509-shbs.html)
+* [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-lamps-x509-shbs)
+* [Working Group Draft](https://datatracker.ietf.org/doc/html/draft-ietf-lamps-x509-shbs)
+* [Compare Editor's Copy to Working Group Draft](https://lamps-wg.github.io/x509-shbs/#go.draft-ietf-lamps-x509-shbs.diff)
 
 
 ## Contributing
 
 See the
-[guidelines for contributions](https://github.com/x509-hbs/draft-x509-shbs/blob/main/CONTRIBUTING.md).
+[guidelines for contributions](https://github.com/lamps-wg/x509-shbs/blob/main/CONTRIBUTING.md).
 
 Contributions can be made by creating pull requests.
 The GitHub interface supports creating pull requests using the Edit (✏) button.
