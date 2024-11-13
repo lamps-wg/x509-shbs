@@ -15,8 +15,8 @@ Expires: 17 May 2025                                                 BSI
                                                         13 November 2024
 
 
-Internet X.509 Public Key Infrastructure: Algorithm Identifiers for HSS
-                                and XMSS
+  Use of the HSS and XMSS Hash-Based Signature Algorithms in Internet
+                    X.509 Public Key Infrastructure
                    draft-ietf-lamps-x509-shbs-latest
 
 Abstract
