@@ -18,17 +18,17 @@ variant of XMSS. This specification applies to the Internet X.509 Public Key
 infrastructure (PKI) when those digital signatures are used in Internet X.509
 certificates and certificate revocation lists. 
     " name="description">
-<meta content="xml2rfc 3.23.2" name="generator">
+<meta content="xml2rfc 3.24.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-lamps-x509-shbs-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.23.2
+  xml2rfc 3.24.0
     Python 3.12.7
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.4
-    lxml 4.9.4
+    lxml 5.3.0
     platformdirs 4.3.6
     pycountry 22.3.5
     PyYAML 6.0.1
@@ -170,31 +170,6 @@ certificates and certificate revocation lists.
 }
 
 @font-face {
-  font-family: 'Cabin Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-vietnamese.woff2') format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
-}
-@font-face {
-  font-family: 'Cabin Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-@font-face {
-  font-family: 'Cabin Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
   font-family: 'Oxygen Mono';
   font-style: normal;
   font-weight: 400;
@@ -211,6 +186,77 @@ certificates and certificate revocation lists.
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   color-scheme: light dark;
   --background-color: #fff;
@@ -223,6 +269,7 @@ certificates and certificate revocation lists.
   --pilcrow-strong: #bbb;
   --small-font-size: 14.5px;
   --font-mono: 'Oxygen Mono', monospace;
+  --font-title: "Sofia Sans Semi Condensed", sans-serif;
   scrollbar-color: #bbb #eee;
 }
 body {
@@ -241,8 +288,8 @@ body {
 
 /* headings */
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Cabin Condensed", sans-serif;
-  font-weight: 600;
+  font-family: var(--font-title);
+  font-weight: 680;
   margin: 0.8em 0 0.3em;
   font-size-adjust: 0.5;
   color: var(--title-color);
@@ -650,6 +697,12 @@ sub, sup {
   padding: 0.75em 0 2em 0;
   margin-bottom: 1em;
 }
+@media screen {
+  #toc nav {
+    font-family: var(--font-title);
+    font-weight: 360;
+  }
+}
 #toc nav ul {
   margin: 0 0.5em 0 0;
   padding: 0;
@@ -1033,11 +1086,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">HSS and XMSS for X.509</td>
-<td class="right">October 2024</td>
+<td class="right">November 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Van Geest, et al.</td>
-<td class="center">Expires 28 April 2025</td>
+<td class="center">Expires 17 May 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1050,12 +1103,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-lamps-x509-shbs-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-10-25" class="published">25 October 2024</time>
+<time datetime="2024-11-13" class="published">13 November 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-04-28">28 April 2025</time></dd>
+<dd class="expires"><time datetime="2025-05-17">17 May 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1125,7 +1178,7 @@ certificates and certificate revocation lists.<a href="#section-abstract-1" clas
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 28 April 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 17 May 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1351,8 +1404,36 @@ subordinate CA certificate may be possible.<a href="#section-3-8" class="pilcrow
       </h2>
 <p id="section-4-1">In this document, we define new OIDs for identifying the different stateful
 hash-based signature algorithms. An additional OID is defined in <span>[<a href="#I-D.draft-ietf-lamps-rfc8708bis" class="cite xref">I-D.draft-ietf-lamps-rfc8708bis</a>]</span> and
-repeated here for convenience. For all of the OIDs, the parameters <span class="bcp14">MUST</span> be
-absent.<a href="#section-4-1" class="pilcrow">¶</a></p>
+repeated here for convenience.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-2">The AlgorithmIdentifier type, which is included herein for convenience,
+is defined as follows:<a href="#section-4-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4-3">
+<pre>
+  AlgorithmIdentifier{ALGORITHM-TYPE, ALGORITHM-TYPE:AlgorithmSet} ::=
+    SEQUENCE {
+      algorithm   ALGORITHM-TYPE.&amp;id({AlgorithmSet}),
+      parameters  ALGORITHM-TYPE.
+                    &amp;Params({AlgorithmSet}{@algorithm}) OPTIONAL
+    }
+</pre><a href="#section-4-3" class="pilcrow">¶</a>
+</div>
+<aside id="section-4-4">
+        <p id="section-4-4.1">NOTE: The above syntax is from <span>[<a href="#RFC5912" class="cite xref">RFC5912</a>]</span> and is compatible with the
+  2021 ASN.1 syntax <span>[<a href="#X680" class="cite xref">X680</a>]</span>. See <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> for the 1988 ASN.1 syntax.<a href="#section-4-4.1" class="pilcrow">¶</a></p>
+</aside>
+<p id="section-4-5">The fields in AlgorithmIdentifier have the following meanings:<a href="#section-4-5" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4-6.1">
+          <p id="section-4-6.1.1">algorithm identifies the cryptographic algorithm with an object
+identifier.<a href="#section-4-6.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-4-6.2">
+          <p id="section-4-6.2.1">parameters, which are optional, are the associated parameters for
+the algorithm identifier in the algorithm field.<a href="#section-4-6.2.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-4-7">The parameters field of the AlgorithmIdentifier for HSS, XMSS, and XMSS^MT
+public keys <span class="bcp14">MUST</span> be absent.<a href="#section-4-7" class="pilcrow">¶</a></p>
 <div id="hss-algorithm-identifier">
 <section id="section-4.1">
         <h3 id="name-hss-algorithm-identifier">
@@ -1360,7 +1441,7 @@ absent.<a href="#section-4-1" class="pilcrow">¶</a></p>
         </h3>
 <p id="section-4.1-1">The object identifier and public key algorithm identifier for HSS is defined in
 <span>[<a href="#I-D.draft-ietf-lamps-rfc8708bis" class="cite xref">I-D.draft-ietf-lamps-rfc8708bis</a>]</span>. The definitions are repeated here for reference.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
-<p id="section-4.1-2">The object identifier for an HSS public key is <code>id-alg-hss-lms-hashsig</code>:<a href="#section-4.1-2" class="pilcrow">¶</a></p>
+<p id="section-4.1-2">The AlgorithmIdentifier for an HSS public key <span class="bcp14">MUST</span> use the id-alg-hss-lms-hashsig object identifier.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.1-3">
 <pre>
    id-alg-hss-lms-hashsig  OBJECT IDENTIFIER ::= {
@@ -1368,8 +1449,8 @@ absent.<a href="#section-4-1" class="pilcrow">¶</a></p>
       smime(16) alg(3) 17 }
 </pre><a href="#section-4.1-3" class="pilcrow">¶</a>
 </div>
-<p id="section-4.1-4">Note that the <code>id-alg-hss-lms-hashsig</code> algorithm identifier is also referred to
-as <code>id-alg-mts-hashsig</code>. This synonym is based on the terminology used in an
+<p id="section-4.1-4">Note that the id-alg-hss-lms-hashsig algorithm identifier is also referred to
+as id-alg-mts-hashsig. This synonym is based on the terminology used in an
 early draft of the document that became <span>[<a href="#RFC8554" class="cite xref">RFC8554</a>]</span>.<a href="#section-4.1-4" class="pilcrow">¶</a></p>
 <p id="section-4.1-5">The public key and signature values identify the hash function and the height used in the
 HSS/LMS tree. <span>[<a href="#RFC8554" class="cite xref">RFC8554</a>]</span> and <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> define these values, but an IANA registry
@@ -1381,7 +1462,7 @@ HSS/LMS tree. <span>[<a href="#RFC8554" class="cite xref">RFC8554</a>]</span> an
         <h3 id="name-xmss-algorithm-identifier">
 <a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-xmss-algorithm-identifier" class="section-name selfRef">XMSS Algorithm Identifier</a>
         </h3>
-<p id="section-4.2-1">The object identifier for an XMSS public key is <code>id-alg-xmss-hashsig</code>:<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.2-1">The AlgorithmIdentifier for an XMSS public key <span class="bcp14">MUST</span> use the id-alg-xmss-hashsig object identifier.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.2-2">
 <pre>
    id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
@@ -1399,7 +1480,7 @@ XMSS tree. <span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> and <
         <h3 id="name-xmssmt-algorithm-identifier">
 <a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-xmssmt-algorithm-identifier" class="section-name selfRef">XMSS^MT Algorithm Identifier</a>
         </h3>
-<p id="section-4.3-1">The object identifier for an XMSS^MT public key is <code>id-alg-xmssmt-hashsig</code>:<a href="#section-4.3-1" class="pilcrow">¶</a></p>
+<p id="section-4.3-1">The AlgorithmIdentifier for an XMSS^MT public key <span class="bcp14">MUST</span> use the id-alg-xmssmt-hashsig object identifier.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.3-2">
 <pre>
    id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
@@ -1539,8 +1620,8 @@ nonRepudiation or cRLSign. However, it <span class="bcp14">MUST NOT</span> conta
       <h2 id="name-signature-algorithms">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-signature-algorithms" class="section-name selfRef">Signature Algorithms</a>
       </h2>
-<p id="section-7-1">This section identifies OIDs for signing using HSS, XMSS, and XMSS^MT. When
-these algorithm identifiers appear in the algorithm field as an
+<p id="section-7-1">The same OIDs used to identify HSS, XMSS, and XMSS^MT public keys are also used to identify their respective signatures.
+When these algorithm identifiers appear in the algorithm field of an
 AlgorithmIdentifier, the encoding <span class="bcp14">MUST</span> omit the parameters field. That is, the
 AlgorithmIdentifier <span class="bcp14">SHALL</span> be a SEQUENCE of one component, one of the OIDs
 defined in the following subsections.<a href="#section-7-1" class="pilcrow">¶</a></p>
@@ -1560,18 +1641,11 @@ in the "signatureValue" BIT STRING field.<a href="#section-7-3" class="pilcrow">
         <h3 id="name-hss-signature-algorithm">
 <a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-hss-signature-algorithm" class="section-name selfRef">HSS Signature Algorithm</a>
         </h3>
-<p id="section-7.1-1">The HSS public key OID is also used to specify that an HSS signature was
+<p id="section-7.1-1">The id-alg-hss-lms-hashsig OID is used to specify that an HSS signature was
 generated on the full message, i.e. the message was not hashed before being
 processed by the HSS signature algorithm.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-7.1-2">
-<pre>
-   id-alg-hss-lms-hashsig OBJECT IDENTIFIER ::= {
-      iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
-      smime(16) alg(3) 17 }
-</pre><a href="#section-7.1-2" class="pilcrow">¶</a>
-</div>
-<p id="section-7.1-3">See <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> and <span>[<a href="#RFC8554" class="cite xref">RFC8554</a>]</span> for more information on the contents and
-format of an HSS signature.<a href="#section-7.1-3" class="pilcrow">¶</a></p>
+<p id="section-7.1-2">See <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> and <span>[<a href="#RFC8554" class="cite xref">RFC8554</a>]</span> for more information on the contents and
+format of an HSS signature.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="xmss-signature-algorithm">
@@ -1579,7 +1653,7 @@ format of an HSS signature.<a href="#section-7.1-3" class="pilcrow">¶</a></p>
         <h3 id="name-xmss-signature-algorithm">
 <a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-xmss-signature-algorithm" class="section-name selfRef">XMSS Signature Algorithm</a>
         </h3>
-<p id="section-7.2-1">The id-alg-xmss-hashsig public key OID is also used to specify that an XMSS signature was
+<p id="section-7.2-1">The id-alg-xmss-hashsig OID is used to specify that an XMSS signature was
 generated on the full message, i.e. the message was not hashed before being
 processed by the XMSS signature algorithm.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
 <p id="section-7.2-2">See <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> and <span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> for more information on the contents and
@@ -1593,7 +1667,7 @@ format of an XMSS signature.<a href="#section-7.2-2" class="pilcrow">¶</a></p>
         <h3 id="name-xmssmt-signature-algorithm">
 <a href="#section-7.3" class="section-number selfRef">7.3. </a><a href="#name-xmssmt-signature-algorithm" class="section-name selfRef">XMSS^MT Signature Algorithm</a>
         </h3>
-<p id="section-7.3-1">The id-alg-xmssmt-hashsig public key OID is also used to specify that an XMSS^MT signature
+<p id="section-7.3-1">The id-alg-xmssmt-hashsig OID is used to specify that an XMSS^MT signature
 was generated on the full message, i.e. the message was not hashed before being
 processed by the XMSS^MT signature algorithm.<a href="#section-7.3-1" class="pilcrow">¶</a></p>
 <p id="section-7.3-2">See <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> and <span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> for more information on the contents and
@@ -1854,6 +1928,10 @@ registry <span>[<a href="#SMI-PKIX" class="cite xref">SMI-PKIX</a>]</span> with 
 <dt id="RFC5911">[RFC5911]</dt>
         <dd>
 <span class="refAuthor">Hoffman, P.</span> and <span class="refAuthor">J. Schaad</span>, <span class="refTitle">"New ASN.1 Modules for Cryptographic Message Syntax (CMS) and S/MIME"</span>, <span class="seriesInfo">RFC 5911</span>, <span class="seriesInfo">DOI 10.17487/RFC5911</span>, <time datetime="2010-06" class="refDate">June 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5911">https://www.rfc-editor.org/rfc/rfc5911</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5912">[RFC5912]</dt>
+        <dd>
+<span class="refAuthor">Hoffman, P.</span> and <span class="refAuthor">J. Schaad</span>, <span class="refTitle">"New ASN.1 Modules for the Public Key Infrastructure Using X.509 (PKIX)"</span>, <span class="seriesInfo">RFC 5912</span>, <span class="seriesInfo">DOI 10.17487/RFC5912</span>, <time datetime="2010-06" class="refDate">June 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5912">https://www.rfc-editor.org/rfc/rfc5912</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
         <dd>
