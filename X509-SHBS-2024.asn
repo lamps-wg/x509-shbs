@@ -14,7 +14,7 @@ IMPORTS
         id-mod-algorithmInformation-02(58) }
 
   sa-HSS-LMS-HashSig, pk-HSS-LMS-HashSig
-    FROM MTS-HashSig-2013 -- [-rfc8708bis]
+    FROM MTS-HashSig-2013 -- [I-D.ietf-lamps-rfc8708bis]
       { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
         id-smime(16) id-mod(0) id-mod-mts-hashsig-2013(64) };
 
@@ -22,7 +22,7 @@ IMPORTS
 -- Object Identifiers
 --
 
--- id-alg-hss-lms-hashsig is defined in {{-rfc8708bis}}
+-- id-alg-hss-lms-hashsig is defined in [I-D.ietf-lamps-rfc8708bis]
 
 id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
    iso(1) identified-organization(3) dod(6) internet(1) security(5)
@@ -36,7 +36,7 @@ id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
 -- Signature Algorithms and Public Keys
 --
 
--- sa-HSS-LMS-HashSig is defined in {{-rfc8708bis}}
+-- sa-HSS-LMS-HashSig is defined in [I-D.ietf-lamps-rfc8708bis]
 
 sa-XMSS-HashSig SIGNATURE-ALGORITHM ::= {
    IDENTIFIER id-alg-xmss-hashsig
@@ -50,7 +50,7 @@ sa-XMSSMT-HashSig SIGNATURE-ALGORITHM ::= {
    PUBLIC-KEYS { pk-XMSSMT-HashSig }
    SMIME-CAPS { IDENTIFIED BY id-alg-xmssmt-hashsig } }
 
--- pk-HSS-LMS-HashSig is defined in {{-rfc8708bis}}
+-- pk-HSS-LMS-HashSig is defined in [I-D.ietf-lamps-rfc8708bis]
 
 pk-XMSS-HashSig PUBLIC-KEY ::= {
    IDENTIFIER id-alg-xmss-hashsig

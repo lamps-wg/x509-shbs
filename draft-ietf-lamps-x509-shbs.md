@@ -46,7 +46,7 @@ author:
     email: kousidis.ietf@gmail.com
 
 normative:
-  I-D.draft-ietf-lamps-rfc8708bis: rfc8708bis
+  I-D.ietf-lamps-rfc8708bis:
   RFC5911:
   RFC5280: #v3 cer, v2 crl
   RFC8391: #xmss
@@ -250,24 +250,24 @@ subordinate CA certificate may be possible.
 # Algorithm Identifiers and Parameters
 
 In this document, we define new OIDs for identifying the different stateful
-hash-based signature algorithms. An additional OID is defined in {{-rfc8708bis}} and
+hash-based signature algorithms. An additional OID is defined in {{I-D.ietf-lamps-rfc8708bis}} and
 repeated here for convenience.
 
 The AlgorithmIdentifier type, which is included herein for convenience,
 is defined as follows:
 
-~~~
-  AlgorithmIdentifier{ALGORITHM-TYPE, ALGORITHM-TYPE:AlgorithmSet} ::=
-    SEQUENCE {
-      algorithm   ALGORITHM-TYPE.&id({AlgorithmSet}),
-      parameters  ALGORITHM-TYPE.
-                    &Params({AlgorithmSet}{@algorithm}) OPTIONAL
-    }
+~~~ asn.1
+AlgorithmIdentifier{ALGORITHM-TYPE, ALGORITHM-TYPE:AlgorithmSet} ::=
+        SEQUENCE {
+            algorithm   ALGORITHM-TYPE.&id({AlgorithmSet}),
+            parameters  ALGORITHM-TYPE.
+                   &Params({AlgorithmSet}{@algorithm}) OPTIONAL
+        }
 ~~~
 
 <aside markdown="block">
-  NOTE: The above syntax is from {{!RFC5912}} and is compatible with the
-  2021 ASN.1 syntax {{X680}}. See {{RFC5280}} for the 1988 ASN.1 syntax.
+NOTE: The above syntax is from {{?RFC5912}} and is compatible with the 2021 ASN.1 syntax {{X680}}.
+See {{!RFC5280}} for the 1988 ASN.1 syntax.
 </aside>
 
 The fields in AlgorithmIdentifier have the following meanings:
@@ -284,7 +284,7 @@ public keys MUST be absent.
 ## HSS Algorithm Identifier
 
 The object identifier and public key algorithm identifier for HSS is defined in
-{{-rfc8708bis}}. The definitions are repeated here for reference.
+{{I-D.ietf-lamps-rfc8708bis}}. The definitions are repeated here for reference.
 
 The AlgorithmIdentifier for an HSS public key MUST use the id-alg-hss-lms-hashsig object identifier.
 
@@ -338,8 +338,8 @@ identifier. An algorithm identifier consists of an OID and optional parameters.
 
 [RFC8554] and [RFC8391] define the raw octet string encodings of the public
 keys used in this document. When used in a SubjectPublicKeyInfo type, the
-subjectPublicKey BIT STRING contains the raw octet string encodings of the
-public keys.
+subjectPublicKey BIT STRING contains the raw octet string encoding of the
+public key.
 
 This document defines ASN.1 {{X680}} OCTET STRING types for encoding the public keys
 when not used in a SubjectPublicKeyInfo. The OCTET STRING is mapped to a
@@ -498,7 +498,9 @@ For reference purposes, the ASN.1 syntax is presented as an ASN.1 module here {{
 Note that as per [RFC5280], certificates use the Distinguished Encoding Rules; see
 {{X690}}.
 This ASN.1 Module builds upon the conventions established in [RFC5911]. This
-module imports objects from [RFC5911] and {{-rfc8708bis}}.
+module imports objects from [RFC5911] and {{I-D.ietf-lamps-rfc8708bis}}.
+
+RFC EDITOR: Please replace [I-D.ietf-lamps-rfc8708bis] in the module with a reference to the published RFC.
 
 ~~~
 {::include X509-SHBS-2024.asn}
@@ -1415,6 +1417,6 @@ ZgzrAnag1Fbm6L6h8Mcjs0+GkBpaFo4HDSTR7gOYnw==
 Thanks for Russ Housley, Panos Kampanakis, Michael StJohns and Corey Bonnell for helpful suggestions and reviews.
 
 This document uses a lot of text from similar documents [SP800208],
-([RFC3279] and [RFC8410]) as well as {{-rfc8708bis}}. Thanks go to the authors of
+([RFC3279] and [RFC8410]) as well as {{I-D.ietf-lamps-rfc8708bis}}. Thanks go to the authors of
 those documents. "Copying always makes things easier and less error prone" -
 [RFC8411].
