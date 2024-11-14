@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-12T01:39:11.235662+00:00",
+  "timestamp": "2024-11-14T01:41:23.880641+00:00",
   "repo": "lamps-wg/x509-shbs",
   "labels": [
     {
@@ -113,7 +113,7 @@
         },
         {
           "author": "fluppe2",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "body": "What @BashiriK is referring to as the background of why section 3 has been formulated can be found here: https://mailarchive.ietf.org/arch/msg/spasm/3XiW2VUdPN2It_0ToyqHQssnfL0/",
           "createdAt": "2024-09-16T09:39:52Z",
           "updatedAt": "2024-09-16T09:39:52Z"
@@ -129,7 +129,7 @@
       "url": "https://github.com/lamps-wg/x509-shbs/pull/1",
       "state": "MERGED",
       "author": "fluppe2",
-      "authorAssociation": "CONTRIBUTOR",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
@@ -905,7 +905,7 @@
             "abbreviatedOid": "e79e3ab"
           },
           "author": "fluppe2",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2024-09-25T14:17:03Z",
@@ -1052,24 +1052,26 @@
       "id": "PR_kwDOLS-xBM5_3Xki",
       "title": "Change title per Magnus Nystr\u00f6m's review",
       "url": "https://github.com/lamps-wg/x509-shbs/pull/17",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "danvangeest",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-10-25T07:41:38Z",
-      "updatedAt": "2024-10-29T10:07:16Z",
+      "updatedAt": "2024-11-13T11:06:36Z",
       "baseRepository": "lamps-wg/x509-shbs",
       "baseRefName": "main",
       "baseRefOid": "9943450c94a7a33b5f20e091d26d9b3939c4607b",
       "headRepository": "lamps-wg/x509-shbs",
       "headRefName": "dvg/change_title",
       "headRefOid": "c5d901df28015a3462427b4e9aeefb5f17b1d7ba",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-11-13T11:06:17Z",
+      "mergedAt": "2024-11-13T11:06:17Z",
+      "mergedBy": "danvangeest",
+      "mergeCommit": {
+        "oid": "f92cd5d495726c7b32118b5a5e49a5026f96faa8"
+      },
       "comments": [],
       "reviews": [
         {
@@ -1078,7 +1080,7 @@
             "abbreviatedOid": "de520a7"
           },
           "author": "fluppe2",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "CHANGES_REQUESTED",
           "body": "",
           "createdAt": "2024-10-25T08:30:18Z",
@@ -1131,7 +1133,7 @@
             "abbreviatedOid": "c5d901d"
           },
           "author": "fluppe2",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "APPROVED",
           "body": "",
           "createdAt": "2024-10-29T10:07:16Z",
@@ -1145,24 +1147,26 @@
       "id": "PR_kwDOLS-xBM5_6WNy",
       "title": "Attempt to Address Magnus' comment (c)",
       "url": "https://github.com/lamps-wg/x509-shbs/pull/18",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "danvangeest",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-10-25T14:19:54Z",
-      "updatedAt": "2024-10-29T10:23:24Z",
+      "updatedAt": "2024-11-13T11:06:32Z",
       "baseRepository": "lamps-wg/x509-shbs",
       "baseRefName": "main",
       "baseRefOid": "6e6ba522eef0ef1aa964a87e45645942738c8425",
       "headRepository": "lamps-wg/x509-shbs",
       "headRefName": "dvg/Macnus_comment_c",
       "headRefOid": "ba48b92a6ad0dfce52ee224a3e1dacf2029f5e71",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-11-13T11:06:00Z",
+      "mergedAt": "2024-11-13T11:06:00Z",
+      "mergedBy": "danvangeest",
+      "mergeCommit": {
+        "oid": "8ca22336f4e85ba776083de4c897e5e471ad3cdd"
+      },
       "comments": [],
       "reviews": [
         {
@@ -1171,7 +1175,7 @@
             "abbreviatedOid": "ba48b92"
           },
           "author": "fluppe2",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "APPROVED",
           "body": "LGTM",
           "createdAt": "2024-10-29T10:09:20Z",
@@ -1198,24 +1202,26 @@
       "id": "PR_kwDOLS-xBM5_66Xn",
       "title": "'hit your PANIC button' isn't very helpful, try to be a bit more desc\u2026",
       "url": "https://github.com/lamps-wg/x509-shbs/pull/19",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "danvangeest",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "\u2026riptive",
       "createdAt": "2024-10-25T15:28:56Z",
-      "updatedAt": "2024-10-30T14:28:05Z",
+      "updatedAt": "2024-11-13T11:08:26Z",
       "baseRepository": "lamps-wg/x509-shbs",
       "baseRefName": "main",
       "baseRefOid": "6e6ba522eef0ef1aa964a87e45645942738c8425",
       "headRepository": "lamps-wg/x509-shbs",
       "headRefName": "dvg/expand_PANIC",
       "headRefOid": "ad2970d5c537e00579315bee8ccd829493a4ea46",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-11-13T11:08:20Z",
+      "mergedAt": "2024-11-13T11:08:20Z",
+      "mergedBy": "danvangeest",
+      "mergeCommit": {
+        "oid": "1abd7d112a0f90fda50a72741331657b5fc7506f"
+      },
       "comments": [],
       "reviews": [
         {
@@ -1224,7 +1230,7 @@
             "abbreviatedOid": "8b9ea85"
           },
           "author": "fluppe2",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2024-10-29T10:12:01Z",
@@ -1244,7 +1250,7 @@
             "abbreviatedOid": "8b9ea85"
           },
           "author": "fluppe2",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "CHANGES_REQUESTED",
           "body": "Left a suggestion.",
           "createdAt": "2024-10-29T10:12:54Z",
@@ -1277,7 +1283,7 @@
             "abbreviatedOid": "8b9ea85"
           },
           "author": "fluppe2",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2024-10-29T10:29:31Z",
@@ -1317,7 +1323,7 @@
             "abbreviatedOid": "53185f4"
           },
           "author": "fluppe2",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "APPROVED",
           "body": "",
           "createdAt": "2024-10-30T14:15:24Z",
@@ -1337,7 +1343,7 @@
             "abbreviatedOid": "53185f4"
           },
           "author": "fluppe2",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "APPROVED",
           "body": "",
           "createdAt": "2024-10-30T14:18:07Z",
@@ -1350,7 +1356,7 @@
             "abbreviatedOid": "ad2970d"
           },
           "author": "fluppe2",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "APPROVED",
           "body": "LGTM",
           "createdAt": "2024-10-30T14:27:24Z",
@@ -1363,7 +1369,7 @@
             "abbreviatedOid": "ad2970d"
           },
           "author": "fluppe2",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "APPROVED",
           "body": "",
           "createdAt": "2024-10-30T14:28:05Z",
