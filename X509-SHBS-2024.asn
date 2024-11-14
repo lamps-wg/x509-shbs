@@ -59,12 +59,16 @@ pk-XMSS-HashSig PUBLIC-KEY ::= {
    CERT-KEY-USAGE
       { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
 
+XMSS-HashSig-PublicKey ::= OCTET STRING
+
 pk-XMSSMT-HashSig PUBLIC-KEY ::= {
    IDENTIFIER id-alg-xmssmt-hashsig
    -- KEY no ASN.1 wrapping --
    PARAMS ARE absent
    CERT-KEY-USAGE
       { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+
+XMSSMT-HashSig-PublicKey ::= OCTET STRING
 
 --
 -- Public Key (pk-) Algorithms
