@@ -5,14 +5,14 @@
 LAMPS - Limited Additional Mechanisms for PKIX and SMIME    D. Van Geest
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                              K. Bashiri
-Expires: 17 May 2025                                                 BSI
+Expires: 19 May 2025                                                 BSI
                                                               S. Fluhrer
                                                            Cisco Systems
                                                                S. Gazdag
                                                               genua GmbH
                                                              S. Kousidis
                                                                      BSI
-                                                        13 November 2024
+                                                        15 November 2024
 
 
   Use of the HSS and XMSS Hash-Based Signature Algorithms in Internet
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 May 2025.
+   This Internet-Draft will expire on 19 May 2025.
 
 Copyright Notice
 
@@ -202,8 +202,7 @@ Table of Contents
    defined in [I-D.ietf-lamps-rfc8708bis] and repeated here for
    convenience.
 
-   The AlgorithmIdentifier type, which is included herein for
-   convenience, is defined as follows:
+   The AlgorithmIdentifier type is defined as follows:
 
    AlgorithmIdentifier{ALGORITHM-TYPE, ALGORITHM-TYPE:AlgorithmSet} ::=
            SEQUENCE {
@@ -285,10 +284,10 @@ Table of Contents
    through an algorithm identifier.  An algorithm identifier consists of
    an OID and optional parameters.
 
-   [RFC8554] and [RFC8391] define the raw octet string encodings of the
-   public keys used in this document.  When used in a
-   SubjectPublicKeyInfo type, the subjectPublicKey BIT STRING contains
-   the raw octet string encoding of the public key.
+   [RFC8554] defines the encoding of HSS public keys and [RFC8391]
+   defines the encodings of XMSS and XMSS^MT public keys.  When used in
+   a SubjectPublicKeyInfo type, the subjectPublicKey BIT STRING contains
+   these encodings of the public key.
 
    This document defines ASN.1 [X680] OCTET STRING types for encoding
    the public keys when not used in a SubjectPublicKeyInfo.  The OCTET
@@ -313,11 +312,11 @@ Table of Contents
 
       HSS-LMS-HashSig-PublicKey ::= OCTET STRING
 
-   [RFC8554] defines the raw octet string encoding of an HSS public key
-   using the hss_public_key structure.  See [SP800208] and [RFC8554] for
-   more information on the contents and format of an HSS public key.
-   Note that the single-tree signature scheme LMS is instantiated as HSS
-   with number of levels being equal to 1.
+   [RFC8554] defines the encoding of an HSS public key using the
+   hss_public_key structure.  See [SP800208] and [RFC8554] for more
+   information on the contents and format of an HSS public key.  Note
+   that the single-tree signature scheme LMS is instantiated as HSS with
+   number of levels being equal to 1.
 
 5.2.  XMSS Public Keys
 
@@ -334,10 +333,9 @@ Table of Contents
 
       XMSS-HashSig-PublicKey ::= OCTET STRING
 
-   [RFC8391] defines the raw octet string encoding of an HSS public key
-   using the xmss_public_key structure.  See [SP800208] and [RFC8391]
-   for more information on the contents and format of an XMSS public
-   key.
+   [RFC8391] defines the encoding of an XMSS public key using the
+   xmss_public_key structure.  See [SP800208] and [RFC8391] for more
+   information on the contents and format of an XMSS public key.
 
 5.3.  XMSS^MT Public Keys
 
@@ -354,10 +352,9 @@ Table of Contents
 
       XMSSMT-HashSig-PublicKey ::= OCTET STRING
 
-   [RFC8391] defines the raw octet string encoding of an HSS public key
-   using the xmssmt_public_key structure.  See [SP800208] and [RFC8391]
-   for more information on the contents and format of an XMSS^MT public
-   key.
+   [RFC8391] defines the encoding of an XMSS^MT public key using the
+   xmssmt_public_key structure.  See [SP800208] and [RFC8391] for more
+   information on the contents and format of an XMSS^MT public key.
 
 6.  Key Usage Bits
 
@@ -509,12 +506,16 @@ Table of Contents
       CERT-KEY-USAGE
          { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
 
+   XMSS-HashSig-PublicKey ::= OCTET STRING
+
    pk-XMSSMT-HashSig PUBLIC-KEY ::= {
       IDENTIFIER id-alg-xmssmt-hashsig
       -- KEY no ASN.1 wrapping --
       PARAMS ARE absent
       CERT-KEY-USAGE
          { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+
+   XMSSMT-HashSig-PublicKey ::= OCTET STRING
 
    --
    -- Public Key (pk-) Algorithms
