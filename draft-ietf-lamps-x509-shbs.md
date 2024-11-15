@@ -253,7 +253,7 @@ In this document, we define new OIDs for identifying the different stateful
 hash-based signature algorithms. An additional OID is defined in {{I-D.ietf-lamps-rfc8708bis}} and
 repeated here for convenience.
 
-The AlgorithmIdentifier type is defined as follows:
+The AlgorithmIdentifier type is defined in {{?RFC5912}} as follows:
 
 ~~~ asn.1
 AlgorithmIdentifier{ALGORITHM-TYPE, ALGORITHM-TYPE:AlgorithmSet} ::=
