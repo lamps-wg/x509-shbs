@@ -253,8 +253,7 @@ In this document, we define new OIDs for identifying the different stateful
 hash-based signature algorithms. An additional OID is defined in {{I-D.ietf-lamps-rfc8708bis}} and
 repeated here for convenience.
 
-The AlgorithmIdentifier type, which is included herein for convenience,
-is defined as follows:
+The AlgorithmIdentifier type is defined as follows:
 
 ~~~ asn.1
 AlgorithmIdentifier{ALGORITHM-TYPE, ALGORITHM-TYPE:AlgorithmSet} ::=
@@ -336,10 +335,10 @@ Certificates conforming to [RFC5280] can convey a public key for any public key
 algorithm. The certificate indicates the algorithm through an algorithm
 identifier. An algorithm identifier consists of an OID and optional parameters.
 
-[RFC8554] and [RFC8391] define the raw octet string encodings of the public
-keys used in this document. When used in a SubjectPublicKeyInfo type, the
-subjectPublicKey BIT STRING contains the raw octet string encoding of the
-public key.
+[RFC8554] defines the encoding of HSS public keys and [RFC8391] defines the encodings of XMSS
+and XMSS^MT public keys.
+When used in a SubjectPublicKeyInfo type, the subjectPublicKey BIT STRING contains
+these encodings of the public key.
 
 This document defines ASN.1 {{X680}} OCTET STRING types for encoding the public keys
 when not used in a SubjectPublicKeyInfo. The OCTET STRING is mapped to a
@@ -367,7 +366,7 @@ The HSS public key is defined as follows:
    HSS-LMS-HashSig-PublicKey ::= OCTET STRING
 ~~~
 
-[RFC8554] defines the raw octet string encoding of an HSS public key using the
+[RFC8554] defines the encoding of an HSS public key using the
 `hss_public_key` structure. See [SP800208] and [RFC8554] for more information on
 the contents and format of an HSS public key. Note that the single-tree signature
 scheme LMS is instantiated as HSS with number of levels being equal to 1.
@@ -391,7 +390,7 @@ The XMSS public key is defined as follows:
    XMSS-HashSig-PublicKey ::= OCTET STRING
 ~~~
 
-[RFC8391] defines the raw octet string encoding of an HSS public key using the
+[RFC8391] defines the encoding of an XMSS public key using the
 `xmss_public_key` structure. See [SP800208] and [RFC8391] for more information
 on the contents and format of an XMSS public key.
 
@@ -414,7 +413,7 @@ The XMSS^MT public key is defined as follows:
    XMSSMT-HashSig-PublicKey ::= OCTET STRING
 ~~~
 
-[RFC8391] defines the raw octet string encoding of an HSS public key using the
+[RFC8391] defines the encoding of an XMSS^MT public key using the
 `xmssmt_public_key` structure. See [SP800208] and [RFC8391] for more information
 on the contents and format of an XMSS^MT public key.
 
