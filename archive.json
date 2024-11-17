@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-14T01:41:23.880641+00:00",
+  "timestamp": "2024-11-17T01:51:49.142098+00:00",
   "repo": "lamps-wg/x509-shbs",
   "labels": [
     {
@@ -1374,6 +1374,48 @@
           "body": "",
           "createdAt": "2024-10-30T14:28:05Z",
           "updatedAt": "2024-10-30T14:28:05Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "id": "PR_kwDOLS-xBM6B-Plt",
+      "title": "Address comments from Deb and Russ",
+      "url": "https://github.com/lamps-wg/x509-shbs/pull/20",
+      "state": "MERGED",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Thread of comments: https://mailarchive.ietf.org/arch/msg/spasm/e-aCUm1eFeJXC9-a15Cq6eQ5iuw/",
+      "createdAt": "2024-11-14T20:56:27Z",
+      "updatedAt": "2024-11-15T08:26:39Z",
+      "baseRepository": "lamps-wg/x509-shbs",
+      "baseRefName": "main",
+      "baseRefOid": "ce4aa007286f29dad25b6c2dfe51128eb2557a4d",
+      "headRepository": "lamps-wg/x509-shbs",
+      "headRefName": "dvg/Deb_and_Russ_comments",
+      "headRefOid": "92e0addfd3de607d109fa1c2de2d4c8730086022",
+      "closedAt": "2024-11-15T08:26:30Z",
+      "mergedAt": "2024-11-15T08:26:30Z",
+      "mergedBy": "danvangeest",
+      "mergeCommit": {
+        "oid": "db8d4002cb4e2615cde65151816683a1fefbd2ed"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLS-xBM6RTfby",
+          "commit": {
+            "abbreviatedOid": "92e0add"
+          },
+          "author": "BashiriK",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Looks good to me. However, I did not understand how you resolved Russ' comment at lines 338 and 369. But it's definitely me, not you :-)",
+          "createdAt": "2024-11-15T06:49:01Z",
+          "updatedAt": "2024-11-15T06:49:27Z",
           "comments": []
         }
       ]
