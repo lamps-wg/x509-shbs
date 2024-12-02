@@ -5,14 +5,14 @@
 LAMPS - Limited Additional Mechanisms for PKIX and SMIME    D. Van Geest
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                              K. Bashiri
-Expires: 19 May 2025                                                 BSI
+Expires: 5 June 2025                                                 BSI
                                                               S. Fluhrer
                                                            Cisco Systems
                                                                S. Gazdag
                                                               genua GmbH
                                                              S. Kousidis
                                                                      BSI
-                                                        15 November 2024
+                                                         2 December 2024
 
 
   Use of the HSS and XMSS Hash-Based Signature Algorithms in Internet
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 May 2025.
+   This Internet-Draft will expire on 5 June 2025.
 
 Copyright Notice
 
@@ -117,18 +117,19 @@ Table of Contents
    such they can serve as an important building block for quantum
    computer resistant information and communication technology.
 
-   A stateful HBS private key is a finite collection of OTS keys, hence
-   only a limited number of messages can be signed and the private key's
-   state must be updated and persisted after signing to prevent reuse of
-   OTS keys.  While the right selection of algorithm parameters would
-   allow a private key to sign a virtually unbounded number of messages
-   (e.g. 2^60), this is at the cost of a larger signature size and
-   longer signing time.  Due to the statefulness of the private key and
-   the limited number of signatures that can be created, stateful HBS
-   schemes might not be appropriate for use in interactive protocols.
-   However, in some use cases the deployment of stateful HBS schemes may
-   be appropriate.  Such use cases are described and discussed in
-   Section 3.
+   A stateful HBS private key consists of a finite collection of OTS
+   keys, along with state information that tracks the usage of these
+   keys to ensure the security of the scheme.  Only a limited number of
+   messages can be signed and the private key's state must be updated
+   and persisted after signing to prevent reuse of OTS keys.  While the
+   right selection of algorithm parameters would allow a private key to
+   sign a virtually unbounded number of messages (e.g. 2^60), this is at
+   the cost of a larger signature size and longer signing time.  Because
+   the private key in stateful HBS schemes is stateful and the number of
+   signatures that can be generated is limited, these schemes may be
+   unsuitable for use in interactive protocols.  However, in some use
+   cases the deployment of stateful HBS schemes may be appropriate.
+   Such use cases are described and discussed in Section 3.
 
 2.  Conventions and Definitions
 
@@ -197,10 +198,10 @@ Table of Contents
 
 4.  Algorithm Identifiers and Parameters
 
-   In this document, we define new OIDs for identifying the different
-   stateful hash-based signature algorithms.  An additional OID is
-   defined in [I-D.ietf-lamps-rfc8708bis] and repeated here for
-   convenience.
+   In this document, we define new object identifiers (OIDs) for
+   identifying the different stateful hash-based signature algorithms.
+   An additional OID is defined in [I-D.ietf-lamps-rfc8708bis] and
+   repeated here for convenience.
 
    The AlgorithmIdentifier type is defined in [RFC5912] as follows:
 
@@ -245,7 +246,7 @@ Table of Contents
    [RFC8554].
 
    The public key and signature values identify the hash function and
-   the height used in the HSS/LMS tree.  [RFC8554] and [SP800208] define
+   the height used in the HSS tree.  [RFC8554] and [SP800208] define
    these values, but an IANA registry [IANA-LMS] permits the
    registration of additional identifiers in the future.
 
@@ -315,8 +316,8 @@ Table of Contents
    [RFC8554] defines the encoding of an HSS public key using the
    hss_public_key structure.  See [SP800208] and [RFC8554] for more
    information on the contents and format of an HSS public key.  Note
-   that the single-tree signature scheme LMS is instantiated as HSS with
-   number of levels being equal to 1.
+   that the Leighton-Micali Signature (LMS) single-tree signature scheme
+   is instantiated as HSS with number of levels being equal to 1.
 
 5.2.  XMSS Public Keys
 
@@ -439,8 +440,8 @@ Table of Contents
    For reference purposes, the ASN.1 syntax is presented as an ASN.1
    module here [X680].  Note that as per [RFC5280], certificates use the
    Distinguished Encoding Rules; see [X690].  This ASN.1 Module builds
-   upon the conventions established in [RFC5911].  This module imports
-   objects from [RFC5911] and [I-D.ietf-lamps-rfc8708bis].
+   upon the conventions established in [RFC5912].  This module imports
+   objects from [RFC5912] and [I-D.ietf-lamps-rfc8708bis].
 
    RFC EDITOR: Please replace [I-D.ietf-lamps-rfc8708bis] in the module
    with a reference to the published RFC.
@@ -455,7 +456,7 @@ Table of Contents
 
    IMPORTS
      PUBLIC-KEY, SIGNATURE-ALGORITHM
-       FROM AlgorithmInformation-2009  -- [RFC5911]
+       FROM AlgorithmInformation-2009  -- [RFC5912]
          { iso(1) identified-organization(3) dod(6) internet(1)
            security(5) mechanisms(5) pkix(7) id-mod(0)
            id-mod-algorithmInformation-02(58) }
@@ -650,10 +651,10 @@ Table of Contents
               (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
               <https://www.rfc-editor.org/rfc/rfc5280>.
 
-   [RFC5911]  Hoffman, P. and J. Schaad, "New ASN.1 Modules for
-              Cryptographic Message Syntax (CMS) and S/MIME", RFC 5911,
-              DOI 10.17487/RFC5911, June 2010,
-              <https://www.rfc-editor.org/rfc/rfc5911>.
+   [RFC5912]  Hoffman, P. and J. Schaad, "New ASN.1 Modules for the
+              Public Key Infrastructure Using X.509 (PKIX)", RFC 5912,
+              DOI 10.17487/RFC5912, June 2010,
+              <https://www.rfc-editor.org/rfc/rfc5912>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -745,11 +746,6 @@ Table of Contents
    [RFC4949]  Shirey, R., "Internet Security Glossary, Version 2",
               FYI 36, RFC 4949, DOI 10.17487/RFC4949, August 2007,
               <https://www.rfc-editor.org/rfc/rfc4949>.
-
-   [RFC5912]  Hoffman, P. and J. Schaad, "New ASN.1 Modules for the
-              Public Key Infrastructure Using X.509 (PKIX)", RFC 5912,
-              DOI 10.17487/RFC5912, June 2010,
-              <https://www.rfc-editor.org/rfc/rfc5912>.
 
    [RFC8410]  Josefsson, S. and J. Schaad, "Algorithm Identifiers for
               Ed25519, Ed448, X25519, and X448 for Use in the Internet
