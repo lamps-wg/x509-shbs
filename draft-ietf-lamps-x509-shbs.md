@@ -47,7 +47,7 @@ author:
 
 normative:
   I-D.ietf-lamps-rfc8708bis:
-  RFC5911:
+  RFC5912:
   RFC5280: #v3 cer, v2 crl
   RFC8391: #xmss
   RFC8554: #hsslms
@@ -182,14 +182,17 @@ security of the underlying hash function. As such they can serve as an
 important building block for quantum computer resistant information and
 communication technology.
 
-A stateful HBS private key is a finite collection of OTS keys, hence only a
+A stateful HBS private key consists of a finite collection of OTS keys, along
+with state information that tracks the usage of these keys to ensure the
+security of the scheme. Only a
 limited number of messages can be signed and the private key's state must be
 updated and persisted after signing to prevent reuse of OTS keys.  While the
 right selection of algorithm parameters would allow a private key to sign a
 virtually unbounded number of messages (e.g. 2^60), this is at the cost of a
-larger signature size and longer signing time. Due to the statefulness of the
-private key and the limited number of signatures that can be created, stateful HBS schemes
-might not be appropriate for use in interactive protocols. However, in some use
+larger signature size and longer signing time. Because the private key in
+stateful HBS schemes is stateful and the number of signatures that can be
+generated is limited, these schemes may be unsuitable for use in interactive
+protocols. However, in some use
 cases the deployment of stateful HBS schemes may be appropriate. Such use cases are described
 and discussed in {{use-cases-shbs-x509}}.
 
@@ -249,11 +252,11 @@ subordinate CA certificate may be possible.
 
 # Algorithm Identifiers and Parameters
 
-In this document, we define new OIDs for identifying the different stateful
+In this document, we define new object identifiers (OIDs) for identifying the different stateful
 hash-based signature algorithms. An additional OID is defined in {{I-D.ietf-lamps-rfc8708bis}} and
 repeated here for convenience.
 
-The AlgorithmIdentifier type is defined in {{?RFC5912}} as follows:
+The AlgorithmIdentifier type is defined in [RFC5912] as follows:
 
 ~~~ asn.1
 AlgorithmIdentifier{ALGORITHM-TYPE, ALGORITHM-TYPE:AlgorithmSet} ::=
@@ -265,7 +268,7 @@ AlgorithmIdentifier{ALGORITHM-TYPE, ALGORITHM-TYPE:AlgorithmSet} ::=
 ~~~
 
 <aside markdown="block">
-NOTE: The above syntax is from {{?RFC5912}} and is compatible with the 2021 ASN.1 syntax {{X680}}.
+NOTE: The above syntax is from [RFC5912] and is compatible with the 2021 ASN.1 syntax {{X680}}.
 See {{!RFC5280}} for the 1988 ASN.1 syntax.
 </aside>
 
@@ -298,7 +301,7 @@ as id-alg-mts-hashsig. This synonym is based on the terminology used in an
 early draft of the document that became [RFC8554].
 
 The public key and signature values identify the hash function and the height used in the
-HSS/LMS tree. [RFC8554] and [SP800208] define these values, but an IANA registry
+HSS tree. [RFC8554] and [SP800208] define these values, but an IANA registry
 [IANA-LMS] permits the registration of additional identifiers in the future.
 
 ## XMSS Algorithm Identifier
@@ -368,8 +371,8 @@ The HSS public key is defined as follows:
 
 [RFC8554] defines the encoding of an HSS public key using the
 `hss_public_key` structure. See [SP800208] and [RFC8554] for more information on
-the contents and format of an HSS public key. Note that the single-tree signature
-scheme LMS is instantiated as HSS with number of levels being equal to 1.
+the contents and format of an HSS public key. Note that the Leighton-Micali Signature (LMS) single-tree signature
+scheme is instantiated as HSS with number of levels being equal to 1.
 
 ##  XMSS Public Keys
 
@@ -496,8 +499,8 @@ The key generation for XMSS and XMSS^MT MUST be performed according to 7.2 of
 For reference purposes, the ASN.1 syntax is presented as an ASN.1 module here {{X680}}.
 Note that as per [RFC5280], certificates use the Distinguished Encoding Rules; see
 {{X690}}.
-This ASN.1 Module builds upon the conventions established in [RFC5911]. This
-module imports objects from [RFC5911] and {{I-D.ietf-lamps-rfc8708bis}}.
+This ASN.1 Module builds upon the conventions established in [RFC5912]. This
+module imports objects from [RFC5912] and {{I-D.ietf-lamps-rfc8708bis}}.
 
 RFC EDITOR: Please replace [I-D.ietf-lamps-rfc8708bis] in the module with a reference to the published RFC.
 
