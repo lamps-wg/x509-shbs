@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-01T02:04:34.565435+00:00",
+  "timestamp": "2024-12-03T01:51:03.667412+00:00",
   "repo": "lamps-wg/x509-shbs",
   "labels": [
     {
@@ -1416,6 +1416,48 @@
           "body": "Looks good to me. However, I did not understand how you resolved Russ' comment at lines 338 and 369. But it's definitely me, not you :-)",
           "createdAt": "2024-11-15T06:49:01Z",
           "updatedAt": "2024-11-15T06:49:27Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "id": "PR_kwDOLS-xBM6DvyuX",
+      "title": "Address Gunter Van de Velde's comments",
+      "url": "https://github.com/lamps-wg/x509-shbs/pull/21",
+      "state": "MERGED",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- ensure OIDs are expended on first usage\r\n- apply suggestions clarifying text\r\n\r\nAlso, RFC 5911 should have been RFC 5912.",
+      "createdAt": "2024-12-02T13:16:50Z",
+      "updatedAt": "2024-12-02T15:39:25Z",
+      "baseRepository": "lamps-wg/x509-shbs",
+      "baseRefName": "main",
+      "baseRefOid": "46d4262de43b0b02357e8c11a24860e976a6f0d4",
+      "headRepository": "lamps-wg/x509-shbs",
+      "headRefName": "dvg/GVVs_comments",
+      "headRefOid": "35a3e480087da52a26deb971a3286acfeb4d71f3",
+      "closedAt": "2024-12-02T14:40:07Z",
+      "mergedAt": "2024-12-02T14:40:07Z",
+      "mergedBy": "exception42",
+      "mergeCommit": {
+        "oid": "632edf83f3dbae583a4ab4ff056aeaf2645f5774"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLS-xBM6TZVXT",
+          "commit": {
+            "abbreviatedOid": "35a3e48"
+          },
+          "author": "exception42",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Looks alright",
+          "createdAt": "2024-12-02T14:40:00Z",
+          "updatedAt": "2024-12-02T14:40:00Z",
           "comments": []
         }
       ]
