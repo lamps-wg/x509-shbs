@@ -5,14 +5,14 @@
 LAMPS - Limited Additional Mechanisms for PKIX and SMIME    D. Van Geest
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                              K. Bashiri
-Expires: 5 June 2025                                                 BSI
+Expires: 8 June 2025                                                 BSI
                                                               S. Fluhrer
                                                            Cisco Systems
                                                                S. Gazdag
                                                               genua GmbH
                                                              S. Kousidis
                                                                      BSI
-                                                         2 December 2024
+                                                         5 December 2024
 
 
   Use of the HSS and XMSS Hash-Based Signature Algorithms in Internet
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 June 2025.
+   This Internet-Draft will expire on 8 June 2025.
 
 Copyright Notice
 
@@ -173,10 +173,10 @@ Table of Contents
 
    *  Certification Authority (CA) certificates.
 
-   In each of these cases, the operator is able to control their signing
-   environment such that signatures are generated in hardware
-   cryptographic modules and audited before the signature is published,
-   in order to prevent OTS key reuse.
+   In each of these cases the operator tightly controls their signing
+   environment and is able to prevent OTS key reuse by employing state
+   management strategies such as those listed in Section 10 and backup
+   and restore strategies (Section 11).
 
    Generally speaking, stateful HBS public keys are not appropriate for
    use in end-entity certificates, however in the firmware and software
@@ -194,7 +194,7 @@ Table of Contents
    and signature count restrictions of a root CA, for example if the
    subordinate CA only issues code-signing certificates, then using a
    stateful HBS public key in the subordinate CA certificate may be
-   possible.
+   practical.
 
 4.  Algorithm Identifiers and Parameters
 
@@ -599,7 +599,7 @@ Table of Contents
    strategies will lead to OTS reuse with high probability as a correct
    state management is not guaranteed.  Strategies for maintaining
    availability and keeping a correct state are described in Section 7
-   of [SP800208].
+   of [SP800208] and [I-D.draft-wiggers-hbs-state].
 
 12.  IANA Considerations
 
@@ -716,6 +716,14 @@ Table of Contents
               November 2021, <https://www.etsi.org/deliver/
               etsi_tr/103600_103699/103692/01.01.01_60/
               tr_103692v010101p.pdf>.
+
+   [I-D.draft-wiggers-hbs-state]
+              Wiggers, T., Bashiri, K., Kölbl, S., Goodman, J., and S.
+              Kousidis, "Hash-based Signatures: State and Backup
+              Management", Work in Progress, Internet-Draft, draft-
+              wiggers-hbs-state-01, 24 September 2024,
+              <https://datatracker.ietf.org/doc/html/draft-wiggers-hbs-
+              state-01>.
 
    [IANA-LMS] IANA, "Leighton-Micali Signatures (LMS)", n.d.,
               <https://www.iana.org/assignments/leighton-micali-
