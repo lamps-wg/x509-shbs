@@ -230,10 +230,10 @@ to enforce security restrictions on the signing environment include:
 - Software signing (Table IV of [CNSA2.0], [ANSSI])
 - Certification Authority (CA) certificates.
 
-In each of these cases the operator tightly controls their signing environment
-and is able to prevent OTS key reuse by employing state management strategies
-such as those listed in {{sec-security}} and backup and restore strategies
-({{backup-restore}}).
+In each of these cases, the operator is able to control their signing
+environment such that signatures are generated in hardware cryptographic
+modules and audited before the signature is published, in order to prevent OTS
+key reuse.
 
 Generally speaking, stateful HBS public keys are not appropriate for use
 in end-entity certificates, however in the firmware and software signing cases
@@ -248,7 +248,7 @@ keys more appropriate in root CA certificates than in subordinate CA
 certificates. However, if a subordinate CA can match the security and
 signature count restrictions of a root CA, for example if the subordinate CA
 only issues code-signing certificates, then using a stateful HBS public key in the
-subordinate CA certificate may be practical.
+subordinate CA certificate may be possible.
 
 # Algorithm Identifiers and Parameters
 
@@ -545,7 +545,7 @@ Various strategies for a correct state management can be applied:
   state synchronisations between nonvolatile and volatile memory is reduced.
 
 
-# Backup and Restore Management {#backup-restore}
+# Backup and Restore Management
 
 Certificate Authorities have high demands in order to ensure the availability
 of signature generation throughout the validity period of signing key pairs.
@@ -559,7 +559,7 @@ of technical difficulties.
 For stateful HBS schemes, such straightforward backup and restore strategies will lead to OTS
 reuse with high probability as a correct state management is not guaranteed.
 Strategies for maintaining availability and keeping a correct state are
-described in Section 7 of [SP800208] and {{?I-D.draft-wiggers-hbs-state}}.
+described in Section 7 of [SP800208].
 
 # IANA Considerations
 
