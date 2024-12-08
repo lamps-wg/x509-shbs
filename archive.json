@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-05T01:51:27.692940+00:00",
+  "timestamp": "2024-12-08T01:57:55.489547+00:00",
   "repo": "lamps-wg/x509-shbs",
   "labels": [
     {
@@ -1458,6 +1458,81 @@
           "body": "Looks alright",
           "createdAt": "2024-12-02T14:40:00Z",
           "updatedAt": "2024-12-02T14:40:00Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "id": "PR_kwDOLS-xBM6EOgp_",
+      "title": "Address Orie Steele's comment",
+      "url": "https://github.com/lamps-wg/x509-shbs/pull/22",
+      "state": "MERGED",
+      "author": "danvangeest",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "https://mailarchive.ietf.org/arch/msg/spasm/9MnJpfMIhCRgsxz4J14ixUnpMmU/",
+      "createdAt": "2024-12-05T19:18:45Z",
+      "updatedAt": "2024-12-05T19:30:08Z",
+      "baseRepository": "lamps-wg/x509-shbs",
+      "baseRefName": "main",
+      "baseRefOid": "632edf83f3dbae583a4ab4ff056aeaf2645f5774",
+      "headRepository": "lamps-wg/x509-shbs",
+      "headRefName": "dvg/ories_comments",
+      "headRefOid": "419e216298c0d4e360fa57f9669ab6c62597bd6a",
+      "closedAt": "2024-12-05T19:29:09Z",
+      "mergedAt": "2024-12-05T19:29:09Z",
+      "mergedBy": "exception42",
+      "mergeCommit": {
+        "oid": "a7dbc5d3964ce7b02d688039d10321c29ce40ccd"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLS-xBM6T-sIU",
+          "commit": {
+            "abbreviatedOid": "419e216"
+          },
+          "author": "exception42",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Looks good to me.",
+          "createdAt": "2024-12-05T19:28:55Z",
+          "updatedAt": "2024-12-05T19:28:55Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOLS-xBM6T-sLG",
+          "commit": {
+            "abbreviatedOid": "419e216"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-05T19:29:01Z",
+          "updatedAt": "2024-12-05T19:29:02Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "```suggestion\r\nand is able to mitigate OTS key reuse by employing state management strategies from {{sec-security}} and backup and restore strategies from\r\n({{backup-restore}}).\r\n```\r\nI think the strategies are rather mitigating reuse.",
+              "createdAt": "2024-12-05T19:29:01Z",
+              "updatedAt": "2024-12-05T19:29:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLS-xBM6T-spW",
+          "commit": {
+            "abbreviatedOid": "419e216"
+          },
+          "author": "fluppe2",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "See my (editorial) comment.",
+          "createdAt": "2024-12-05T19:30:08Z",
+          "updatedAt": "2024-12-05T19:30:08Z",
           "comments": []
         }
       ]
