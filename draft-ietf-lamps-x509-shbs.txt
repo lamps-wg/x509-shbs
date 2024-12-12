@@ -5,14 +5,14 @@
 LAMPS - Limited Additional Mechanisms for PKIX and SMIME    D. Van Geest
 Internet-Draft                                       CryptoNext Security
 Intended status: Standards Track                              K. Bashiri
-Expires: 8 June 2025                                                 BSI
+Expires: 15 June 2025                                                BSI
                                                               S. Fluhrer
                                                            Cisco Systems
                                                                S. Gazdag
                                                               genua GmbH
                                                              S. Kousidis
                                                                      BSI
-                                                         5 December 2024
+                                                        12 December 2024
 
 
   Use of the HSS and XMSS Hash-Based Signature Algorithms in Internet
@@ -59,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 June 2025.
+   This Internet-Draft will expire on 15 June 2025.
 
 Copyright Notice
 
@@ -173,10 +173,11 @@ Table of Contents
 
    *  Certification Authority (CA) certificates.
 
-   In each of these cases the operator tightly controls their signing
-   environment and is able to prevent OTS key reuse by employing state
-   management strategies such as those listed in Section 10 and backup
-   and restore strategies (Section 11).
+   In each of these cases the operator tightly controls their secured
+   signing environment and can mitigate OTS key reuse by employing state
+   management strategies such as those in Section 10.  Also for secure
+   private key backup and restoration, adequate mechanisms have to be
+   implemented (Section 11).
 
    Generally speaking, stateful HBS public keys are not appropriate for
    use in end-entity certificates, however in the firmware and software
