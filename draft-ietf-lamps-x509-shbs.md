@@ -230,10 +230,10 @@ to enforce security restrictions on the signing environment include:
 - Software signing (Table IV of [CNSA2.0], [ANSSI])
 - Certification Authority (CA) certificates.
 
-In each of these cases the operator tightly controls their signing environment
-and is able to prevent OTS key reuse by employing state management strategies
-such as those listed in {{sec-security}} and backup and restore strategies
-({{backup-restore}}).
+In each of these cases the operator tightly controls their secured signing environment
+and can mitigate OTS key reuse by employing state management strategies
+such as those in {{sec-security}}. Also for secure private key backup and restoration,
+adequate mechanisms have to be implemented ({{backup-restore}}).
 
 Generally speaking, stateful HBS public keys are not appropriate for use
 in end-entity certificates, however in the firmware and software signing cases
