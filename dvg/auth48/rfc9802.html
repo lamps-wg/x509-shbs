@@ -1,42 +1,50 @@
 <!DOCTYPE html>
-<html lang="en" class="Internet-Draft">
+<html lang="en" class="RFC">
 <head>
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>Internet X.509 Public Key Infrastructure: Algorithm Identifiers for HSS and XMSS</title>
+<title>RFC 9802: Use of the HSS and XMSS Hash-Based Signature Algorithms in Internet X.509 Public Key Infrastructure</title>
 <meta content="Daniel Van Geest" name="author">
 <meta content="Kaveh Bashiri" name="author">
 <meta content="Scott Fluhrer" name="author">
-<meta content="Stefan Gazdag" name="author">
+<meta content="Stefan-Lukas Gazdag" name="author">
 <meta content="Stavros Kousidis" name="author">
 <meta content="
-       This document specifies algorithm identifiers and ASN.1 encoding formats for
-the Stateful Hash-Based Signature Schemes (S-HBS) Hierarchical Signature System
-(HSS), eXtended Merkle Signature Scheme (XMSS), and XMSS^MT, a multi-tree
-variant of XMSS. This specification applies to the Internet X.509 Public Key
-infrastructure (PKI) when those digital signatures are used in Internet X.509
-certificates and certificate revocation lists. 
+       This document specifies algorithm identifiers and ASN.1 encoding
+      formats for the following stateful Hash-Based Signature (HBS) schemes:
+      Hierarchical Signature System (HSS), eXtended Merkle Signature Scheme
+      (XMSS), and XMSS MT  (a multi-tree variant of XMSS).  This specification
+      applies to the Internet X.509 Public Key infrastructure (PKI) when
+      digital signatures are used to sign certificates and certificate
+      revocation lists (CRLs). 
     " name="description">
-<meta content="xml2rfc 3.23.1" name="generator">
-<meta content="Internet-Draft" name="keyword">
-<meta content="draft-ietf-lamps-x509-shbs-latest" name="ietf.draft">
+<meta content="xml2rfc 3.28.1" name="generator">
+<meta content="HSS" name="keyword">
+<meta content="LMS" name="keyword">
+<meta content="XMSS" name="keyword">
+<meta content="certificate" name="keyword">
+<meta content="X.509" name="keyword">
+<meta content="PKIX" name="keyword">
+<meta content="stateful" name="keyword">
+<meta content="hash-based" name="keyword">
+<meta content="9802" name="rfc.number">
 <!-- Generator version information:
-  xml2rfc 3.23.1
-    Python 3.12.6
+  xml2rfc 3.28.1
+    Python 3.12.10
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
-    Jinja2 3.1.4
-    lxml 4.9.4
-    platformdirs 4.3.6
-    pycountry 22.3.5
-    PyYAML 6.0.1
+    Jinja2 3.1.6
+    lxml 5.3.1
+    platformdirs 4.3.8
+    pycountry 24.6.1
+    PyYAML 6.0.2
     requests 2.32.3
-    setuptools 70.3.0
+    setuptools 80.9.0
     wcwidth 0.2.13
 -->
-<link href="draft-ietf-lamps-x509-shbs.xml" rel="alternate" type="application/rfc+xml">
+<link href="rfc9802.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 <style type="text/css">@font-face {
   font-family: 'Lora';
@@ -170,31 +178,6 @@ certificates and certificate revocation lists.
 }
 
 @font-face {
-  font-family: 'Cabin Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-vietnamese.woff2') format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
-}
-@font-face {
-  font-family: 'Cabin Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-@font-face {
-  font-family: 'Cabin Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
   font-family: 'Oxygen Mono';
   font-style: normal;
   font-weight: 400;
@@ -211,6 +194,77 @@ certificates and certificate revocation lists.
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   color-scheme: light dark;
   --background-color: #fff;
@@ -223,6 +277,7 @@ certificates and certificate revocation lists.
   --pilcrow-strong: #bbb;
   --small-font-size: 14.5px;
   --font-mono: 'Oxygen Mono', monospace;
+  --font-title: "Sofia Sans Semi Condensed", sans-serif;
   scrollbar-color: #bbb #eee;
 }
 body {
@@ -240,9 +295,15 @@ body {
 }
 
 /* headings */
+section {
+  clear: both;
+}
+.section-number {
+  padding-right: 0.5em;
+}
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Cabin Condensed", sans-serif;
-  font-weight: 600;
+  font-family: var(--font-title);
+  font-weight: 680;
   margin: 0.8em 0 0.3em;
   font-size-adjust: 0.5;
   color: var(--title-color);
@@ -271,6 +332,7 @@ h4, h5, h6 {
 /* general structure */
 .author {
   padding-bottom: 0.3em;
+  vertical-align: top;
 }
 #abstract+p {
   font-size: 18px;
@@ -348,25 +410,26 @@ svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
 ol, ul {
   padding: 0;
   margin: 0 0 0.5em 2em;
-}
-:is(ol, ul) :is(ol, ul) {
-  margin-left: 1em;
+  & :is(ol, ul) {
+    margin-left: 1em;
+  }
 }
 li {
   margin: 0 0 0.25em 0;
 }
-.ulCompact li {
-  margin: 0;
-}
 ul.empty, .ulEmpty {
   list-style-type: none;
-}
-ul.empty li, .ulEmpty li {
-  margin-top: 0.5em;
+  & li {
+    margin-top: 0.5em;
+  }
 }
 :is(ul, ol).compact, .ulCompact, .olCompact {
-  line-height: 1;
   margin: 0 0 0 2em;
+  & li {
+    margin: 0;
+    & :first-child { margin-top: 0; }
+    & :last-child { margin-bottom: 0; }
+  }
 }
 
 /* definition lists */
@@ -374,38 +437,39 @@ dl {
   clear: left;
   --indent: 3ch;
   /* --indent: attr(indent ch); not supported in any browser, but we can dream */
+  &.olPercent {
+    --indent: 5ch;
+    & > dt {
+      min-width: calc(var(--indent) - 2ch);
+    }
+  }
+  &.olPercent > dt {
+    float: none;
+  }
+
+  dl > dd > & {
+    margin-top: 0.5em;
+    margin-bottom: 0;
+  }
 }
-dl.olPercent {
-  --indent: 5ch;
-}
-dl > dt {
+dl:not(.dlNewline) > dt {
   float: left;
   margin-right: 2ch;
   min-width: 8ch;
-}
-dl.dlNewline > dt {
-  float: none;
 }
 dl > dd {
   margin-bottom: .8em;
   margin-left: var(--indent) !important; /* stupid element overrides */
   min-height: 2ex;
 }
-dl.olPercent > dt {
-  min-width: calc(var(--indent) - 2ch);
-}
 :is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0;
-}
-:is(dl.compact, .dlCompact) > dd > :is(:first-child, .break:first-child + *) {
-  margin-top: 0;
-}
-:is(dl.compact, .dlCompact) > dd > :is(:last-child) {
-  margin-bottom: 0;
-}
-dl > dd > dl {
-  margin-top: 0.5em;
-  margin-bottom: 0;
+  & > :is(:first-child, .break:first-child + *) {
+    margin-top: 0;
+  }
+  & > :is(:last-child) {
+    margin-bottom: 0;
+  }
 }
 :is(dd, span).break {
   display: none;
@@ -469,6 +533,7 @@ figcaption, caption {
   font-style: italic;
   margin: 0.5em 1.5em;
   text-align: left;
+  caption-side: bottom;
 }
 @media screen {
   /* Auto-collapse boilerplate. */
@@ -486,7 +551,11 @@ figcaption, caption {
   }
   pre, svg {
     display: inline-block;
-    overflow-x: auto;
+    /* In the horizontal direction, sometimes people make over-sized figures.
+       Scrollbars for those is therefore necessary: auto adds them as necessary..
+       In the vertical direction, the line-height can combine with the font
+       asender/descender height to produce scrollbars: hidden avoids that. */
+    overflow: auto hidden;
   }
   pre {
     max-width: 100%;
@@ -523,6 +592,7 @@ cite {
 
 /* tables */
 table {
+  width: auto;
   max-width: 100%;
   margin: 0 0 1em;
   border-collapse: collapse;
@@ -537,6 +607,16 @@ table.center {
 table.left {
   margin-right: auto;
 }
+table .text-left {
+  text-align: left;
+}
+table .text-center {
+  text-align: center;
+}
+table .text-right {
+  text-align: right;
+}
+
 thead, tbody {
   border: 1px solid var(--line-color);
 }
@@ -567,9 +647,11 @@ a.pilcrow {
   margin-left: 3px;
   opacity: 0.2;
   user-select: none;
+  &[href] {
+    color: var(--pilcrow-weak);
+    &:hover { text-decoration: none; }
+  }
 }
-a.pilcrow[href] { color: var(--pilcrow-weak); }
-a.pilcrow[href]:hover { text-decoration: none; }
 @media not print {
   :hover > a.pilcrow {
     opacity: 1;
@@ -609,26 +691,28 @@ sub, sup {
   font-size: var(--small-font-size);
   line-height: 18px;
   --identifier-width: 15ch;
-}
-#identifiers dt {
-  width: var(--identifier-width);
-  min-width: var(--identifier-width);
-  clear: left;
-  float: left;
-  text-align: right;
-  margin-right: 1ch;
-}
-#identifiers dd {
-  margin: 0;
-  margin-left: calc(1em + var(--identifier-width)) !important;
-  min-width: 5em;
-}
-#identifiers .authors .author {
-  display: inline-block;
-  margin-right: 1.5em;
-}
-#identifiers .authors .org {
-  font-style: italic;
+  & dt {
+    width: var(--identifier-width);
+    min-width: var(--identifier-width);
+    clear: left;
+    float: left;
+    text-align: right;
+    margin-right: 1ch;
+  }
+  & dd {
+    margin: 0;
+    margin-left: calc(1em + var(--identifier-width)) !important;
+    min-width: 5em;
+  }
+  & .authors {
+    & .author {
+      display: inline-block;
+      margin-right: 1.5em;
+    }
+    & .org {
+      font-style: italic;
+    }
+  }
 }
 
 /* The prepared/rendered info at the very bottom of the page */
@@ -639,9 +723,6 @@ sub, sup {
   margin-top: 2em;
 }
 .docInfo .prepared {
-  float: left;
-}
-.docInfo .prepared {
   float: right;
 }
 
@@ -649,47 +730,48 @@ sub, sup {
 #toc {
   padding: 0.75em 0 2em 0;
   margin-bottom: 1em;
-}
-#toc nav ul {
-  margin: 0 0.5em 0 0;
-  padding: 0;
-  list-style: none;
-}
-#toc nav li {
-  line-height: 1.3em;
-  margin: 2px 0;
-  padding-left: 1.2em;
-  text-indent: -1.2em;
-}
-#toc a.xref {
-  white-space: normal;
-}
-/* references */
-.references dt {
-  text-align: right;
-  font-weight: bold;
-  min-width: 10ch;
-  margin-right: 1.5ch;
-}
-.references dt:target::before {
-  content: "⇒";
-  width: 15px;
-  margin: 0 10px 0 -25px;
-}
-.references dd {
-  margin-left: 12ch !important;
-  overflow: auto;
+
+  & nav {
+    & ul {
+      margin: 0 0.5em 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    & li {
+      line-height: 1.3em;
+      margin: 2px 0;
+      padding-left: 1.2em;
+      text-indent: -1.2em;
+    }
+  }
+  & a.xref {
+    white-space: normal;
+  }
 }
 
-.refInstance {
-  margin-bottom: 1.25em;
+.references {
+  & > dt {
+    text-align: right;
+    font-weight: bold;
+    min-width: 10ch;
+    margin-right: 1.5ch;
+    &:target::before {
+      content: "⇒";
+      margin: 0 10px 0 -25px;
+    }
+  }
+  & > dd {
+    margin-left: 12ch !important;
+    overflow: visible;
+    & .refInstance {
+      margin-bottom: 0.8em;
+    }
+    & .ascii {
+      margin-bottom: 0.25em;
+    }
+  }
 }
 
-.references .ascii {
-  margin-bottom: 0.25em;
-}
-
-/* index */
 #rfc\.index\.index + ul {
   margin-left: 0;
 }
@@ -697,21 +779,33 @@ sub, sup {
 /* authors */
 address.vcard {
   font-style: normal;
-  margin: 1em 0;
+  max-width: 20em;
+  margin: 1em auto 1em 0;
+
+  & .nameRole {
+    font-weight: 700;
+    margin-left: 0;
+  }
+  & .label {
+    margin: 0.5em 0;
+  }
+  & .type {
+    display: none;
+  }
+  & .alternative-contact {
+    margin: 0.5em 0 0.25em 0;
+  }
+  & .non-ascii {
+    margin: 0 0 0 2em;
+  }
+  & div.left {
+    text-align: left;
+  }
+  & div.right {
+    text-align: right;
+  }
 }
-address.vcard .nameRole {
-  font-weight: 700;
-  margin-left: 0;
-}
-address.vcard .label {
-  margin: 0.5em 0;
-}
-address.vcard .type {
-  display: none;
-}
-.alternative-contact {
-  margin: 1.5em 0 1em;
-}
+
 hr.addr {
   border-top: 1px dashed;
   margin: 0;
@@ -733,6 +827,7 @@ hr.addr {
   }
 }
 
+/* Comments */
 .rfcEditorRemove p:first-of-type {
   font-style: italic;
 }
@@ -743,7 +838,31 @@ hr.addr {
 .crefSource {
   font-style: italic;
 }
-/* alternative layout for smaller screens */
+
+@media screen {
+  #toc nav {
+    font-family: var(--font-title);
+    font-weight: 360;
+    & > ul { margin-bottom: 2em; }
+    & ul {
+      margin: 0 0 0 4px;
+      & :is(p, li) {
+        margin: 2px 0;
+      }
+    }
+  }
+  #toc a.toplink {
+    float: right;
+  }
+}
+@media not screen {
+  #toc a.toplink {
+    display: none;
+  }
+}
+
+
+/* TOC layout for smaller screens */
 @media screen and (max-width: 929px) {
   #toc {
     position: fixed;
@@ -754,9 +873,6 @@ hr.addr {
     margin: 0;
     border-bottom: 1px solid #ccc;
     opacity: 0.6;
-  }
-  #toc.active {
-      opacity: 1;
   }
   #toc h2 {
     margin: 0;
@@ -769,17 +885,17 @@ hr.addr {
     background-color: #444;
     color: white;
     cursor: pointer;
-  }
-  #toc h2::before { /* css hamburger */
-    float: right;
-    position: relative;
-    width: 1em;
-    height: 1px;
-    left: -164px;
-    margin: 8px 0 0 0;
-    background: white none repeat scroll 0 0;
-    box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
-    content: "";
+    &::before { /* css hamburger */
+      float: right;
+      position: relative;
+      width: 1em;
+      height: 1px;
+      left: -164px;
+      margin: 8px 0 0 0;
+      background: white none repeat scroll 0 0;
+      box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+      content: "";
+    }
   }
   #toc nav {
     display: none;
@@ -790,14 +906,13 @@ hr.addr {
     height: calc(100vh - 48px);
     border-left: 1px solid #ddd;
   }
-  #toc.active nav {
-    display: block;
+  #toc.active {
+    opacity: 1;
+    & nav { display: block; }
   }
   /* Make the collapsed ToC header render white on gray also when it's a link */
   #toc h2 a,
-  #toc h2 a:link,
-  #toc h2 a:focus,
-  #toc h2 a:hover,
+  #toc h2 a:is(:link, :focus, :hover),
   #toc a.toplink,
   #toc a.toplink:hover {
     color: white;
@@ -805,11 +920,11 @@ hr.addr {
     text-decoration: none;
   }
   #toc a.toplink {
-    margin-top: 2px;
+    margin: 2px 0.5em 0;
   }
 }
 
-/* alternative layout for wide screens */
+/* TOC layout for wide screens */
 @media screen and (min-width: 930px) {
   body {
     padding-right: 360px;
@@ -838,20 +953,12 @@ hr.addr {
     overscroll-behavior: contain;
     scrollbar-width: thin;
   }
-  #toc nav > ul  {
-    margin-bottom: 2em;
-  }
-  #toc ul {
-    margin: 0 0 0 4px;
-    font-size: var(--small-font-size);
-  }
-  #toc ul :is(p, li) {
-    margin: 2px 0;
-    line-height: 22px;
-  }
   img { /* future proofing */
     max-width: 100%;
     height: auto;
+  }
+  #toc a.toplink {
+    margin: 8px 0.5em 0;
   }
 }
 
@@ -894,9 +1001,6 @@ hr.addr {
   td {
     border-top: 1px solid #ddd;
   }
-  .toplink {
-    display: none;
-  }
 }
 
 @page :first {
@@ -919,82 +1023,6 @@ hr.addr {
   size: A4;
   margin-bottom: 45mm;
   padding-top: 20px;
-}
-
-/* Changes introduced to fix issues found during implementation */
-
-/* Separate body from document info even without intervening H1 */
-section {
-  clear: both;
-}
-
-/* Top align author divs, to avoid names without organization dropping level with org names */
-.author {
-  vertical-align: top;
-}
-
-/* Style section numbers with more space between number and title */
-.section-number {
-  padding-right: 0.5em;
-}
-
-/* Add styling for a link in the ToC that points to the top of the document */
-a.toplink {
-  float: right;
-  margin: 8px 0.5em 0;
-}
-
-/* Provide styling for table cell text alignment */
-table .text-left {
-  text-align: left;
-}
-table .text-center {
-  text-align: center;
-}
-table .text-right {
-  text-align: right;
-}
-
-/* Make the alternative author contact information look less like just another
-   author, and group it closer with the primary author contact information */
-.alternative-contact {
-  margin: 0.5em 0 0.25em 0;
-}
-address .non-ascii {
-  margin: 0 0 0 2em;
-}
-
-/* With it being possible to set tables with alignment
-  left, center, and right, { width: 100%; } does not make sense */
-table {
-  width: auto;
-}
-
-/* Avoid reference text that sits in a block with very wide left margin,
-   because of a long floating dt label.*/
-.references dd {
-  overflow: visible;
-}
-
-/* Control caption placement */
-caption {
-  caption-side: bottom;
-}
-
-/* Limit the width of the author address vcard, so names in right-to-left
-   script don't end up on the other side of the page. */
-
-address.vcard {
-  max-width: 20em;
-  margin-right: auto;
-}
-
-/* For address alignment dependent on LTR or RTL scripts */
-address div.left {
-  text-align: left;
-}
-address div.right {
-  text-align: right;
 }
 
 /* Dark mode. */
@@ -1027,35 +1055,38 @@ svg :is([fill="white"], [fill^="#fff"]) {
 }
 </style>
 
-</head>
+<link href="https://datatracker.ietf.org/doc/draft-ietf-lamps-x509-shbs-13" rel="prev">
+  <link href="https://dx.doi.org/10.17487/rfc9802" rel="alternate">
+  <link href="urn:issn:2070-1721" rel="alternate">
+  </head>
 <body class="xml2rfc">
 <table class="ears">
 <thead><tr>
-<td class="left">Internet-Draft</td>
+<td class="left">RFC 9802</td>
 <td class="center">HSS and XMSS for X.509</td>
-<td class="right">September 2024</td>
+<td class="right">June 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Van Geest, et al.</td>
-<td class="center">Expires 29 March 2025</td>
+<td class="center">Standards Track</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
 <div id="external-metadata" class="document-information"></div>
 <div id="internal-metadata" class="document-information">
 <dl id="identifiers">
-<dt class="label-workgroup">Workgroup:</dt>
-<dd class="workgroup">LAMPS - Limited Additional Mechanisms for PKIX and SMIME</dd>
-<dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-ietf-lamps-x509-shbs-latest</dd>
+<dt class="label-stream">Stream:</dt>
+<dd class="stream">Internet Engineering Task Force (IETF)</dd>
+<dt class="label-rfc">RFC:</dt>
+<dd class="rfc"><a href="https://www.rfc-editor.org/rfc/rfc9802" class="eref">9802</a></dd>
+<dt class="label-category">Category:</dt>
+<dd class="category">Standards Track</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-09-25" class="published">25 September 2024</time>
+<time datetime="2025-06" class="published">June 2025</time>
     </dd>
-<dt class="label-intended-status">Intended Status:</dt>
-<dd class="intended-status">Standards Track</dd>
-<dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-03-29">29 March 2025</time></dd>
+<dt class="label-issn">ISSN:</dt>
+<dd class="issn">2070-1721</dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1081,30 +1112,17 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </dd>
 </dl>
 </div>
-<h1 id="title">Internet X.509 Public Key Infrastructure: Algorithm Identifiers for HSS and XMSS</h1>
+<h1 id="rfcnum">RFC 9802</h1>
+<h1 id="title">Use of the HSS and XMSS Hash-Based Signature Algorithms in Internet X.509 Public Key Infrastructure</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This document specifies algorithm identifiers and ASN.1 encoding formats for
-the Stateful Hash-Based Signature Schemes (S-HBS) Hierarchical Signature System
-(HSS), eXtended Merkle Signature Scheme (XMSS), and XMSS^MT, a multi-tree
-variant of XMSS. This specification applies to the Internet X.509 Public Key
-infrastructure (PKI) when those digital signatures are used in Internet X.509
-certificates and certificate revocation lists.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
-</section>
-<section class="note rfcEditorRemove" id="section-note.1">
-      <h2 id="name-about-this-document">
-<a href="#name-about-this-document" class="section-name selfRef">About This Document</a>
-      </h2>
-<p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
-<p id="section-note.1-2">
-        Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-ietf-lamps-x509-shbs/">https://datatracker.ietf.org/doc/draft-ietf-lamps-x509-shbs/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
-<p id="section-note.1-3">
-        Discussion of this document takes place on the
-        LAMPS Working Group mailing list (<span><a href="mailto:spasm@ietf.org">mailto:spasm@ietf.org</a></span>),
-        which is archived at <span><a href="https://mailarchive.ietf.org/arch/browse/spasm/">https://mailarchive.ietf.org/arch/browse/spasm/</a></span>.
-        Subscribe at <span><a href="https://www.ietf.org/mailman/listinfo/spasm/">https://www.ietf.org/mailman/listinfo/spasm/</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
-<p id="section-note.1-4">Source for this draft and an issue tracker can be found at
-        <span><a href="https://github.com/x509-hbs/draft-x509-shbs">https://github.com/x509-hbs/draft-x509-shbs</a></span>.<a href="#section-note.1-4" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">This document specifies algorithm identifiers and ASN.1 encoding
+      formats for the following stateful Hash-Based Signature (HBS) schemes:
+      Hierarchical Signature System (HSS), eXtended Merkle Signature Scheme
+      (XMSS), and XMSS<sup>MT</sup> (a multi-tree variant of XMSS).  This specification
+      applies to the Internet X.509 Public Key infrastructure (PKI) when
+      digital signatures are used to sign certificates and certificate
+      revocation lists (CRLs).<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -1112,20 +1130,18 @@ certificates and certificate revocation lists.<a href="#section-abstract-1" clas
 <a href="#name-status-of-this-memo" class="section-name selfRef">Status of This Memo</a>
         </h2>
 <p id="section-boilerplate.1-1">
-        This Internet-Draft is submitted in full conformance with the
-        provisions of BCP 78 and BCP 79.<a href="#section-boilerplate.1-1" class="pilcrow">¶</a></p>
+            This is an Internet Standards Track document.<a href="#section-boilerplate.1-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-2">
-        Internet-Drafts are working documents of the Internet Engineering Task
-        Force (IETF). Note that other groups may also distribute working
-        documents as Internet-Drafts. The list of current Internet-Drafts is
-        at <span><a href="https://datatracker.ietf.org/drafts/current/">https://datatracker.ietf.org/drafts/current/</a></span>.<a href="#section-boilerplate.1-2" class="pilcrow">¶</a></p>
+            This document is a product of the Internet Engineering Task Force
+            (IETF).  It represents the consensus of the IETF community.  It has
+            received public review and has been approved for publication by
+            the Internet Engineering Steering Group (IESG).  Further
+            information on Internet Standards is available in Section 2 of 
+            RFC 7841.<a href="#section-boilerplate.1-2" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-3">
-        Internet-Drafts are draft documents valid for a maximum of six months
-        and may be updated, replaced, or obsoleted by other documents at any
-        time. It is inappropriate to use Internet-Drafts as reference
-        material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
-<p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 29 March 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+            Information about the current status of this document, any
+            errata, and how to provide feedback on it may be obtained at
+            <span><a href="https://www.rfc-editor.org/info/rfc9802">https://www.rfc-editor.org/info/rfc9802</a></span>.<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1134,7 +1150,7 @@ certificates and certificate revocation lists.<a href="#section-abstract-1" clas
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2024 IETF Trust and the persons identified as the
+            Copyright (c) 2025 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1161,7 +1177,7 @@ certificates and certificate revocation lists.<a href="#section-abstract-1" clas
             <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
-            <p id="section-toc.1-1.3.1" class="keepWithNext"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-use-cases-of-s-hbs-in-x509" class="internal xref">Use Cases of S-HBS in X.509</a></p>
+            <p id="section-toc.1-1.3.1" class="keepWithNext"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-use-cases-of-stateful-hbs-s" class="internal xref">Use Cases of Stateful HBS Schemes in X.509</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-algorithm-identifiers-and-p" class="internal xref">Algorithm Identifiers and Parameters</a></p>
@@ -1173,7 +1189,7 @@ certificates and certificate revocation lists.<a href="#section-abstract-1" clas
                 <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-xmss-algorithm-identifier" class="internal xref">XMSS Algorithm Identifier</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3">
-                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-xmssmt-algorithm-identifier" class="internal xref">XMSS^MT Algorithm Identifier</a></p>
+                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-xmss-mt-algorithm-identifie" class="internal xref">XMSS<sup>MT</sup> Algorithm Identifier</a></p>
 </li>
             </ul>
 </li>
@@ -1187,7 +1203,7 @@ certificates and certificate revocation lists.<a href="#section-abstract-1" clas
                 <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-xmss-public-keys" class="internal xref">XMSS Public Keys</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
-                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-xmssmt-public-keys" class="internal xref">XMSS^MT Public Keys</a></p>
+                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-xmss-mt-public-keys" class="internal xref">XMSS<sup>MT</sup> Public Keys</a></p>
 </li>
             </ul>
 </li>
@@ -1204,7 +1220,7 @@ certificates and certificate revocation lists.<a href="#section-abstract-1" clas
                 <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-xmss-signature-algorithm" class="internal xref">XMSS Signature Algorithm</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3">
-                <p id="section-toc.1-1.7.2.3.1"><a href="#section-7.3" class="auto internal xref">7.3</a>.  <a href="#name-xmssmt-signature-algorithm" class="internal xref">XMSS^MT Signature Algorithm</a></p>
+                <p id="section-toc.1-1.7.2.3.1"><a href="#section-7.3" class="auto internal xref">7.3</a>.  <a href="#name-xmss-mt-signature-algorithm" class="internal xref">XMSS<sup>MT</sup> Signature Algorithm</a></p>
 </li>
             </ul>
 </li>
@@ -1241,7 +1257,7 @@ certificates and certificate revocation lists.<a href="#section-abstract-1" clas
             <p id="section-toc.1-1.15.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-xmss-x509-v3-certificate-ex" class="internal xref">XMSS X.509 v3 Certificate Example</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.16">
-            <p id="section-toc.1-1.16.1"><a href="#appendix-C" class="auto internal xref">Appendix C</a>.  <a href="#name-xmssmt-x509-v3-certificate-" class="internal xref">XMSS^MT X.509 v3 Certificate Example</a></p>
+            <p id="section-toc.1-1.16.1"><a href="#appendix-C" class="auto internal xref">Appendix C</a>.  <a href="#name-xmss-mt-x509-v3-certificate" class="internal xref">XMSS<sup>MT</sup> X.509 v3 Certificate Example</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.17">
             <p id="section-toc.1-1.17.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
@@ -1258,23 +1274,27 @@ certificates and certificate revocation lists.<a href="#section-abstract-1" clas
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">Stateful Hash-Based Signature Schemes (S-HBS) such as HSS, XMSS and XMSS^MT
-combine Merkle trees with One Time Signatures (OTS) in order to provide digital
-signature schemes that remain secure even when quantum computers become
-available. Their theoretic security is well understood and depends only on the
-security of the underlying hash function. As such they can serve as an
-important building block for quantum computer resistant information and
-communication technology.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">The private key of S-HBS is a finite collection of OTS keys, hence only a
-limited number of messages can be signed and the private key's state must be
-updated and persisted after signing to prevent reuse of OTS keys.  While the
-right selection of algorithm parameters would allow a private key to sign a
-virtually unbounded number of messages (e.g. 2^60), this is at the cost of a
-larger signature size and longer signing time. Due to the statefulness of the
-private key and the limited number of signatures that can be created, S-HBS
-might not be appropriate for use in interactive protocols. However, in some use
-cases the deployment of S-HBS may be appropriate. Such use cases are described
-and discussed later in <a href="#use-cases-shbs-x509" class="auto internal xref">Section 3</a>.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-1">Stateful Hash-Based Signature (HBS) schemes such as the Hierarchical
+      Signature System (HSS), eXtended Merkle Signature Scheme (XMSS), and
+      XMSS<sup>MT</sup> combine Merkle trees with One-Time Signatures (OTS). This is
+      done in order to provide digital signature schemes that remain secure
+      even when quantum computers become available. Their theoretic security
+      is well understood and depends only on the security of the underlying
+      hash function. As such, they can serve as an important building block for
+      quantum computer resistant information and communication technology.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">A stateful HBS private key consists of a finite collection of OTS
+      keys, along with state information that tracks the usage of these keys
+      to ensure the security of the scheme. Only a limited number of messages
+      can be signed, and the private key's state must be updated and persisted
+      after signing to prevent reuse of OTS keys.  While the right selection
+      of algorithm parameters would allow a private key to sign a virtually
+      unbounded number of messages (e.g., 2<sup>60</sup>), this is at the cost
+      of a larger signature size and longer signing time. Because the private
+      key in stateful HBS schemes is stateful and the number of signatures
+      that can be generated is limited, these schemes may be unsuitable for
+      use in interactive protocols. However, in some use cases, the deployment
+      of stateful HBS schemes may be appropriate. Such use cases are described
+      and discussed in <a href="#use-cases-shbs-x509" class="auto internal xref">Section 3</a>.<a href="#section-1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1282,66 +1302,75 @@ and discussed later in <a href="#use-cases-shbs-x509" class="auto internal xref"
       <h2 id="name-conventions-and-definitions">
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-conventions-and-definitions" class="section-name selfRef">Conventions and Definitions</a>
       </h2>
-<p id="section-2-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
-"<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
-described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
-appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-1">
+    The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>",
+    "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>",
+    "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>",
+    "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
+    "<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be
+    interpreted as described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they appear in all capitals, as
+    shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="use-cases-shbs-x509">
 <section id="section-3">
-      <h2 id="name-use-cases-of-s-hbs-in-x509">
-<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-use-cases-of-s-hbs-in-x509" class="section-name selfRef">Use Cases of S-HBS in X.509</a>
+      <h2 id="name-use-cases-of-stateful-hbs-s">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-use-cases-of-stateful-hbs-s" class="section-name selfRef">Use Cases of Stateful HBS Schemes in X.509</a>
       </h2>
-<p id="section-3-1">As described in the Security Considerations of <a href="#sec-security" class="auto internal xref">Section 10</a>, it is
-imperative that S-HBS implementations do not reuse OTS signatures. This makes
-S-HBS algorithms inappropriate for general use cases. The exact conditions
-under which S-HBS certificates may be used is left to certificate policies <span>[<a href="#RFC3647" class="cite xref">RFC3647</a>]</span>.
-However the intended use of S-HBS as described by <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> can be used as a
-guideline:<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-1">As described in the Security Considerations in <a href="#sec-security" class="auto internal xref">Section 10</a>, it is imperative that stateful HBS
+      implementations do not reuse OTS signatures. This makes stateful HBS
+      algorithms inappropriate for general use cases. The exact conditions
+      under which stateful HBS certificates may be used is left to certificate
+      policies <span>[<a href="#RFC3647" class="cite xref">RFC3647</a>]</span>.  However, the intended use of stateful
+      HBS schemes as described by <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> can be used as a
+      guideline:<a href="#section-3-1" class="pilcrow">¶</a></p>
 <blockquote id="section-3-2">
-        <p id="section-3-2.1">1) it is necessary to implement a digital signature scheme in the near
-future; <br>
-2) the implementation will have a long lifetime; and <br>
-3) it would not be practical to transition to a different digital signature
-scheme once the implementation has been deployed.<a href="#section-3-2.1" class="pilcrow">¶</a></p>
+ 1) it is necessary to implement a digital signature scheme in the near
+ future; 2) the implementation will have a long lifetime; and 3) it
+ would not be practical to transition to a different digital signature
+ scheme once the implementation has been deployed.<a href="#section-3-2" class="pilcrow">¶</a>
 </blockquote>
-<p id="section-3-3">In addition, since an S-HBS private key can only generate a finite number of
-signatures, use cases for S-HBS public keys in certificates should have a
-predictable range of the number of signatures that will be generated, falling
-safely below the maximum number of signatures that a private key can generate.<a href="#section-3-3" class="pilcrow">¶</a></p>
-<p id="section-3-4">Use cases where S-HBS public keys in certificates may be appropriate due to
-the relatively small number of signatures generated and the signer's ability
-to enforce security restrictions on the signing environment include:<a href="#section-3-4" class="pilcrow">¶</a></p>
+<p id="section-3-3">In addition, since a stateful HBS private key can only generate a
+      finite number of signatures, use cases for stateful HBS public keys in
+      certificates should have a predictable range of the number of signatures
+      that will be generated, falling safely below the maximum number of
+      signatures that a private key can generate.<a href="#section-3-3" class="pilcrow">¶</a></p>
+<p id="section-3-4">Use cases where stateful HBS public keys in certificates may be
+      appropriate due to the relatively small number of signatures generated
+      and the signer's ability to enforce security restrictions on the signing
+      environment include:<a href="#section-3-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3-5.1">
-          <p id="section-3-5.1.1">Firmware signing (Section 1.1 of <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span>, Table IV of <span>[<a href="#CNSA2.0" class="cite xref">CNSA2.0</a>]</span>, Section
-6.7 of <span>[<a href="#BSI" class="cite xref">BSI</a>]</span>)<a href="#section-3-5.1.1" class="pilcrow">¶</a></p>
+          <p id="section-3-5.1.1">Firmware signing (see Section 1.1 of <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span>,
+          <span>[<a href="#CNSA2.0" class="cite xref">CNSA2.0</a>]</span>, and Section 6.7 of <span>[<a href="#BSI" class="cite xref">BSI</a>]</span>)<a href="#section-3-5.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-3-5.2">
-          <p id="section-3-5.2.1">Software signing (Table IV of <span>[<a href="#CNSA2.0" class="cite xref">CNSA2.0</a>]</span>, <span>[<a href="#ANSSI" class="cite xref">ANSSI</a>]</span>)<a href="#section-3-5.2.1" class="pilcrow">¶</a></p>
+          <p id="section-3-5.2.1">Software signing (<span>[<a href="#CNSA2.0" class="cite xref">CNSA2.0</a>]</span> and <span>[<a href="#ANSSI" class="cite xref">ANSSI</a>]</span>)<a href="#section-3-5.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-3-5.3">
-          <p id="section-3-5.3.1">Certification Authority (CA) certificates.<a href="#section-3-5.3.1" class="pilcrow">¶</a></p>
+          <p id="section-3-5.3.1">Certification Authority (CA) certificates<a href="#section-3-5.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-3-6">In each of these cases, the operator is able to control their signing
-environment such that signatures are generated in hardware cryptographic
-modules and audited before the signature is published, in order to prevent OTS
-key reuse.<a href="#section-3-6" class="pilcrow">¶</a></p>
-<p id="section-3-7">Generally speaking, S-HBS public keys are not appropriate for use
-in end-entity certificates, however in the firmware and software signing cases
-signature generation will often be more tightly controlled. Some
-manufactures use common and well-established key formats like X.509 for their
-code signing and update mechanisms. Also there are multi-party IoT ecosystems
-where publicly trusted code signing certificates are useful.<a href="#section-3-7" class="pilcrow">¶</a></p>
-<p id="section-3-8">In general, root CAs <span>[<a href="#RFC4949" class="cite xref">RFC4949</a>]</span> generate signatures in a more secure environment and issue
-fewer certificates than subordinate CAs <span>[<a href="#RFC4949" class="cite xref">RFC4949</a>]</span>. This makes the use of S-HBS public
-keys more appropriate in root CA certificates than in subordinate CA
-certificates. However, if a subordinate CA can match the security and
-signature count restrictions of a root CA, for example if the subordinate CA
-only issues code-signing certificates, then using an S-HBS public key in the
-subordinate CA certificate may be possible.<a href="#section-3-8" class="pilcrow">¶</a></p>
+<p id="section-3-6">In each of these cases, the operator tightly controls their secured
+      signing environment and can mitigate OTS key reuse by employing state
+      management strategies such as those in <a href="#sec-security" class="auto internal xref">Section 10</a>. Also, for secure private key backup and
+      restoration, adequate mechanisms have to be implemented (see <a href="#backup-restore" class="auto internal xref">Section 11</a>).<a href="#section-3-6" class="pilcrow">¶</a></p>
+<p id="section-3-7">Generally speaking, stateful HBS public keys are not appropriate for
+      use in end-entity certificates, however, in the firmware and software
+      signing cases, signature generation will often be more tightly
+      controlled. Some manufactures use common and well-established key
+      formats like X.509 for their code signing and update mechanisms. Also,
+      there are multi-party Internet of Things (IoT) ecosystems where publicly
+      trusted code signing certificates are useful.<a href="#section-3-7" class="pilcrow">¶</a></p>
+<p id="section-3-8">In general, root CAs <span>[<a href="#RFC4949" class="cite xref">RFC4949</a>]</span> generate signatures in
+      a more secure environment and issue fewer certificates than subordinate
+      CAs <span>[<a href="#RFC4949" class="cite xref">RFC4949</a>]</span>. This makes the use of stateful HBS public
+      keys more appropriate in root CA certificates than in subordinate CA
+      certificates. However, if a subordinate CA can match the security and
+      signature count restrictions of a root CA, for example, if the
+      subordinate CA only issues code-signing certificates, then using a
+      stateful HBS public key in the subordinate CA certificate may be
+      practical.<a href="#section-3-8" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="algorithm-identifiers-and-parameters">
@@ -1349,31 +1378,63 @@ subordinate CA certificate may be possible.<a href="#section-3-8" class="pilcrow
       <h2 id="name-algorithm-identifiers-and-p">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-algorithm-identifiers-and-p" class="section-name selfRef">Algorithm Identifiers and Parameters</a>
       </h2>
-<p id="section-4-1">In this document, we define new OIDs for identifying the different stateful
-hash-based signature algorithms. An additional OID is defined in <span>[<a href="#I-D.draft-ietf-lamps-rfc8708bis" class="cite xref">I-D.draft-ietf-lamps-rfc8708bis</a>]</span> and
-repeated here for convenience. For all of the OIDs, the parameters <span class="bcp14">MUST</span> be
-absent.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-1">In this document, we define new Object Identifiers (OIDs) for
+      identifying the different stateful hash-based signature algorithms. An
+      additional OID is defined in <span>[<a href="#RFC9708" class="cite xref">RFC9708</a>]</span> and repeated here
+      for convenience.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-2">The AlgorithmIdentifier type is defined in <span>[<a href="#RFC5912" class="cite xref">RFC5912</a>]</span> as follows:<a href="#section-4-2" class="pilcrow">¶</a></p>
+<div class="lang-asn.1 sourcecode" id="section-4-3">
+<pre>
+AlgorithmIdentifier{ALGORITHM-TYPE, ALGORITHM-TYPE:AlgorithmSet} ::=
+        SEQUENCE {
+            algorithm   ALGORITHM-TYPE.&amp;id({AlgorithmSet}),
+            parameters  ALGORITHM-TYPE.
+                   &amp;Params({AlgorithmSet}{@algorithm}) OPTIONAL
+        }
+</pre><a href="#section-4-3" class="pilcrow">¶</a>
+</div>
+<aside id="section-4-4">
+        <p id="section-4-4.1">NOTE: The above syntax is from <span>[<a href="#RFC5912" class="cite xref">RFC5912</a>]</span> and is
+        compatible with the 2021 ASN.1 syntax <span>[<a href="#X680" class="cite xref">X680</a>]</span>.  See
+        <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> for the 1988 ASN.1 syntax.<a href="#section-4-4.1" class="pilcrow">¶</a></p>
+</aside>
+<p id="section-4-5">The fields in AlgorithmIdentifier have the following meanings:<a href="#section-4-5" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-4-6">
+        <dt id="section-4-6.1">algorithm:</dt>
+        <dd style="margin-left: 1.5em" id="section-4-6.2">this identifies the cryptographic algorithm with an object
+          identifier.<a href="#section-4-6.2" class="pilcrow">¶</a>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-4-6.3">parameters:</dt>
+        <dd style="margin-left: 1.5em" id="section-4-6.4">these are optional and are the associated parameters for
+          the algorithm identifier in the algorithm field.<a href="#section-4-6.4" class="pilcrow">¶</a>
+</dd>
+      <dd class="break"></dd>
+</dl>
+<p id="section-4-7">The parameters field of the AlgorithmIdentifier for HSS, XMSS, and
+      XMSS<sup>MT</sup> public keys <span class="bcp14">MUST</span> be absent.<a href="#section-4-7" class="pilcrow">¶</a></p>
 <div id="hss-algorithm-identifier">
 <section id="section-4.1">
         <h3 id="name-hss-algorithm-identifier">
 <a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-hss-algorithm-identifier" class="section-name selfRef">HSS Algorithm Identifier</a>
         </h3>
-<p id="section-4.1-1">The object identifier and public key algorithm identifier for HSS is defined in
-<span>[<a href="#I-D.draft-ietf-lamps-rfc8708bis" class="cite xref">I-D.draft-ietf-lamps-rfc8708bis</a>]</span>. The definitions are repeated here for reference.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
-<p id="section-4.1-2">The object identifier for an HSS public key is <code>id-alg-hss-lms-hashsig</code>:<a href="#section-4.1-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4.1-3">
+<p id="section-4.1-1">The object identifier and public key algorithm identifier for HSS
+        is defined in <span>[<a href="#RFC9708" class="cite xref">RFC9708</a>]</span>. The definitions are repeated
+        here for reference.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1-2">The AlgorithmIdentifier for an HSS public key <span class="bcp14">MUST</span>
+        use the id-alg-hss-lms-hashsig object identifier.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
+<div class="lang-asn.1 sourcecode" id="section-4.1-3">
 <pre>
    id-alg-hss-lms-hashsig  OBJECT IDENTIFIER ::= {
       iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
       smime(16) alg(3) 17 }
 </pre><a href="#section-4.1-3" class="pilcrow">¶</a>
 </div>
-<p id="section-4.1-4">Note that the <code>id-alg-hss-lms-hashsig</code> algorithm identifier is also referred to
-as <code>id-alg-mts-hashsig</code>. This synonym is based on the terminology used in an
-early draft of the document that became <span>[<a href="#RFC8554" class="cite xref">RFC8554</a>]</span>.<a href="#section-4.1-4" class="pilcrow">¶</a></p>
-<p id="section-4.1-5">The public key and signature values identify the hash function and the height used in the
-HSS/LMS tree. <span>[<a href="#RFC8554" class="cite xref">RFC8554</a>]</span> and <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> define these values, but an IANA registry
-<span>[<a href="#IANA-LMS" class="cite xref">IANA-LMS</a>]</span> permits the registration of additional identifiers in the future.<a href="#section-4.1-5" class="pilcrow">¶</a></p>
+<p id="section-4.1-4">Note that the id-alg-hss-lms-hashsig algorithm identifier is also
+        referred to as id-alg-mts-hashsig. This synonym is based on the
+        terminology used in an early draft of the document that became <span>[<a href="#RFC8554" class="cite xref">RFC8554</a>]</span>.<a href="#section-4.1-4" class="pilcrow">¶</a></p>
+<p id="section-4.1-5">The public key and signature values identify the hash function and
+        the height used in the HSS tree. <span>[<a href="#RFC8554" class="cite xref">RFC8554</a>]</span> and <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> define these values, and additional identifiers can be registered in the “Leighton-Micali Signatures (LMS)” registry <span>[<a href="#IANA-LMS" class="cite xref">IANA-LMS</a>]</span>.<a href="#section-4.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="xmss-algorithm-identifier">
@@ -1381,35 +1442,38 @@ HSS/LMS tree. <span>[<a href="#RFC8554" class="cite xref">RFC8554</a>]</span> an
         <h3 id="name-xmss-algorithm-identifier">
 <a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-xmss-algorithm-identifier" class="section-name selfRef">XMSS Algorithm Identifier</a>
         </h3>
-<p id="section-4.2-1">The object identifier for an XMSS public key is <code>id-alg-xmss-hashsig</code>:<a href="#section-4.2-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4.2-2">
+<p id="section-4.2-1">The AlgorithmIdentifier for an XMSS public key <span class="bcp14">MUST</span>
+        use the id-alg-xmss-hashsig object identifier.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+<div class="lang-asn.1 sourcecode" id="section-4.2-2">
 <pre>
    id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
       iso(1) identified-organization(3) dod(6) internet(1)
       security(5) mechanisms(5) pkix(7) algorithms(6) 34 }
 </pre><a href="#section-4.2-2" class="pilcrow">¶</a>
 </div>
-<p id="section-4.2-3">The public key and signature values identify the hash function and the height used in the
-XMSS tree. <span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> and <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> define these values, but an IANA registry
-<span>[<a href="#IANA-XMSS" class="cite xref">IANA-XMSS</a>]</span> permits the registration of additional identifiers in the future.<a href="#section-4.2-3" class="pilcrow">¶</a></p>
+<p id="section-4.2-3">The public key and signature values identify the hash function and
+        the height used in the XMSS tree. <span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> and <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> define these values, and additional identifiers can be registered in the “Leighton-Micali Signatures (LMS)” registry <span>[<a href="#IANA-XMSS" class="cite xref">IANA-XMSS</a>]</span>.<a href="#section-4.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="xmssmt-algorithm-identifier">
 <section id="section-4.3">
-        <h3 id="name-xmssmt-algorithm-identifier">
-<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-xmssmt-algorithm-identifier" class="section-name selfRef">XMSS^MT Algorithm Identifier</a>
+        <h3 id="name-xmss-mt-algorithm-identifie">
+<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-xmss-mt-algorithm-identifie" class="section-name selfRef">XMSS<sup>MT</sup> Algorithm Identifier</a>
         </h3>
-<p id="section-4.3-1">The object identifier for an XMSS^MT public key is <code>id-alg-xmssmt-hashsig</code>:<a href="#section-4.3-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4.3-2">
+<p id="section-4.3-1">The AlgorithmIdentifier for an XMSS<sup>MT</sup> public key
+ <span class="bcp14">MUST</span> use the id-alg-xmssmt-hashsig object
+ identifier.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
+<div class="lang-asn.1 sourcecode" id="section-4.3-2">
 <pre>
    id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
       iso(1) identified-organization(3) dod(6) internet(1)
       security(5) mechanisms(5) pkix(7) algorithms(6) 35 }
 </pre><a href="#section-4.3-2" class="pilcrow">¶</a>
 </div>
-<p id="section-4.3-3">The public key and signature values identify the hash function and the height used in the
-XMSS^MT tree. <span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> and <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> define these values, but an IANA registry
-<span>[<a href="#IANA-XMSS" class="cite xref">IANA-XMSS</a>]</span> permits the registration of additional identifiers in the future.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
+<p id="section-4.3-3">The public key and signature values identify the hash function and
+        the height used in the XMSS<sup>MT</sup> tree. <span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> and
+        <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> define these values, and additional identifiers can be registered in the “Leighton-Micali Signatures (LMS)” registry
+        <span>[<a href="#IANA-XMSS" class="cite xref">IANA-XMSS</a>]</span>.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1419,26 +1483,29 @@ XMSS^MT tree. <span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> an
       <h2 id="name-public-key-identifiers">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-public-key-identifiers" class="section-name selfRef">Public Key Identifiers</a>
       </h2>
-<p id="section-5-1">Certificates conforming to <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> can convey a public key for any public key
-algorithm. The certificate indicates the algorithm through an algorithm
-identifier. An algorithm identifier consists of an OID and optional parameters.<a href="#section-5-1" class="pilcrow">¶</a></p>
-<p id="section-5-2"><span>[<a href="#RFC8554" class="cite xref">RFC8554</a>]</span> and <span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> define the raw octet string encodings of the public
-keys used in this document. When used in a SubjectPublicKeyInfo type, the
-subjectPublicKey BIT STRING contains the raw octet string encodings of the
-public keys.<a href="#section-5-2" class="pilcrow">¶</a></p>
-<p id="section-5-3">This document defines ASN.1 OCTET STRING types for encoding the public keys
-when not used in a SubjectPublicKeyInfo. The OCTET STRING is mapped to a
-subjectPublicKey (a value of type BIT STRING) as follows: the most significant
-bit of the OCTET STRING value becomes the most significant bit of the BIT
-STRING value, and so on; the least significant bit of the OCTET STRING
-becomes the least significant bit of the BIT STRING.<a href="#section-5-3" class="pilcrow">¶</a></p>
+<p id="section-5-1">Certificates conforming to <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> can convey a
+      public key for any public key algorithm. The certificate indicates the
+      algorithm through an algorithm identifier. An algorithm identifier
+      consists of an OID and optional parameters.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2"><span>[<a href="#RFC8554" class="cite xref">RFC8554</a>]</span> defines the encoding of HSS public keys, and
+      <span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> defines the encodings of XMSS and XMSS<sup>MT</sup>
+      public keys.  When used in a SubjectPublicKeyInfo type, the
+      subjectPublicKey BIT STRING contains these encodings of the public
+      key.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<p id="section-5-3">This document defines ASN.1 <span>[<a href="#X680" class="cite xref">X680</a>]</span> OCTET STRING types
+      for encoding the public keys when not used in a
+      SubjectPublicKeyInfo. The OCTET STRING is mapped to a subjectPublicKey
+      (a value of type BIT STRING) as follows: the most significant bit of the
+      OCTET STRING value becomes the most significant bit of the BIT STRING
+      value, and so on; the least significant bit of the OCTET STRING becomes
+      the least significant bit of the BIT STRING.<a href="#section-5-3" class="pilcrow">¶</a></p>
 <div id="hss-public-keys">
 <section id="section-5.1">
         <h3 id="name-hss-public-keys">
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-hss-public-keys" class="section-name selfRef">HSS Public Keys</a>
         </h3>
 <p id="section-5.1-1">The HSS public key identifier is as follows:<a href="#section-5.1-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.1-2">
+<div class="lang-asn.1 sourcecode" id="section-5.1-2">
 <pre>
    pk-HSS-LMS-HashSig PUBLIC-KEY ::= {
       IDENTIFIER id-alg-hss-lms-hashsig
@@ -1449,15 +1516,18 @@ becomes the least significant bit of the BIT STRING.<a href="#section-5-3" class
 </pre><a href="#section-5.1-2" class="pilcrow">¶</a>
 </div>
 <p id="section-5.1-3">The HSS public key is defined as follows:<a href="#section-5.1-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.1-4">
+<div class="lang-asn.1 sourcecode" id="section-5.1-4">
 <pre>
    HSS-LMS-HashSig-PublicKey ::= OCTET STRING
 </pre><a href="#section-5.1-4" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1-5"><span>[<a href="#RFC8554" class="cite xref">RFC8554</a>]</span> defines the raw octet string encoding of an HSS public key using the
-<code>hss_public_key</code> structure. See <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> and <span>[<a href="#RFC8554" class="cite xref">RFC8554</a>]</span> for more information on
-the contents and format of an HSS public key. Note that the single-tree signature
-scheme LMS is instantiated as HSS with number of levels being equal to 1.<a href="#section-5.1-5" class="pilcrow">¶</a></p>
+<p id="section-5.1-5">
+   <span>[<a href="#RFC8554" class="cite xref">RFC8554</a>]</span> defines the encoding of an HSS public key
+   using the <code>hss_public_key</code> structure. See <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> and <span>[<a href="#RFC8554" class="cite xref">RFC8554</a>]</span> for more
+   information on the contents and format of an HSS public key. Note
+   that the Leighton-Micali Signature (LMS) single-tree signature
+   scheme is instantiated as HSS with the number of levels being equal
+   to 1.<a href="#section-5.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="xmss-public-keys">
@@ -1466,7 +1536,7 @@ scheme LMS is instantiated as HSS with number of levels being equal to 1.<a href
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-xmss-public-keys" class="section-name selfRef">XMSS Public Keys</a>
         </h3>
 <p id="section-5.2-1">The XMSS public key identifier is as follows:<a href="#section-5.2-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.2-2">
+<div class="lang-asn.1 sourcecode" id="section-5.2-2">
 <pre>
    pk-XMSS-HashSig PUBLIC-KEY ::= {
       IDENTIFIER id-alg-xmss-hashsig
@@ -1477,23 +1547,23 @@ scheme LMS is instantiated as HSS with number of levels being equal to 1.<a href
 </pre><a href="#section-5.2-2" class="pilcrow">¶</a>
 </div>
 <p id="section-5.2-3">The XMSS public key is defined as follows:<a href="#section-5.2-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.2-4">
+<div class="lang-asn.1 sourcecode" id="section-5.2-4">
 <pre>
    XMSS-HashSig-PublicKey ::= OCTET STRING
 </pre><a href="#section-5.2-4" class="pilcrow">¶</a>
 </div>
-<p id="section-5.2-5"><span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> defines the raw octet string encoding of an HSS public key using the
+<p id="section-5.2-5"><span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> defines the encoding of an XMSS public key using the
 <code>xmss_public_key</code> structure. See <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> and <span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> for more information
 on the contents and format of an XMSS public key.<a href="#section-5.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="xmssmt-public-keys">
 <section id="section-5.3">
-        <h3 id="name-xmssmt-public-keys">
-<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-xmssmt-public-keys" class="section-name selfRef">XMSS^MT Public Keys</a>
+        <h3 id="name-xmss-mt-public-keys">
+<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-xmss-mt-public-keys" class="section-name selfRef">XMSS<sup>MT</sup> Public Keys</a>
         </h3>
-<p id="section-5.3-1">The XMSS^MT public key identifier is as follows:<a href="#section-5.3-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.3-2">
+<p id="section-5.3-1">The XMSS<sup>MT</sup> public key identifier is as follows:<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+<div class="lang-asn.1 sourcecode" id="section-5.3-2">
 <pre>
    pk-XMSSMT-HashSig PUBLIC-KEY ::= {
       IDENTIFIER id-alg-xmssmt-hashsig
@@ -1503,15 +1573,15 @@ on the contents and format of an XMSS public key.<a href="#section-5.2-5" class=
          { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
 </pre><a href="#section-5.3-2" class="pilcrow">¶</a>
 </div>
-<p id="section-5.3-3">The XMSS^MT public key is defined as follows:<a href="#section-5.3-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.3-4">
+<p id="section-5.3-3">The XMSS<sup>MT</sup> public key is defined as follows:<a href="#section-5.3-3" class="pilcrow">¶</a></p>
+<div class="lang-asn.1 sourcecode" id="section-5.3-4">
 <pre>
    XMSSMT-HashSig-PublicKey ::= OCTET STRING
 </pre><a href="#section-5.3-4" class="pilcrow">¶</a>
 </div>
-<p id="section-5.3-5"><span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> defines the raw octet string encoding of an HSS public key using the
+<p id="section-5.3-5"><span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> defines the encoding of an XMSS<sup>MT</sup> public key using the
 <code>xmssmt_public_key</code> structure. See <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> and <span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> for more information
-on the contents and format of an XMSS^MT public key.<a href="#section-5.3-5" class="pilcrow">¶</a></p>
+on the contents and format of an XMSS<sup>MT</sup> public key.<a href="#section-5.3-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1521,17 +1591,20 @@ on the contents and format of an XMSS^MT public key.<a href="#section-5.3-5" cla
       <h2 id="name-key-usage-bits">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-key-usage-bits" class="section-name selfRef">Key Usage Bits</a>
       </h2>
-<p id="section-6-1">The intended application for the key is indicated in the keyUsage certificate
-extension <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.
-When id-alg-hss-lms-hashsig, id-alg-xmss-hashsig or id-alg-xmssmt-hashsig appears in the SubjectPublicKeyInfo
-field of a CA X.509 certificate <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>, the
-certificate key usage extension <span class="bcp14">MUST</span> contain at least one of the
-following values: digitalSignature, nonRepudiation, keyCertSign, or
-cRLSign. However, it <span class="bcp14">MUST NOT</span> contain other values.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">When id-alg-hss-lms-hashsig, id-alg-xmss-hashsig or id-alg-xmssmt-hashsig appears in the SubjectPublicKeyInfo
-field of an end entity X.509 certificate <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>, the certificate key usage
-extension <span class="bcp14">MUST</span> contain at least one of the following values: digitalSignature,
-nonRepudiation or cRLSign. However, it <span class="bcp14">MUST NOT</span> contain other values.<a href="#section-6-2" class="pilcrow">¶</a></p>
+<p id="section-6-1">The intended application for the key is indicated in the keyUsage
+      certificate extension <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.  When
+      id-alg-hss-lms-hashsig, id-alg-xmss-hashsig, or id-alg-xmssmt-hashsig
+      appears in the SubjectPublicKeyInfo field of a CA X.509 certificate
+      <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>, the certificate key usage extension
+      <span class="bcp14">MUST</span> contain at least one of the following values:
+      digitalSignature, nonRepudiation, keyCertSign, or cRLSign. However, it
+      <span class="bcp14">MUST NOT</span> contain other values.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-2">When id-alg-hss-lms-hashsig, id-alg-xmss-hashsig, or
+      id-alg-xmssmt-hashsig appears in the SubjectPublicKeyInfo field of an
+      end entity X.509 certificate <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>, the certificate
+      key usage extension <span class="bcp14">MUST</span> contain at least one of the
+      following values: digitalSignature, nonRepudiation or cRLSign. However,
+      it <span class="bcp14">MUST NOT</span> contain other values.<a href="#section-6-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="signature-algorithms">
@@ -1539,39 +1612,33 @@ nonRepudiation or cRLSign. However, it <span class="bcp14">MUST NOT</span> conta
       <h2 id="name-signature-algorithms">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-signature-algorithms" class="section-name selfRef">Signature Algorithms</a>
       </h2>
-<p id="section-7-1">This section identifies OIDs for signing using HSS, XMSS, and XMSS^MT. When
-these algorithm identifiers appear in the algorithm field as an
-AlgorithmIdentifier, the encoding <span class="bcp14">MUST</span> omit the parameters field. That is, the
-AlgorithmIdentifier <span class="bcp14">SHALL</span> be a SEQUENCE of one component, one of the OIDs
-defined in the following subsections.<a href="#section-7-1" class="pilcrow">¶</a></p>
-<p id="section-7-2">When the signature algorithm identifiers described in this document are used to
-create a signature on a message, no digest algorithm is applied to the message
-before signing.  That is, the full data to be signed is signed rather than
-a digest of the data.<a href="#section-7-2" class="pilcrow">¶</a></p>
-<p id="section-7-3">The format of an HSS signature is described in <span><a href="https://rfc-editor.org/rfc/rfc8554#section-6.2" class="relref">Section 6.2</a> of [<a href="#RFC8554" class="cite xref">RFC8554</a>]</span>. The format
-of an XMSS signature is described in <span><a href="https://rfc-editor.org/rfc/rfc8391#appendix-B.2" class="relref">Appendix B.2</a> of [<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> and the format of
-an XMSS^MT signature is described in <span><a href="https://rfc-editor.org/rfc/rfc8391#appendix-C.2" class="relref">Appendix C.2</a> of [<a href="#RFC8391" class="cite xref">RFC8391</a>]</span>.
-The octet string representing the signature is encoded
-directly in a BIT STRING without adding any additional ASN.1 wrapping. For
-the Certificate and CertificateList structures, the octet string is encoded
-in the "signatureValue" BIT STRING field.<a href="#section-7-3" class="pilcrow">¶</a></p>
+<p id="section-7-1">The same OIDs used to identify HSS, XMSS, and XMSS<sup>MT</sup> public keys are
+      also used to identify their respective signatures.  When these algorithm
+      identifiers appear in the algorithm field of an AlgorithmIdentifier, the
+      encoding <span class="bcp14">MUST</span> omit the parameters field. That is, the
+      AlgorithmIdentifier <span class="bcp14">SHALL</span> be a SEQUENCE of one component,
+      one of the OIDs defined in the following subsections.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-2">When the signature algorithm identifiers described in this document
+      are used to create a signature on a message, no digest algorithm is
+      applied to the message before signing.  That is, the full data to be
+      signed is signed rather than a digest of the data.<a href="#section-7-2" class="pilcrow">¶</a></p>
+<p id="section-7-3">The format of an HSS signature is described in <span><a href="https://rfc-editor.org/rfc/rfc8554#section-6.2" class="relref">Section 6.2</a> of [<a href="#RFC8554" class="cite xref">RFC8554</a>]</span>. The format of an XMSS signature
+      is described in <span><a href="https://rfc-editor.org/rfc/rfc8391#appendix-B.2" class="relref">Appendix B.2</a> of [<a href="#RFC8391" class="cite xref">RFC8391</a>]</span>, and the format of an XMSS<sup>MT</sup> signature is described
+      in <span><a href="https://rfc-editor.org/rfc/rfc8391#appendix-C.2" class="relref">Appendix C.2</a> of [<a href="#RFC8391" class="cite xref">RFC8391</a>]</span>.  The octet
+      string representing the signature is encoded directly in a BIT STRING
+      without adding any additional ASN.1 wrapping. For the Certificate and
+      CertificateList structures, the octet string is encoded in the
+      "signatureValue" BIT STRING field.<a href="#section-7-3" class="pilcrow">¶</a></p>
 <div id="hss-signature-algorithm">
 <section id="section-7.1">
         <h3 id="name-hss-signature-algorithm">
 <a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-hss-signature-algorithm" class="section-name selfRef">HSS Signature Algorithm</a>
         </h3>
-<p id="section-7.1-1">The HSS public key OID is also used to specify that an HSS signature was
-generated on the full message, i.e. the message was not hashed before being
-processed by the HSS signature algorithm.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-7.1-2">
-<pre>
-   id-alg-hss-lms-hashsig OBJECT IDENTIFIER ::= {
-      iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
-      smime(16) alg(3) 17 }
-</pre><a href="#section-7.1-2" class="pilcrow">¶</a>
-</div>
-<p id="section-7.1-3">See <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> and <span>[<a href="#RFC8554" class="cite xref">RFC8554</a>]</span> for more information on the contents and
-format of an HSS signature.<a href="#section-7.1-3" class="pilcrow">¶</a></p>
+<p id="section-7.1-1">The id-alg-hss-lms-hashsig OID is used to specify that an HSS
+        signature was generated on the full message, i.e., the message was not
+        hashed before being processed by the HSS signature algorithm.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+<p id="section-7.1-2">See <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> and <span>[<a href="#RFC8554" class="cite xref">RFC8554</a>]</span> for more
+        information on the contents and format of an HSS signature.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="xmss-signature-algorithm">
@@ -1579,27 +1646,27 @@ format of an HSS signature.<a href="#section-7.1-3" class="pilcrow">¶</a></p>
         <h3 id="name-xmss-signature-algorithm">
 <a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-xmss-signature-algorithm" class="section-name selfRef">XMSS Signature Algorithm</a>
         </h3>
-<p id="section-7.2-1">The id-alg-xmss-hashsig public key OID is also used to specify that an XMSS signature was
-generated on the full message, i.e. the message was not hashed before being
-processed by the XMSS signature algorithm.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
-<p id="section-7.2-2">See <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> and <span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> for more information on the contents and
-format of an XMSS signature.<a href="#section-7.2-2" class="pilcrow">¶</a></p>
-<p id="section-7.2-3">The signature generation <span class="bcp14">MUST</span> be performed according to 7.2 of
-<span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span>.<a href="#section-7.2-3" class="pilcrow">¶</a></p>
+<p id="section-7.2-1">The id-alg-xmss-hashsig OID is used to specify that an XMSS
+        signature was generated on the full message, i.e., the message was not
+        hashed before being processed by the XMSS signature algorithm.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
+<p id="section-7.2-2">See <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> and <span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> for more
+        information on the contents and format of an XMSS signature.<a href="#section-7.2-2" class="pilcrow">¶</a></p>
+<p id="section-7.2-3">The signature generation <span class="bcp14">MUST</span> be performed according
+        to Section 7.2 of <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span>.<a href="#section-7.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="xmssmt-signature-algorithm">
 <section id="section-7.3">
-        <h3 id="name-xmssmt-signature-algorithm">
-<a href="#section-7.3" class="section-number selfRef">7.3. </a><a href="#name-xmssmt-signature-algorithm" class="section-name selfRef">XMSS^MT Signature Algorithm</a>
+        <h3 id="name-xmss-mt-signature-algorithm">
+<a href="#section-7.3" class="section-number selfRef">7.3. </a><a href="#name-xmss-mt-signature-algorithm" class="section-name selfRef">XMSS<sup>MT</sup> Signature Algorithm</a>
         </h3>
-<p id="section-7.3-1">The id-alg-xmssmt-hashsig public key OID is also used to specify that an XMSS^MT signature
-was generated on the full message, i.e. the message was not hashed before being
-processed by the XMSS^MT signature algorithm.<a href="#section-7.3-1" class="pilcrow">¶</a></p>
-<p id="section-7.3-2">See <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> and <span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> for more information on the contents and
-format of an XMSS^MT signature.<a href="#section-7.3-2" class="pilcrow">¶</a></p>
-<p id="section-7.3-3">The signature generation <span class="bcp14">MUST</span> be performed according to 7.2 of
-<span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span>.<a href="#section-7.3-3" class="pilcrow">¶</a></p>
+<p id="section-7.3-1">The id-alg-xmssmt-hashsig OID is used to specify that an XMSS<sup>MT</sup>
+        signature was generated on the full message, i.e., the message was not
+        hashed before being processed by the XMSS<sup>MT</sup> signature algorithm.<a href="#section-7.3-1" class="pilcrow">¶</a></p>
+<p id="section-7.3-2">See <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> and <span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> for more
+        information on the contents and format of an XMSS<sup>MT</sup> signature.<a href="#section-7.3-2" class="pilcrow">¶</a></p>
+<p id="section-7.3-3">The signature generation <span class="bcp14">MUST</span> be performed according
+        to Section 7.2 of <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span>.<a href="#section-7.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1609,8 +1676,8 @@ format of an XMSS^MT signature.<a href="#section-7.3-2" class="pilcrow">¶</a></
       <h2 id="name-key-generation">
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-key-generation" class="section-name selfRef">Key Generation</a>
       </h2>
-<p id="section-8-1">The key generation for XMSS and XMSS^MT <span class="bcp14">MUST</span> be performed according to 7.2 of
-<span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span><a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-8-1">The key generation for XMSS and XMSS<sup>MT</sup> <span class="bcp14">MUST</span> be
+      performed according to Section 7.2 of <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span>.<a href="#section-8-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-asn1">
@@ -1618,13 +1685,16 @@ format of an XMSS^MT signature.<a href="#section-7.3-2" class="pilcrow">¶</a></
       <h2 id="name-asn1-module">
 <a href="#section-9" class="section-number selfRef">9. </a><a href="#name-asn1-module" class="section-name selfRef">ASN.1 Module</a>
       </h2>
-<p id="section-9-1">For reference purposes, the ASN.1 syntax is presented as an ASN.1 module here.
-This ASN.1 Module builds upon the conventions established in <span>[<a href="#RFC5911" class="cite xref">RFC5911</a>]</span>.<a href="#section-9-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-9-2">
+<p id="section-9-1">For reference purposes, the ASN.1 syntax is presented as an ASN.1
+      module here <span>[<a href="#X680" class="cite xref">X680</a>]</span>.  Note that as per <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>, certificates use the Distinguished Encoding Rules;
+      see <span>[<a href="#X690" class="cite xref">X690</a>]</span>.  This ASN.1 module builds upon the
+      conventions established in <span>[<a href="#RFC5912" class="cite xref">RFC5912</a>]</span>. This module imports
+      objects from <span>[<a href="#RFC5912" class="cite xref">RFC5912</a>]</span> and <span>[<a href="#RFC9708" class="cite xref">RFC9708</a>]</span>.<a href="#section-9-1" class="pilcrow">¶</a></p>
+<div class="breakable lang-asn1 sourcecode" id="section-9-2">
 <pre>
 X509-SHBS-2024
   { iso(1) identified-organization(3) dod(6) internet(1) security(5)
-    mechanisms(5) pkix(7) id-mod(0) id-mod-pkix1-shbs-2024(TBD) }
+    mechanisms(5) pkix(7) id-mod(0) id-mod-pkix1-shbs-2024(114) }
 
 DEFINITIONS IMPLICIT TAGS ::= BEGIN
 
@@ -1632,13 +1702,13 @@ EXPORTS ALL;
 
 IMPORTS
   PUBLIC-KEY, SIGNATURE-ALGORITHM
-    FROM AlgorithmInformation-2009  -- RFC 5911 [CMSASN1]
+    FROM AlgorithmInformation-2009  -- [RFC5912]
       { iso(1) identified-organization(3) dod(6) internet(1)
         security(5) mechanisms(5) pkix(7) id-mod(0)
         id-mod-algorithmInformation-02(58) }
 
   sa-HSS-LMS-HashSig, pk-HSS-LMS-HashSig
-    FROM MTS-HashSig-2013
+    FROM MTS-HashSig-2013 -- [RFC9708]
       { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
         id-smime(16) id-mod(0) id-mod-mts-hashsig-2013(64) };
 
@@ -1646,7 +1716,7 @@ IMPORTS
 -- Object Identifiers
 --
 
--- id-alg-hss-lms-hashsig is defined in {{I-D.draft-ietf-lamps-rfc8708bis}}
+-- id-alg-hss-lms-hashsig is defined in [RFC9708]
 
 id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
    iso(1) identified-organization(3) dod(6) internet(1) security(5)
@@ -1660,7 +1730,7 @@ id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
 -- Signature Algorithms and Public Keys
 --
 
--- sa-HSS-LMS-HashSig is defined in {{I-D.draft-ietf-lamps-rfc8708bis}}
+-- sa-HSS-LMS-HashSig is defined in [RFC9708]
 
 sa-XMSS-HashSig SIGNATURE-ALGORITHM ::= {
    IDENTIFIER id-alg-xmss-hashsig
@@ -1674,7 +1744,7 @@ sa-XMSSMT-HashSig SIGNATURE-ALGORITHM ::= {
    PUBLIC-KEYS { pk-XMSSMT-HashSig }
    SMIME-CAPS { IDENTIFIED BY id-alg-xmssmt-hashsig } }
 
--- pk-HSS-LMS-HashSig is defined in {{I-D.draft-ietf-lamps-rfc8708bis}}
+-- pk-HSS-LMS-HashSig is defined in [RFC9708]
 
 pk-XMSS-HashSig PUBLIC-KEY ::= {
    IDENTIFIER id-alg-xmss-hashsig
@@ -1683,12 +1753,16 @@ pk-XMSS-HashSig PUBLIC-KEY ::= {
    CERT-KEY-USAGE
       { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
 
+XMSS-HashSig-PublicKey ::= OCTET STRING
+
 pk-XMSSMT-HashSig PUBLIC-KEY ::= {
    IDENTIFIER id-alg-xmssmt-hashsig
    -- KEY no ASN.1 wrapping --
    PARAMS ARE absent
    CERT-KEY-USAGE
       { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+
+XMSSMT-HashSig-PublicKey ::= OCTET STRING
 
 --
 -- Public Key (pk-) Algorithms
@@ -1723,56 +1797,67 @@ END
 <a href="#section-10" class="section-number selfRef">10. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
 <p id="section-10-1">The security requirements of <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> <span class="bcp14">MUST</span> be taken into account.<a href="#section-10-1" class="pilcrow">¶</a></p>
-<p id="section-10-2">As S-HBS private keys can only generate a limited number of signatures, a
-user needs to be aware of the total number of signatures they intend to
-generate in their use case, otherwise they risk exhausting the number of OTS
-keys in the private key associated with the S-HBS public key in their
-certificate.<a href="#section-10-2" class="pilcrow">¶</a></p>
-<p id="section-10-3">For S-HBS it is crucial to stress the importance of a correct state management.
-If an attacker were able to obtain signatures for two different messages
-created using the same OTS key, then it would become computationally feasible
-for that attacker to create forgeries <span>[<a href="#BH16" class="cite xref">BH16</a>]</span>. As noted in <span>[<a href="#MCGREW" class="cite xref">MCGREW</a>]</span> and
-<span>[<a href="#ETSI-TR-103-692" class="cite xref">ETSI-TR-103-692</a>]</span>, extreme care needs to be taken in order to avoid the risk
-that an OTS key will be reused accidentally.  This is a new requirement that
-most developers will not be familiar with and requires careful handling.<a href="#section-10-3" class="pilcrow">¶</a></p>
+<p id="section-10-2">As stateful HBS private keys can only generate a limited number of
+      signatures, a user needs to be aware of the total number of signatures
+      they intend to generate in their use case; otherwise, they risk
+      exhausting the number of OTS keys in their private key.<a href="#section-10-2" class="pilcrow">¶</a></p>
+<p id="section-10-3">For stateful HBS schemes, it is crucial to stress the importance of
+
+      correct state management.  If an attacker were able to obtain signatures
+      for two different messages created using the same OTS key, then it would
+      become computationally feasible for that attacker to create forgeries
+      <span>[<a href="#BH16" class="cite xref">BH16</a>]</span>. As noted in <span>[<a href="#MCGREW" class="cite xref">MCGREW</a>]</span> and <span>[<a href="#ETSI-TR-103-692" class="cite xref">ETSI-TR-103-692</a>]</span>, extreme care needs to be taken in order to
+      avoid the risk that an OTS key will be reused accidentally.  This is a
+      new requirement that most developers will not be familiar with and
+      requires careful handling.<a href="#section-10-3" class="pilcrow">¶</a></p>
 <p id="section-10-4">Various strategies for a correct state management can be applied:<a href="#section-10-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-10-5.1">
-          <p id="section-10-5.1.1">Implement a track record of all signatures generated by a key pair associated
-to a S-HBS instance. This track record may be stored outside the
-device which is used to generate the signature. Check the track record to
-prevent OTS key reuse before a new signature is released. Drop the new
-signature and hit your PANIC button if you spot OTS key reuse.<a href="#section-10-5.1.1" class="pilcrow">¶</a></p>
+          <p id="section-10-5.1.1">Implement a record of all signatures generated by a key pair
+          associated with a stateful HBS instance, for example, by logging the
+          OTS key indexes as signatures are generated. This record may be
+          stored outside the device that is used to generate the
+          signature. Check the record to prevent OTS key reuse before a new
+          signature is released. If OTS key reuse is detected, freeze all new
+          signature generation by the private key, re-audit previously
+          released signatures (possibly revoking the private key if previously
+          released signatures showed OTS key reuse), and perform a
+          post-failure audit.<a href="#section-10-5.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-10-5.2">
-          <p id="section-10-5.2.1">Use a S-HBS instance only for a moderate number of signatures such
-that it is always practical to keep a consistent track record and be able to
-unambiguously trace back all generated signatures.<a href="#section-10-5.2.1" class="pilcrow">¶</a></p>
+          <p id="section-10-5.2.1">Use a stateful HBS instance only for a moderate number of
+          signatures such that it is always practical to keep a consistent
+          record and be able to unambiguously trace back all generated
+          signatures.<a href="#section-10-5.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-10-5.3">
-          <p id="section-10-5.3.1">Apply the state reservation strategy described in Section 5 of <span>[<a href="#MCGREW" class="cite xref">MCGREW</a>]</span>, where
-upcoming states are reserved in advance by the signer. In this way the number of
-state synchronisations between nonvolatile and volatile memory is reduced.<a href="#section-10-5.3.1" class="pilcrow">¶</a></p>
+          <p id="section-10-5.3.1">Apply the state reservation strategy described in Section 5 of
+          <span>[<a href="#MCGREW" class="cite xref">MCGREW</a>]</span>, where upcoming states are reserved in
+          advance by the signer. In this way, the number of state
+          synchronizations between nonvolatile and volatile memory is
+          reduced.<a href="#section-10-5.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
 </div>
-<div id="backup-and-restore-management">
+<div id="backup-restore">
 <section id="section-11">
       <h2 id="name-backup-and-restore-manageme">
 <a href="#section-11" class="section-number selfRef">11. </a><a href="#name-backup-and-restore-manageme" class="section-name selfRef">Backup and Restore Management</a>
       </h2>
-<p id="section-11-1">Certificate Authorities have high demands in order to ensure the availability
-of signature generation throughout the validity period of signing key pairs.<a href="#section-11-1" class="pilcrow">¶</a></p>
-<p id="section-11-2">Usual backup and restore strategies when using a stateless signature scheme
-(e.g. SLH-DSA) are to duplicate private keying material and to operate
-redundant signing devices or to store and safeguard a copy of the private
-keying material such that it can be used to set up a new signing device in case
-of technical difficulties.<a href="#section-11-2" class="pilcrow">¶</a></p>
-<p id="section-11-3">For S-HBS such straightforward backup and restore strategies will lead to OTS
-reuse with high probability as a correct state management is not guaranteed.
-Strategies for maintaining availability and keeping a correct state are
-described in Section 7 of <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span>.<a href="#section-11-3" class="pilcrow">¶</a></p>
+<p id="section-11-1">Certificate Authorities have high demands in order to ensure the
+      availability of signature generation throughout the validity period of
+      signing key pairs.<a href="#section-11-1" class="pilcrow">¶</a></p>
+<p id="section-11-2">Usual backup and restore strategies when using a stateless signature
+      scheme (e.g., SLH-DSA) are to duplicate private keying material and to
+      operate redundant signing devices or to store and safeguard a copy of
+      the private keying material such that it can be used to set up a new
+      signing device in case of technical difficulties.<a href="#section-11-2" class="pilcrow">¶</a></p>
+<p id="section-11-3">For stateful HBS schemes, such straightforward backup and restore
+      strategies will lead to OTS reuse with high probability as a correct
+      state management is not guaranteed.  Strategies for maintaining
+      availability and keeping a correct state are described in Section 7 of
+      <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span> and <span>[<a href="#I-D.wiggers-hbs-state" class="cite xref">S-HBS</a>]</span>.<a href="#section-11-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
@@ -1780,9 +1865,8 @@ described in Section 7 of <span>[<a href="#SP800208" class="cite xref">SP800208<
       <h2 id="name-iana-considerations">
 <a href="#section-12" class="section-number selfRef">12. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-12-1">One object identifier for the ASN.1 module in Appendix A is requested
-for the SMI Security for PKIX Module Identifiers (1.3.6.1.5.5.7.0)
-registry:<a href="#section-12-1" class="pilcrow">¶</a></p>
+<p id="section-12-1">IANA has registered the following object identifier for the ASN.1 module (see <a href="#sec-asn1" class="auto internal xref">Section 9</a>) in the "SMI Security for PKIX Module
+      Identifier" (1.3.6.1.5.5.7.0) registry:<a href="#section-12-1" class="pilcrow">¶</a></p>
 <table class="center" id="table-1">
         <caption><a href="#table-1" class="selfRef">Table 1</a></caption>
 <thead>
@@ -1794,14 +1878,14 @@ registry:<a href="#section-12-1" class="pilcrow">¶</a></p>
         </thead>
         <tbody>
           <tr>
-            <td class="text-left" rowspan="1" colspan="1">TBD</td>
+            <td class="text-left" rowspan="1" colspan="1">114</td>
             <td class="text-left" rowspan="1" colspan="1">id-mod-pkix1-shbs-2024</td>
-            <td class="text-left" rowspan="1" colspan="1">[EDNOTE: THIS RFC]</td>
+            <td class="text-left" rowspan="1" colspan="1">RFC 9802</td>
           </tr>
         </tbody>
       </table>
-<p id="section-12-3">IANA has updated the "SMI Security for PKIX Algorithms" (1.3.6.1.5.5.7.6)
-registry <span>[<a href="#SMI-PKIX" class="cite xref">SMI-PKIX</a>]</span> with two additional entries:<a href="#section-12-3" class="pilcrow">¶</a></p>
+<p id="section-12-3">IANA has registered the following entries in the "SMI Security for PKIX Algorithms"
+      (1.3.6.1.5.5.7.6) registry <span>[<a href="#SMI-PKIX" class="cite xref">SMI-PKIX</a>]</span>:<a href="#section-12-3" class="pilcrow">¶</a></p>
 <table class="center" id="table-2">
         <caption><a href="#table-2" class="selfRef">Table 2</a></caption>
 <thead>
@@ -1815,12 +1899,12 @@ registry <span>[<a href="#SMI-PKIX" class="cite xref">SMI-PKIX</a>]</span> with 
           <tr>
             <td class="text-left" rowspan="1" colspan="1">34</td>
             <td class="text-left" rowspan="1" colspan="1">id-alg-xmss-hashsig</td>
-            <td class="text-left" rowspan="1" colspan="1">[EDNOTE: THIS RFC]</td>
+            <td class="text-left" rowspan="1" colspan="1">RFC 9802</td>
           </tr>
           <tr>
             <td class="text-left" rowspan="1" colspan="1">35</td>
             <td class="text-left" rowspan="1" colspan="1">id-alg-xmssmt-hashsig</td>
-            <td class="text-left" rowspan="1" colspan="1">[EDNOTE: THIS RFC]</td>
+            <td class="text-left" rowspan="1" colspan="1">RFC 9802</td>
           </tr>
         </tbody>
       </table>
@@ -1837,37 +1921,45 @@ registry <span>[<a href="#SMI-PKIX" class="cite xref">SMI-PKIX</a>]</span> with 
 <a href="#section-13.1" class="section-number selfRef">13.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
-<dt id="I-D.draft-ietf-lamps-rfc8708bis">[I-D.draft-ietf-lamps-rfc8708bis]</dt>
-        <dd>
-<span class="refAuthor">Housley, R.</span>, <span class="refTitle">"Use of the HSS/LMS Hash-Based Signature Algorithm in the Cryptographic Message Syntax (CMS)"</span>, <span class="seriesInfo">RFC 8708</span>, <span class="seriesInfo">DOI 10.17487/RFC8708</span>, <time datetime="2020-02" class="refDate">February 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8708">https://www.rfc-editor.org/rfc/rfc8708</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
-<span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
+<span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC5280">[RFC5280]</dt>
         <dd>
-<span class="refAuthor">Cooper, D.</span>, <span class="refAuthor">Santesson, S.</span>, <span class="refAuthor">Farrell, S.</span>, <span class="refAuthor">Boeyen, S.</span>, <span class="refAuthor">Housley, R.</span>, and <span class="refAuthor">W. Polk</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile"</span>, <span class="seriesInfo">RFC 5280</span>, <span class="seriesInfo">DOI 10.17487/RFC5280</span>, <time datetime="2008-05" class="refDate">May 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5280">https://www.rfc-editor.org/rfc/rfc5280</a>&gt;</span>. </dd>
+<span class="refAuthor">Cooper, D.</span>, <span class="refAuthor">Santesson, S.</span>, <span class="refAuthor">Farrell, S.</span>, <span class="refAuthor">Boeyen, S.</span>, <span class="refAuthor">Housley, R.</span>, and <span class="refAuthor">W. Polk</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile"</span>, <span class="seriesInfo">RFC 5280</span>, <span class="seriesInfo">DOI 10.17487/RFC5280</span>, <time datetime="2008-05" class="refDate">May 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5280">https://www.rfc-editor.org/info/rfc5280</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC5911">[RFC5911]</dt>
+<dt id="RFC5912">[RFC5912]</dt>
         <dd>
-<span class="refAuthor">Hoffman, P.</span> and <span class="refAuthor">J. Schaad</span>, <span class="refTitle">"New ASN.1 Modules for Cryptographic Message Syntax (CMS) and S/MIME"</span>, <span class="seriesInfo">RFC 5911</span>, <span class="seriesInfo">DOI 10.17487/RFC5911</span>, <time datetime="2010-06" class="refDate">June 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5911">https://www.rfc-editor.org/rfc/rfc5911</a>&gt;</span>. </dd>
+<span class="refAuthor">Hoffman, P.</span> and <span class="refAuthor">J. Schaad</span>, <span class="refTitle">"New ASN.1 Modules for the Public Key Infrastructure Using X.509 (PKIX)"</span>, <span class="seriesInfo">RFC 5912</span>, <span class="seriesInfo">DOI 10.17487/RFC5912</span>, <time datetime="2010-06" class="refDate">June 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5912">https://www.rfc-editor.org/info/rfc5912</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
         <dd>
-<span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
+<span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8391">[RFC8391]</dt>
         <dd>
-<span class="refAuthor">Huelsing, A.</span>, <span class="refAuthor">Butin, D.</span>, <span class="refAuthor">Gazdag, S.</span>, <span class="refAuthor">Rijneveld, J.</span>, and <span class="refAuthor">A. Mohaisen</span>, <span class="refTitle">"XMSS: eXtended Merkle Signature Scheme"</span>, <span class="seriesInfo">RFC 8391</span>, <span class="seriesInfo">DOI 10.17487/RFC8391</span>, <time datetime="2018-05" class="refDate">May 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8391">https://www.rfc-editor.org/rfc/rfc8391</a>&gt;</span>. </dd>
+<span class="refAuthor">Huelsing, A.</span>, <span class="refAuthor">Butin, D.</span>, <span class="refAuthor">Gazdag, S.</span>, <span class="refAuthor">Rijneveld, J.</span>, and <span class="refAuthor">A. Mohaisen</span>, <span class="refTitle">"XMSS: eXtended Merkle Signature Scheme"</span>, <span class="seriesInfo">RFC 8391</span>, <span class="seriesInfo">DOI 10.17487/RFC8391</span>, <time datetime="2018-05" class="refDate">May 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8391">https://www.rfc-editor.org/info/rfc8391</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8554">[RFC8554]</dt>
         <dd>
-<span class="refAuthor">McGrew, D.</span>, <span class="refAuthor">Curcio, M.</span>, and <span class="refAuthor">S. Fluhrer</span>, <span class="refTitle">"Leighton-Micali Hash-Based Signatures"</span>, <span class="seriesInfo">RFC 8554</span>, <span class="seriesInfo">DOI 10.17487/RFC8554</span>, <time datetime="2019-04" class="refDate">April 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8554">https://www.rfc-editor.org/rfc/rfc8554</a>&gt;</span>. </dd>
+<span class="refAuthor">McGrew, D.</span>, <span class="refAuthor">Curcio, M.</span>, and <span class="refAuthor">S. Fluhrer</span>, <span class="refTitle">"Leighton-Micali Hash-Based Signatures"</span>, <span class="seriesInfo">RFC 8554</span>, <span class="seriesInfo">DOI 10.17487/RFC8554</span>, <time datetime="2019-04" class="refDate">April 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8554">https://www.rfc-editor.org/info/rfc8554</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9708">[RFC9708]</dt>
+        <dd>
+<span class="refAuthor">Housley, R.</span>, <span class="refTitle">"Use of the HSS/LMS Hash-Based Signature Algorithm in the Cryptographic Message Syntax (CMS)"</span>, <span class="seriesInfo">RFC 9708</span>, <span class="seriesInfo">DOI 10.17487/RFC9708</span>, <time datetime="2025-01" class="refDate">January 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9708">https://www.rfc-editor.org/info/rfc9708</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="SP800208">[SP800208]</dt>
+        <dd>
+<span class="refAuthor">Cooper, D.</span>, <span class="refAuthor">Apon, D.</span>, <span class="refAuthor">Dang, Q.</span>, <span class="refAuthor">Davidson, M.</span>, <span class="refAuthor">Dworkin, M.</span>, and <span class="refAuthor">C. Miller</span>, <span class="refTitle">"Recommendation for Stateful Hash-Based Signature Schemes"</span>, <span class="seriesInfo">NIST SP 800-208</span>, <span class="seriesInfo">DOI 10.6028/nist.sp.800-208</span>, <time datetime="2020-10-29" class="refDate">29 October 2020</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-208">https://doi.org/10.6028/NIST.SP.800-208</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="X680">[X680]</dt>
+        <dd>
+<span class="refAuthor">ITU-T</span>, <span class="refTitle">"Information technology - Abstract Syntax Notation One (ASN.1): Specification of basic notation"</span>, <span class="seriesInfo">ITU-T Recommendation X.680</span>, <span class="seriesInfo">ISO/IEC 8824-1:2021</span>, <time datetime="2021-02" class="refDate">February 2021</time>, <span>&lt;<a href="https://www.itu.int/rec/T-REC-X.680">https://www.itu.int/rec/T-REC-X.680</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="X690">[X690]</dt>
       <dd>
-<span class="refAuthor">National Institute of Standards and Technology (NIST)</span>, <span class="refTitle">"Recommendation for Stateful Hash-Based Signature Schemes"</span>, <time datetime="2020-10-29" class="refDate">29 October 2020</time>, <span>&lt;<a href="https://doi.org/10.6028/NIST.SP.800-208">https://doi.org/10.6028/NIST.SP.800-208</a>&gt;</span>. </dd>
+<span class="refAuthor">ITU-T</span>, <span class="refTitle">"Information technology: ASN.1 encoding rules: Specification of Basic Encoding Rules (BER), Canonical Encoding Rules (CER) and Distinguished Encoding Rules (DER)"</span>, <span class="seriesInfo">ITU-T Recommendation X.690</span>, <span class="seriesInfo">ISO/IEC 8825-1:2021</span>, <time datetime="2021-02" class="refDate">February 2021</time>, <span>&lt;<a href="https://www.itu.int/rec/T-REC-X.690">https://www.itu.int/rec/T-REC-X.690</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -1884,7 +1976,7 @@ registry <span>[<a href="#SMI-PKIX" class="cite xref">SMI-PKIX</a>]</span> with 
 <dd class="break"></dd>
 <dt id="BH16">[BH16]</dt>
         <dd>
-<span class="refAuthor">Bruinderink, L.</span> and <span class="refAuthor">S. Hülsing</span>, <span class="refTitle">"Oops, I did it again – Security of One-Time Signatures under Two-Message Attacks."</span>, <time datetime="2016" class="refDate">2016</time>, <span>&lt;<a href="https://eprint.iacr.org/2016/1042.pdf">https://eprint.iacr.org/2016/1042.pdf</a>&gt;</span>. </dd>
+<span class="refAuthor">Bruinderink, L.</span> and <span class="refAuthor">S. Hülsing</span>, <span class="refTitle">"Oops, I did it again – Security of One-Time Signatures under Two-Message Attacks."</span>, <span class="refContent">Cryptology ePrint Archive, Paper 2016/1042</span>, <time datetime="2016" class="refDate">2016</time>, <span>&lt;<a href="https://eprint.iacr.org/2016/1042">https://eprint.iacr.org/2016/1042</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="BSI">[BSI]</dt>
         <dd>
@@ -1892,47 +1984,51 @@ registry <span>[<a href="#SMI-PKIX" class="cite xref">SMI-PKIX</a>]</span> with 
 <dd class="break"></dd>
 <dt id="CNSA2.0">[CNSA2.0]</dt>
         <dd>
-<span class="refAuthor">National Security Agency (NSA)</span>, <span class="refTitle">"Commercial National Security Algorithm Suite 2.0 (CNSA 2.0) Cybersecurity Advisory (CSA)"</span>, <time datetime="2022-09-07" class="refDate">7 September 2022</time>, <span>&lt;<a href="https://media.defense.gov/2022/Sep/07/2003071834/-1/-1/0/CSA_CNSA_2.0_ALGORITHMS_.PDF">https://media.defense.gov/2022/Sep/07/2003071834/-1/-1/0/CSA_CNSA_2.0_ALGORITHMS_.PDF</a>&gt;</span>. </dd>
+<span class="refAuthor">National Security Agency (NSA)</span>, <span class="refTitle">"The Commercial National Security Algorithm Suite 2.0 and Quantum Computing FAQ"</span>, <time datetime="2022-09-07" class="refDate">7 September 2022</time>, <span>&lt;<a href="https://media.defense.gov/2022/Sep/07/2003071836/-1/-1/0/CSI_CNSA_2.0_FAQ_.PDF">https://media.defense.gov/2022/Sep/07/2003071836/-1/-1/0/CSI_CNSA_2.0_FAQ_.PDF</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="ETSI-TR-103-692">[ETSI-TR-103-692]</dt>
         <dd>
-<span class="refAuthor">European Telecommunications Standards Institute (ETSI)</span>, <span class="refTitle">"State management for stateful authentication mechanisms"</span>, <time datetime="2021-11" class="refDate">November 2021</time>, <span>&lt;<a href="https://www.etsi.org/deliver/etsi_tr/103600_103699/103692/01.01.01_60/tr_103692v010101p.pdf">https://www.etsi.org/deliver/etsi_tr/103600_103699/103692/01.01.01_60/tr_103692v010101p.pdf</a>&gt;</span>. </dd>
+<span class="refAuthor">European Telecommunications Standards Institute (ETSI)</span>, <span class="refTitle">"CYBER; State management for stateful authentication mechanisms"</span>, <span class="seriesInfo">ETSI TR 103 692 v1.1.1</span>, <time datetime="2021-11" class="refDate">November 2021</time>, <span>&lt;<a href="https://www.etsi.org/deliver/etsi_tr/103600_103699/103692/01.01.01_60/tr_103692v010101p.pdf">https://www.etsi.org/deliver/etsi_tr/103600_103699/103692/01.01.01_60/tr_103692v010101p.pdf</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IANA-LMS">[IANA-LMS]</dt>
         <dd>
-<span class="refAuthor">IANA</span>, <span class="refTitle">"Leighton-Micali Signatures (LMS)"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iana.org/assignments/leighton-micali-signatures/">https://www.iana.org/assignments/leighton-micali-signatures/</a>&gt;</span>. </dd>
+<span class="refAuthor">IANA</span>, <span class="refTitle">"Leighton-Micali Signatures (LMS)"</span>, <span>&lt;<a href="https://www.iana.org/assignments/leighton-micali-signatures/">https://www.iana.org/assignments/leighton-micali-signatures/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IANA-XMSS">[IANA-XMSS]</dt>
         <dd>
-<span class="refAuthor">IANA</span>, <span class="refTitle">"XMSS: Extended Hash-Based Signatures"</span>, <span>n.d.</span>, <span>&lt;<a href="https://iana.org/assignments/xmss-extended-hash-based-signatures/">https://iana.org/assignments/xmss-extended-hash-based-signatures/</a>&gt;</span>. </dd>
+<span class="refAuthor">IANA</span>, <span class="refTitle">"XMSS: Extended Hash-Based Signatures"</span>, <span>&lt;<a href="https://iana.org/assignments/xmss-extended-hash-based-signatures/">https://iana.org/assignments/xmss-extended-hash-based-signatures/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="MCGREW">[MCGREW]</dt>
         <dd>
-<span class="refAuthor">McGrew, D.</span>, <span class="refAuthor">Kampanakis, P.</span>, <span class="refAuthor">Fluhrer, S.</span>, <span class="refAuthor">Gazdag, S.</span>, <span class="refAuthor">Butin, D.</span>, and <span class="refAuthor">J. Buchmann</span>, <span class="refTitle">"State Management for Hash-Based Signatures"</span>, <time datetime="2016-11-02" class="refDate">2 November 2016</time>, <span>&lt;<a href="https://tubiblio.ulb.tu-darmstadt.de/id/eprint/101633">https://tubiblio.ulb.tu-darmstadt.de/id/eprint/101633</a>&gt;</span>. </dd>
+<span class="refAuthor">McGrew, D.</span>, <span class="refAuthor">Kampanakis, P.</span>, <span class="refAuthor">Fluhrer, S.</span>, <span class="refAuthor">Gazdag, S.</span>, <span class="refAuthor">Butin, D.</span>, and <span class="refAuthor">J. Buchmann</span>, <span class="refTitle">"State Management for Hash-Based Signatures"</span>, <span class="refContent">Cryptology ePrint Archive, Paper 2016/357</span>, <time datetime="2016-11-02" class="refDate">2 November 2016</time>, <span>&lt;<a href="https://eprint.iacr.org/2016/357">https://eprint.iacr.org/2016/357</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC3279">[RFC3279]</dt>
         <dd>
-<span class="refAuthor">Bassham, L.</span>, <span class="refAuthor">Polk, W.</span>, and <span class="refAuthor">R. Housley</span>, <span class="refTitle">"Algorithms and Identifiers for the Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile"</span>, <span class="seriesInfo">RFC 3279</span>, <span class="seriesInfo">DOI 10.17487/RFC3279</span>, <time datetime="2002-04" class="refDate">April 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3279">https://www.rfc-editor.org/rfc/rfc3279</a>&gt;</span>. </dd>
+<span class="refAuthor">Bassham, L.</span>, <span class="refAuthor">Polk, W.</span>, and <span class="refAuthor">R. Housley</span>, <span class="refTitle">"Algorithms and Identifiers for the Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile"</span>, <span class="seriesInfo">RFC 3279</span>, <span class="seriesInfo">DOI 10.17487/RFC3279</span>, <time datetime="2002-04" class="refDate">April 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc3279">https://www.rfc-editor.org/info/rfc3279</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC3647">[RFC3647]</dt>
         <dd>
-<span class="refAuthor">Chokhani, S.</span>, <span class="refAuthor">Ford, W.</span>, <span class="refAuthor">Sabett, R.</span>, <span class="refAuthor">Merrill, C.</span>, and <span class="refAuthor">S. Wu</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure Certificate Policy and Certification Practices Framework"</span>, <span class="seriesInfo">RFC 3647</span>, <span class="seriesInfo">DOI 10.17487/RFC3647</span>, <time datetime="2003-11" class="refDate">November 2003</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3647">https://www.rfc-editor.org/rfc/rfc3647</a>&gt;</span>. </dd>
+<span class="refAuthor">Chokhani, S.</span>, <span class="refAuthor">Ford, W.</span>, <span class="refAuthor">Sabett, R.</span>, <span class="refAuthor">Merrill, C.</span>, and <span class="refAuthor">S. Wu</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure Certificate Policy and Certification Practices Framework"</span>, <span class="seriesInfo">RFC 3647</span>, <span class="seriesInfo">DOI 10.17487/RFC3647</span>, <time datetime="2003-11" class="refDate">November 2003</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc3647">https://www.rfc-editor.org/info/rfc3647</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC4949">[RFC4949]</dt>
         <dd>
-<span class="refAuthor">Shirey, R.</span>, <span class="refTitle">"Internet Security Glossary, Version 2"</span>, <span class="seriesInfo">FYI 36</span>, <span class="seriesInfo">RFC 4949</span>, <span class="seriesInfo">DOI 10.17487/RFC4949</span>, <time datetime="2007-08" class="refDate">August 2007</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4949">https://www.rfc-editor.org/rfc/rfc4949</a>&gt;</span>. </dd>
+<span class="refAuthor">Shirey, R.</span>, <span class="refTitle">"Internet Security Glossary, Version 2"</span>, <span class="seriesInfo">FYI 36</span>, <span class="seriesInfo">RFC 4949</span>, <span class="seriesInfo">DOI 10.17487/RFC4949</span>, <time datetime="2007-08" class="refDate">August 2007</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4949">https://www.rfc-editor.org/info/rfc4949</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8410">[RFC8410]</dt>
         <dd>
-<span class="refAuthor">Josefsson, S.</span> and <span class="refAuthor">J. Schaad</span>, <span class="refTitle">"Algorithm Identifiers for Ed25519, Ed448, X25519, and X448 for Use in the Internet X.509 Public Key Infrastructure"</span>, <span class="seriesInfo">RFC 8410</span>, <span class="seriesInfo">DOI 10.17487/RFC8410</span>, <time datetime="2018-08" class="refDate">August 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8410">https://www.rfc-editor.org/rfc/rfc8410</a>&gt;</span>. </dd>
+<span class="refAuthor">Josefsson, S.</span> and <span class="refAuthor">J. Schaad</span>, <span class="refTitle">"Algorithm Identifiers for Ed25519, Ed448, X25519, and X448 for Use in the Internet X.509 Public Key Infrastructure"</span>, <span class="seriesInfo">RFC 8410</span>, <span class="seriesInfo">DOI 10.17487/RFC8410</span>, <time datetime="2018-08" class="refDate">August 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8410">https://www.rfc-editor.org/info/rfc8410</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8411">[RFC8411]</dt>
         <dd>
-<span class="refAuthor">Schaad, J.</span> and <span class="refAuthor">R. Andrews</span>, <span class="refTitle">"IANA Registration for the Cryptographic Algorithm Object Identifier Range"</span>, <span class="seriesInfo">RFC 8411</span>, <span class="seriesInfo">DOI 10.17487/RFC8411</span>, <time datetime="2018-08" class="refDate">August 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8411">https://www.rfc-editor.org/rfc/rfc8411</a>&gt;</span>. </dd>
+<span class="refAuthor">Schaad, J.</span> and <span class="refAuthor">R. Andrews</span>, <span class="refTitle">"IANA Registration for the Cryptographic Algorithm Object Identifier Range"</span>, <span class="seriesInfo">RFC 8411</span>, <span class="seriesInfo">DOI 10.17487/RFC8411</span>, <time datetime="2018-08" class="refDate">August 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8411">https://www.rfc-editor.org/info/rfc8411</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.wiggers-hbs-state">[S-HBS]</dt>
+        <dd>
+<span class="refAuthor">Wiggers, T.</span>, <span class="refAuthor">Bashiri, K.</span>, <span class="refAuthor">Kölbl, S.</span>, <span class="refAuthor">Goodman, J.</span>, and <span class="refAuthor">S. Kousidis</span>, <span class="refTitle">"Hash-based Signatures: State and Backup Management"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-wiggers-hbs-state-02</span>, <time datetime="2025-04-01" class="refDate">1 April 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-wiggers-hbs-state-02">https://datatracker.ietf.org/doc/html/draft-wiggers-hbs-state-02</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="SMI-PKIX">[SMI-PKIX]</dt>
       <dd>
-<span class="refAuthor">IANA</span>, <span class="refTitle">"SMI Security for PKIX Algorithms"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iana.org/assignments/smi-numbers/smi-numbers.xhtml#smi-numbers-1.3.6.1.5.5.7.6">https://www.iana.org/assignments/smi-numbers/smi-numbers.xhtml#smi-numbers-1.3.6.1.5.5.7.6</a>&gt;</span>. </dd>
+<span class="refAuthor">IANA</span>, <span class="refTitle">"SMI Security for PKIX Algorithms"</span>, <span>&lt;<a href="https://www.iana.org/assignments/smi-numbers">https://www.iana.org/assignments/smi-numbers</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -1945,7 +2041,7 @@ registry <span>[<a href="#SMI-PKIX" class="cite xref">SMI-PKIX</a>]</span> with 
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-hss-x509-v3-certificate-exa" class="section-name selfRef">HSS X.509 v3 Certificate Example</a>
       </h2>
 <p id="appendix-A-1">This section shows a self-signed X.509 v3 certificate using HSS.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A-2">
+<div class="breakable lang-x509 sourcecode" id="appendix-A-2">
 <pre>
 Certificate:
     Data:
@@ -2053,7 +2149,7 @@ Certificate:
         34:67:1a:a7:6a:7d:54:a3:d8:9b:1f:5b:f8:08:41:79:5b:43
 </pre><a href="#appendix-A-2" class="pilcrow">¶</a>
 </div>
-<div class="alignLeft art-text artwork" id="appendix-A-3">
+<div class="lang-x509 sourcecode" id="appendix-A-3">
 <pre>
 -----BEGIN CERTIFICATE-----
 MIIGnjCCAXagAwIBAgIJAOiR1gaRT87zMA0GCyqGSIb3DQEJEAMRMD8xCzAJBgNV
@@ -2103,7 +2199,7 @@ NGcap2p9VKPYmx9b+AhBeVtD
 <a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-xmss-x509-v3-certificate-ex" class="section-name selfRef">XMSS X.509 v3 Certificate Example</a>
       </h2>
 <p id="appendix-B-1">This section shows a self-signed X.509 v3 certificate using XMSS.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B-2">
+<div class="breakable lang-x509 sourcecode" id="appendix-B-2">
 <pre>
 Certificate:
     Data:
@@ -2280,7 +2376,7 @@ Certificate:
         83:61:05:81:99:0c:25:29:d6:5f:22:bc:06:67:7d:67
 </pre><a href="#appendix-B-2" class="pilcrow">¶</a>
 </div>
-<div class="alignLeft art-text artwork" id="appendix-B-3">
+<div class="breakable lang-x509 sourcecode" id="appendix-B-3">
 <pre>
 -----BEGIN CERTIFICATE-----
 MIILSDCCAW+gAwIBAgIUVH5kcCmeA8V6pVx40SeHjFQ1F10wCgYIKwYBBQUHBiIw
@@ -2351,11 +2447,11 @@ mQwlKdZfIrwGZ31n
 </div>
 <div id="xmssmt-x509-v3-certificate-example">
 <section id="appendix-C">
-      <h2 id="name-xmssmt-x509-v3-certificate-">
-<a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-xmssmt-x509-v3-certificate-" class="section-name selfRef">XMSS^MT X.509 v3 Certificate Example</a>
+      <h2 id="name-xmss-mt-x509-v3-certificate">
+<a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-xmss-mt-x509-v3-certificate" class="section-name selfRef">XMSS<sup>MT</sup> X.509 v3 Certificate Example</a>
       </h2>
-<p id="appendix-C-1">This section shows a self-signed X.509 v3 certificate using XMSS^MT.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-C-2">
+<p id="appendix-C-1">This section shows a self-signed X.509 v3 certificate using XMSS<sup>MT</sup>.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+<div class="breakable lang-x509 sourcecode" id="appendix-C-2">
 <pre>
 Certificate:
     Data:
@@ -2669,7 +2765,7 @@ Certificate:
         90:1a:5a:16:8e:07:0d:24:d1:ee:03:98:9f
 </pre><a href="#appendix-C-2" class="pilcrow">¶</a>
 </div>
-<div class="alignLeft art-text artwork" id="appendix-C-3">
+<div class="breakable lang-x509 sourcecode" id="appendix-C-3">
 <pre>
 -----BEGIN CERTIFICATE-----
 MIIU6zCCAXOgAwIBAgIUXCKtigZRnmcCai1DPovHI0N3gMgwCgYIKwYBBQUHBiMw
@@ -2794,11 +2890,11 @@ ZgzrAnag1Fbm6L6h8Mcjs0+GkBpaFo4HDSTR7gOYnw==
       <h2 id="name-acknowledgments">
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="appendix-D-1">Thanks for Russ Housley, Panos Kampanakis, Michael StJohns and Corey Bonnell for helpful suggestions and reviews.<a href="#appendix-D-1" class="pilcrow">¶</a></p>
-<p id="appendix-D-2">This document uses a lot of text from similar documents <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span>,
-(<span>[<a href="#RFC3279" class="cite xref">RFC3279</a>]</span> and <span>[<a href="#RFC8410" class="cite xref">RFC8410</a>]</span>) as well as <span>[<a href="#I-D.draft-ietf-lamps-rfc8708bis" class="cite xref">I-D.draft-ietf-lamps-rfc8708bis</a>]</span>. Thanks go to the authors of
-those documents. "Copying always makes things easier and less error prone" -
-<span>[<a href="#RFC8411" class="cite xref">RFC8411</a>]</span>.<a href="#appendix-D-2" class="pilcrow">¶</a></p>
+<p id="appendix-D-1">Thanks to <span class="contact-name">Russ Housley</span>, <span class="contact-name">Panos Kampanakis</span>, <span class="contact-name">Michael StJohns</span>, and
+      <span class="contact-name">Corey Bonnell</span> for their helpful suggestions and
+      reviews.<a href="#appendix-D-1" class="pilcrow">¶</a></p>
+<p id="appendix-D-2">This document uses a lot of text from similar documents <span>[<a href="#SP800208" class="cite xref">SP800208</a>]</span>, (<span>[<a href="#RFC3279" class="cite xref">RFC3279</a>]</span> and <span>[<a href="#RFC8410" class="cite xref">RFC8410</a>]</span>) as well as <span>[<a href="#RFC9708" class="cite xref">RFC9708</a>]</span>. Thanks goes to the authors of those
+      documents. "Copying always makes things easier and less error prone" <span>[<a href="#RFC8411" class="cite xref">RFC8411</a>]</span>.<a href="#appendix-D-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
@@ -2831,7 +2927,7 @@ those documents. "Copying always makes things easier and less error prone" -
 </div>
 </address>
 <address class="vcard">
-        <div dir="auto" class="left"><span class="fn nameRole">Stefan Gazdag</span></div>
+        <div dir="auto" class="left"><span class="fn nameRole">Stefan-Lukas Gazdag</span></div>
 <div dir="auto" class="left"><span class="org">genua GmbH</span></div>
 <div class="email">
 <span>Email:</span>

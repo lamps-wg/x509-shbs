@@ -2,78 +2,60 @@
 
 
 
-LAMPS - Limited Additional Mechanisms for PKIX and SMIME    D. Van Geest
-Internet-Draft                                       CryptoNext Security
-Intended status: Standards Track                              K. Bashiri
-Expires: 28 April 2025                                               BSI
+Internet Engineering Task Force (IETF)                      D. Van Geest
+Request for Comments: 9802                           CryptoNext Security
+Category: Standards Track                                     K. Bashiri
+ISSN: 2070-1721                                                      BSI
                                                               S. Fluhrer
                                                            Cisco Systems
                                                                S. Gazdag
                                                               genua GmbH
                                                              S. Kousidis
                                                                      BSI
-                                                         25 October 2024
+                                                               June 2025
 
 
   Use of the HSS and XMSS Hash-Based Signature Algorithms in Internet
                     X.509 Public Key Infrastructure
-                   draft-ietf-lamps-x509-shbs-latest
 
 Abstract
 
    This document specifies algorithm identifiers and ASN.1 encoding
-   formats for the stateful hash-based signature (HBS) schemes
-   Hierarchical Signature System (HSS), eXtended Merkle Signature Scheme
-   (XMSS), and XMSS^MT, a multi-tree variant of XMSS.  This
-   specification applies to the Internet X.509 Public Key infrastructure
-   (PKI) when those digital signatures are used in Internet X.509
-   certificates and certificate revocation lists.
-
-About This Document
-
-   This note is to be removed before publishing as an RFC.
-
-   Status information for this document may be found at
-   https://datatracker.ietf.org/doc/draft-ietf-lamps-x509-shbs/.
-
-   Discussion of this document takes place on the LAMPS Working Group
-   mailing list (mailto:spasm@ietf.org), which is archived at
-   https://mailarchive.ietf.org/arch/browse/spasm/.  Subscribe at
-   https://www.ietf.org/mailman/listinfo/spasm/.
-
-   Source for this draft and an issue tracker can be found at
-   https://github.com/x509-hbs/draft-x509-shbs.
+   formats for the following stateful Hash-Based Signature (HBS)
+   schemes: Hierarchical Signature System (HSS), eXtended Merkle
+   Signature Scheme (XMSS), and XMSS^MT (a multi-tree variant of XMSS).
+   This specification applies to the Internet X.509 Public Key
+   infrastructure (PKI) when digital signatures are used to sign
+   certificates and certificate revocation lists (CRLs).
 
 Status of This Memo
 
-   This Internet-Draft is submitted in full conformance with the
-   provisions of BCP 78 and BCP 79.
+   This is an Internet Standards Track document.
 
-   Internet-Drafts are working documents of the Internet Engineering
-   Task Force (IETF).  Note that other groups may also distribute
-   working documents as Internet-Drafts.  The list of current Internet-
-   Drafts is at https://datatracker.ietf.org/drafts/current/.
+   This document is a product of the Internet Engineering Task Force
+   (IETF).  It represents the consensus of the IETF community.  It has
+   received public review and has been approved for publication by the
+   Internet Engineering Steering Group (IESG).  Further information on
+   Internet Standards is available in Section 2 of RFC 7841.
 
-   Internet-Drafts are draft documents valid for a maximum of six months
-   and may be updated, replaced, or obsoleted by other documents at any
-   time.  It is inappropriate to use Internet-Drafts as reference
-   material or to cite them other than as "work in progress."
-
-   This Internet-Draft will expire on 28 April 2025.
+   Information about the current status of this document, any errata,
+   and how to provide feedback on it may be obtained at
+   https://www.rfc-editor.org/info/rfc9802.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
-   Provisions Relating to IETF Documents (https://trustee.ietf.org/
-   license-info) in effect on the date of publication of this document.
-   Please review these documents carefully, as they describe your rights
-   and restrictions with respect to this document.  Code Components
-   extracted from this document must include Revised BSD License text as
-   described in Section 4.e of the Trust Legal Provisions and are
-   provided without warranty as described in the Revised BSD License.
+   Provisions Relating to IETF Documents
+   (https://trustee.ietf.org/license-info) in effect on the date of
+   publication of this document.  Please review these documents
+   carefully, as they describe your rights and restrictions with respect
+   to this document.  Code Components extracted from this document must
+   include Revised BSD License text as described in Section 4.e of the
+   Trust Legal Provisions and are provided without warranty as described
+   in the Revised BSD License.
 
 Table of Contents
 
@@ -109,26 +91,29 @@ Table of Contents
 
 1.  Introduction
 
-   Stateful HBS schemes such as HSS, XMSS and XMSS^MT combine Merkle
-   trees with One Time Signatures (OTS) in order to provide digital
-   signature schemes that remain secure even when quantum computers
-   become available.  Their theoretic security is well understood and
-   depends only on the security of the underlying hash function.  As
-   such they can serve as an important building block for quantum
-   computer resistant information and communication technology.
+   Stateful Hash-Based Signature (HBS) schemes such as the Hierarchical
+   Signature System (HSS), eXtended Merkle Signature Scheme (XMSS), and
+   XMSS^MT combine Merkle trees with One-Time Signatures (OTS).  This is
+   done in order to provide digital signature schemes that remain secure
+   even when quantum computers become available.  Their theoretic
+   security is well understood and depends only on the security of the
+   underlying hash function.  As such, they can serve as an important
+   building block for quantum computer resistant information and
+   communication technology.
 
-   A stateful HBS private key is a finite collection of OTS keys, hence
-   only a limited number of messages can be signed and the private key's
-   state must be updated and persisted after signing to prevent reuse of
-   OTS keys.  While the right selection of algorithm parameters would
-   allow a private key to sign a virtually unbounded number of messages
-   (e.g. 2^60), this is at the cost of a larger signature size and
-   longer signing time.  Due to the statefulness of the private key and
-   the limited number of signatures that can be created, stateful HBS
-   schemes might not be appropriate for use in interactive protocols.
-   However, in some use cases the deployment of stateful HBS schemes may
-   be appropriate.  Such use cases are described and discussed in
-   Section 3.
+   A stateful HBS private key consists of a finite collection of OTS
+   keys, along with state information that tracks the usage of these
+   keys to ensure the security of the scheme.  Only a limited number of
+   messages can be signed, and the private key's state must be updated
+   and persisted after signing to prevent reuse of OTS keys.  While the
+   right selection of algorithm parameters would allow a private key to
+   sign a virtually unbounded number of messages (e.g., 2^60), this is
+   at the cost of a larger signature size and longer signing time.
+   Because the private key in stateful HBS schemes is stateful and the
+   number of signatures that can be generated is limited, these schemes
+   may be unsuitable for use in interactive protocols.  However, in some
+   use cases, the deployment of stateful HBS schemes may be appropriate.
+   Such use cases are described and discussed in Section 3.
 
 2.  Conventions and Definitions
 
@@ -140,17 +125,16 @@ Table of Contents
 
 3.  Use Cases of Stateful HBS Schemes in X.509
 
-   As described in the Security Considerations of Section 10, it is
+   As described in the Security Considerations in Section 10, it is
    imperative that stateful HBS implementations do not reuse OTS
    signatures.  This makes stateful HBS algorithms inappropriate for
    general use cases.  The exact conditions under which stateful HBS
    certificates may be used is left to certificate policies [RFC3647].
-   However the intended use of stateful HBS schemes as described by
+   However, the intended use of stateful HBS schemes as described by
    [SP800208] can be used as a guideline:
 
    |  1) it is necessary to implement a digital signature scheme in the
-   |  near future;
-   |  2) the implementation will have a long lifetime; and
+   |  near future; 2) the implementation will have a long lifetime; and
    |  3) it would not be practical to transition to a different digital
    |  signature scheme once the implementation has been deployed.
 
@@ -165,51 +149,76 @@ Table of Contents
    generated and the signer's ability to enforce security restrictions
    on the signing environment include:
 
-   *  Firmware signing (Section 1.1 of [SP800208], Table IV of
-      [CNSA2.0], Section 6.7 of [BSI])
+   *  Firmware signing (see Section 1.1 of [SP800208], [CNSA2.0], and
+      Section 6.7 of [BSI])
 
-   *  Software signing (Table IV of [CNSA2.0], [ANSSI])
+   *  Software signing ([CNSA2.0] and [ANSSI])
 
-   *  Certification Authority (CA) certificates.
+   *  Certification Authority (CA) certificates
 
-   In each of these cases, the operator is able to control their signing
-   environment such that signatures are generated in hardware
-   cryptographic modules and audited before the signature is published,
-   in order to prevent OTS key reuse.
+   In each of these cases, the operator tightly controls their secured
+   signing environment and can mitigate OTS key reuse by employing state
+   management strategies such as those in Section 10.  Also, for secure
+   private key backup and restoration, adequate mechanisms have to be
+   implemented (see Section 11).
 
    Generally speaking, stateful HBS public keys are not appropriate for
-   use in end-entity certificates, however in the firmware and software
-   signing cases signature generation will often be more tightly
+   use in end-entity certificates, however, in the firmware and software
+   signing cases, signature generation will often be more tightly
    controlled.  Some manufactures use common and well-established key
    formats like X.509 for their code signing and update mechanisms.
-   Also there are multi-party IoT ecosystems where publicly trusted code
-   signing certificates are useful.
+   Also, there are multi-party Internet of Things (IoT) ecosystems where
+   publicly trusted code signing certificates are useful.
 
    In general, root CAs [RFC4949] generate signatures in a more secure
    environment and issue fewer certificates than subordinate CAs
    [RFC4949].  This makes the use of stateful HBS public keys more
    appropriate in root CA certificates than in subordinate CA
    certificates.  However, if a subordinate CA can match the security
-   and signature count restrictions of a root CA, for example if the
+   and signature count restrictions of a root CA, for example, if the
    subordinate CA only issues code-signing certificates, then using a
    stateful HBS public key in the subordinate CA certificate may be
-   possible.
+   practical.
 
 4.  Algorithm Identifiers and Parameters
 
-   In this document, we define new OIDs for identifying the different
-   stateful hash-based signature algorithms.  An additional OID is
-   defined in [I-D.draft-ietf-lamps-rfc8708bis] and repeated here for
-   convenience.  For all of the OIDs, the parameters MUST be absent.
+   In this document, we define new Object Identifiers (OIDs) for
+   identifying the different stateful hash-based signature algorithms.
+   An additional OID is defined in [RFC9708] and repeated here for
+   convenience.
+
+   The AlgorithmIdentifier type is defined in [RFC5912] as follows:
+
+   AlgorithmIdentifier{ALGORITHM-TYPE, ALGORITHM-TYPE:AlgorithmSet} ::=
+           SEQUENCE {
+               algorithm   ALGORITHM-TYPE.&id({AlgorithmSet}),
+               parameters  ALGORITHM-TYPE.
+                      &Params({AlgorithmSet}{@algorithm}) OPTIONAL
+           }
+
+      |  NOTE: The above syntax is from [RFC5912] and is compatible with
+      |  the 2021 ASN.1 syntax [X680].  See [RFC5280] for the 1988 ASN.1
+      |  syntax.
+
+   The fields in AlgorithmIdentifier have the following meanings:
+
+   algorithm:  this identifies the cryptographic algorithm with an
+      object identifier.
+
+   parameters:  these are optional and are the associated parameters for
+      the algorithm identifier in the algorithm field.
+
+   The parameters field of the AlgorithmIdentifier for HSS, XMSS, and
+   XMSS^MT public keys MUST be absent.
 
 4.1.  HSS Algorithm Identifier
 
    The object identifier and public key algorithm identifier for HSS is
-   defined in [I-D.draft-ietf-lamps-rfc8708bis].  The definitions are
-   repeated here for reference.
+   defined in [RFC9708].  The definitions are repeated here for
+   reference.
 
-   The object identifier for an HSS public key is id-alg-hss-lms-
-   hashsig:
+   The AlgorithmIdentifier for an HSS public key MUST use the id-alg-
+   hss-lms-hashsig object identifier.
 
       id-alg-hss-lms-hashsig  OBJECT IDENTIFIER ::= {
          iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
@@ -221,13 +230,14 @@ Table of Contents
    [RFC8554].
 
    The public key and signature values identify the hash function and
-   the height used in the HSS/LMS tree.  [RFC8554] and [SP800208] define
-   these values, but an IANA registry [IANA-LMS] permits the
-   registration of additional identifiers in the future.
+   the height used in the HSS tree.  [RFC8554] and [SP800208] define
+   these values, and additional identifiers can be registered in the
+   “Leighton-Micali Signatures (LMS)” registry [IANA-LMS].
 
 4.2.  XMSS Algorithm Identifier
 
-   The object identifier for an XMSS public key is id-alg-xmss-hashsig:
+   The AlgorithmIdentifier for an XMSS public key MUST use the id-alg-
+   xmss-hashsig object identifier.
 
       id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
          iso(1) identified-organization(3) dod(6) internet(1)
@@ -235,13 +245,13 @@ Table of Contents
 
    The public key and signature values identify the hash function and
    the height used in the XMSS tree.  [RFC8391] and [SP800208] define
-   these values, but an IANA registry [IANA-XMSS] permits the
-   registration of additional identifiers in the future.
+   these values, and additional identifiers can be registered in the
+   “Leighton-Micali Signatures (LMS)” registry [IANA-XMSS].
 
 4.3.  XMSS^MT Algorithm Identifier
 
-   The object identifier for an XMSS^MT public key is id-alg-xmssmt-
-   hashsig:
+   The AlgorithmIdentifier for an XMSS^MT public key MUST use the id-
+   alg-xmssmt-hashsig object identifier.
 
       id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
          iso(1) identified-organization(3) dod(6) internet(1)
@@ -249,8 +259,8 @@ Table of Contents
 
    The public key and signature values identify the hash function and
    the height used in the XMSS^MT tree.  [RFC8391] and [SP800208] define
-   these values, but an IANA registry [IANA-XMSS] permits the
-   registration of additional identifiers in the future.
+   these values, and additional identifiers can be registered in the
+   “Leighton-Micali Signatures (LMS)” registry [IANA-XMSS].
 
 5.  Public Key Identifiers
 
@@ -259,13 +269,13 @@ Table of Contents
    through an algorithm identifier.  An algorithm identifier consists of
    an OID and optional parameters.
 
-   [RFC8554] and [RFC8391] define the raw octet string encodings of the
-   public keys used in this document.  When used in a
-   SubjectPublicKeyInfo type, the subjectPublicKey BIT STRING contains
-   the raw octet string encodings of the public keys.
+   [RFC8554] defines the encoding of HSS public keys, and [RFC8391]
+   defines the encodings of XMSS and XMSS^MT public keys.  When used in
+   a SubjectPublicKeyInfo type, the subjectPublicKey BIT STRING contains
+   these encodings of the public key.
 
-   This document defines ASN.1 OCTET STRING types for encoding the
-   public keys when not used in a SubjectPublicKeyInfo.  The OCTET
+   This document defines ASN.1 [X680] OCTET STRING types for encoding
+   the public keys when not used in a SubjectPublicKeyInfo.  The OCTET
    STRING is mapped to a subjectPublicKey (a value of type BIT STRING)
    as follows: the most significant bit of the OCTET STRING value
    becomes the most significant bit of the BIT STRING value, and so on;
@@ -287,11 +297,11 @@ Table of Contents
 
       HSS-LMS-HashSig-PublicKey ::= OCTET STRING
 
-   [RFC8554] defines the raw octet string encoding of an HSS public key
-   using the hss_public_key structure.  See [SP800208] and [RFC8554] for
-   more information on the contents and format of an HSS public key.
-   Note that the single-tree signature scheme LMS is instantiated as HSS
-   with number of levels being equal to 1.
+   [RFC8554] defines the encoding of an HSS public key using the
+   hss_public_key structure.  See [SP800208] and [RFC8554] for more
+   information on the contents and format of an HSS public key.  Note
+   that the Leighton-Micali Signature (LMS) single-tree signature scheme
+   is instantiated as HSS with the number of levels being equal to 1.
 
 5.2.  XMSS Public Keys
 
@@ -308,10 +318,9 @@ Table of Contents
 
       XMSS-HashSig-PublicKey ::= OCTET STRING
 
-   [RFC8391] defines the raw octet string encoding of an HSS public key
-   using the xmss_public_key structure.  See [SP800208] and [RFC8391]
-   for more information on the contents and format of an XMSS public
-   key.
+   [RFC8391] defines the encoding of an XMSS public key using the
+   xmss_public_key structure.  See [SP800208] and [RFC8391] for more
+   information on the contents and format of an XMSS public key.
 
 5.3.  XMSS^MT Public Keys
 
@@ -328,22 +337,21 @@ Table of Contents
 
       XMSSMT-HashSig-PublicKey ::= OCTET STRING
 
-   [RFC8391] defines the raw octet string encoding of an HSS public key
-   using the xmssmt_public_key structure.  See [SP800208] and [RFC8391]
-   for more information on the contents and format of an XMSS^MT public
-   key.
+   [RFC8391] defines the encoding of an XMSS^MT public key using the
+   xmssmt_public_key structure.  See [SP800208] and [RFC8391] for more
+   information on the contents and format of an XMSS^MT public key.
 
 6.  Key Usage Bits
 
    The intended application for the key is indicated in the keyUsage
    certificate extension [RFC5280].  When id-alg-hss-lms-hashsig, id-
-   alg-xmss-hashsig or id-alg-xmssmt-hashsig appears in the
+   alg-xmss-hashsig, or id-alg-xmssmt-hashsig appears in the
    SubjectPublicKeyInfo field of a CA X.509 certificate [RFC5280], the
    certificate key usage extension MUST contain at least one of the
    following values: digitalSignature, nonRepudiation, keyCertSign, or
    cRLSign.  However, it MUST NOT contain other values.
 
-   When id-alg-hss-lms-hashsig, id-alg-xmss-hashsig or id-alg-xmssmt-
+   When id-alg-hss-lms-hashsig, id-alg-xmss-hashsig, or id-alg-xmssmt-
    hashsig appears in the SubjectPublicKeyInfo field of an end entity
    X.509 certificate [RFC5280], the certificate key usage extension MUST
    contain at least one of the following values: digitalSignature,
@@ -352,12 +360,12 @@ Table of Contents
 
 7.  Signature Algorithms
 
-   This section identifies OIDs for signing using HSS, XMSS, and
-   XMSS^MT.  When these algorithm identifiers appear in the algorithm
-   field as an AlgorithmIdentifier, the encoding MUST omit the
-   parameters field.  That is, the AlgorithmIdentifier SHALL be a
-   SEQUENCE of one component, one of the OIDs defined in the following
-   subsections.
+   The same OIDs used to identify HSS, XMSS, and XMSS^MT public keys are
+   also used to identify their respective signatures.  When these
+   algorithm identifiers appear in the algorithm field of an
+   AlgorithmIdentifier, the encoding MUST omit the parameters field.
+   That is, the AlgorithmIdentifier SHALL be a SEQUENCE of one
+   component, one of the OIDs defined in the following subsections.
 
    When the signature algorithm identifiers described in this document
    are used to create a signature on a message, no digest algorithm is
@@ -366,7 +374,7 @@ Table of Contents
 
    The format of an HSS signature is described in Section 6.2 of
    [RFC8554].  The format of an XMSS signature is described in
-   Appendix B.2 of [RFC8391] and the format of an XMSS^MT signature is
+   Appendix B.2 of [RFC8391], and the format of an XMSS^MT signature is
    described in Appendix C.2 of [RFC8391].  The octet string
    representing the signature is encoded directly in a BIT STRING
    without adding any additional ASN.1 wrapping.  For the Certificate
@@ -375,145 +383,145 @@ Table of Contents
 
 7.1.  HSS Signature Algorithm
 
-   The HSS public key OID is also used to specify that an HSS signature
-   was generated on the full message, i.e. the message was not hashed
-   before being processed by the HSS signature algorithm.
-
-      id-alg-hss-lms-hashsig OBJECT IDENTIFIER ::= {
-         iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
-         smime(16) alg(3) 17 }
+   The id-alg-hss-lms-hashsig OID is used to specify that an HSS
+   signature was generated on the full message, i.e., the message was
+   not hashed before being processed by the HSS signature algorithm.
 
    See [SP800208] and [RFC8554] for more information on the contents and
    format of an HSS signature.
 
 7.2.  XMSS Signature Algorithm
 
-   The id-alg-xmss-hashsig public key OID is also used to specify that
-   an XMSS signature was generated on the full message, i.e. the message
-   was not hashed before being processed by the XMSS signature
-   algorithm.
+   The id-alg-xmss-hashsig OID is used to specify that an XMSS signature
+   was generated on the full message, i.e., the message was not hashed
+   before being processed by the XMSS signature algorithm.
 
    See [SP800208] and [RFC8391] for more information on the contents and
    format of an XMSS signature.
 
-   The signature generation MUST be performed according to 7.2 of
-   [SP800208].
+   The signature generation MUST be performed according to Section 7.2
+   of [SP800208].
 
 7.3.  XMSS^MT Signature Algorithm
 
-   The id-alg-xmssmt-hashsig public key OID is also used to specify that
-   an XMSS^MT signature was generated on the full message, i.e. the
-   message was not hashed before being processed by the XMSS^MT
-   signature algorithm.
+   The id-alg-xmssmt-hashsig OID is used to specify that an XMSS^MT
+   signature was generated on the full message, i.e., the message was
+   not hashed before being processed by the XMSS^MT signature algorithm.
 
    See [SP800208] and [RFC8391] for more information on the contents and
    format of an XMSS^MT signature.
 
-   The signature generation MUST be performed according to 7.2 of
-   [SP800208].
+   The signature generation MUST be performed according to Section 7.2
+   of [SP800208].
 
 8.  Key Generation
 
    The key generation for XMSS and XMSS^MT MUST be performed according
-   to 7.2 of [SP800208]
+   to Section 7.2 of [SP800208].
 
 9.  ASN.1 Module
 
    For reference purposes, the ASN.1 syntax is presented as an ASN.1
-   module here.  This ASN.1 Module builds upon the conventions
-   established in [RFC5911].
+   module here [X680].  Note that as per [RFC5280], certificates use the
+   Distinguished Encoding Rules; see [X690].  This ASN.1 module builds
+   upon the conventions established in [RFC5912].  This module imports
+   objects from [RFC5912] and [RFC9708].
 
-X509-SHBS-2024
-  { iso(1) identified-organization(3) dod(6) internet(1) security(5)
-    mechanisms(5) pkix(7) id-mod(0) id-mod-pkix1-shbs-2024(TBD) }
+   X509-SHBS-2024
+     { iso(1) identified-organization(3) dod(6) internet(1) security(5)
+       mechanisms(5) pkix(7) id-mod(0) id-mod-pkix1-shbs-2024(114) }
 
-DEFINITIONS IMPLICIT TAGS ::= BEGIN
+   DEFINITIONS IMPLICIT TAGS ::= BEGIN
 
-EXPORTS ALL;
+   EXPORTS ALL;
 
-IMPORTS
-  PUBLIC-KEY, SIGNATURE-ALGORITHM
-    FROM AlgorithmInformation-2009  -- [RFC5911]
-      { iso(1) identified-organization(3) dod(6) internet(1)
-        security(5) mechanisms(5) pkix(7) id-mod(0)
-        id-mod-algorithmInformation-02(58) }
+   IMPORTS
+     PUBLIC-KEY, SIGNATURE-ALGORITHM
+       FROM AlgorithmInformation-2009  -- [RFC5912]
+         { iso(1) identified-organization(3) dod(6) internet(1)
+           security(5) mechanisms(5) pkix(7) id-mod(0)
+           id-mod-algorithmInformation-02(58) }
 
-  sa-HSS-LMS-HashSig, pk-HSS-LMS-HashSig
-    FROM MTS-HashSig-2013
-      { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
-        id-smime(16) id-mod(0) id-mod-mts-hashsig-2013(64) };
+     sa-HSS-LMS-HashSig, pk-HSS-LMS-HashSig
+       FROM MTS-HashSig-2013 -- [RFC9708]
+         { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs9(9)
+           id-smime(16) id-mod(0) id-mod-mts-hashsig-2013(64) };
 
---
--- Object Identifiers
---
+   --
+   -- Object Identifiers
+   --
 
--- id-alg-hss-lms-hashsig is defined in {{I-D.draft-ietf-lamps-rfc8708bis}}
+   -- id-alg-hss-lms-hashsig is defined in [RFC9708]
 
-id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
-   iso(1) identified-organization(3) dod(6) internet(1) security(5)
-   mechanisms(5) pkix(7) algorithms(6) 34 }
+   id-alg-xmss-hashsig  OBJECT IDENTIFIER ::= {
+      iso(1) identified-organization(3) dod(6) internet(1) security(5)
+      mechanisms(5) pkix(7) algorithms(6) 34 }
 
-id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
-   iso(1) identified-organization(3) dod(6) internet(1) security(5)
-   mechanisms(5) pkix(7) algorithms(6) 35 }
+   id-alg-xmssmt-hashsig  OBJECT IDENTIFIER ::= {
+      iso(1) identified-organization(3) dod(6) internet(1) security(5)
+      mechanisms(5) pkix(7) algorithms(6) 35 }
 
---
--- Signature Algorithms and Public Keys
---
+   --
+   -- Signature Algorithms and Public Keys
+   --
 
--- sa-HSS-LMS-HashSig is defined in {{I-D.draft-ietf-lamps-rfc8708bis}}
+   -- sa-HSS-LMS-HashSig is defined in [RFC9708]
 
-sa-XMSS-HashSig SIGNATURE-ALGORITHM ::= {
-   IDENTIFIER id-alg-xmss-hashsig
-   PARAMS ARE absent
-   PUBLIC-KEYS { pk-XMSS-HashSig }
-   SMIME-CAPS { IDENTIFIED BY id-alg-xmss-hashsig } }
+   sa-XMSS-HashSig SIGNATURE-ALGORITHM ::= {
+      IDENTIFIER id-alg-xmss-hashsig
+      PARAMS ARE absent
+      PUBLIC-KEYS { pk-XMSS-HashSig }
+      SMIME-CAPS { IDENTIFIED BY id-alg-xmss-hashsig } }
 
-sa-XMSSMT-HashSig SIGNATURE-ALGORITHM ::= {
-   IDENTIFIER id-alg-xmssmt-hashsig
-   PARAMS ARE absent
-   PUBLIC-KEYS { pk-XMSSMT-HashSig }
-   SMIME-CAPS { IDENTIFIED BY id-alg-xmssmt-hashsig } }
+   sa-XMSSMT-HashSig SIGNATURE-ALGORITHM ::= {
+      IDENTIFIER id-alg-xmssmt-hashsig
+      PARAMS ARE absent
+      PUBLIC-KEYS { pk-XMSSMT-HashSig }
+      SMIME-CAPS { IDENTIFIED BY id-alg-xmssmt-hashsig } }
 
--- pk-HSS-LMS-HashSig is defined in {{I-D.draft-ietf-lamps-rfc8708bis}}
+   -- pk-HSS-LMS-HashSig is defined in [RFC9708]
 
-pk-XMSS-HashSig PUBLIC-KEY ::= {
-   IDENTIFIER id-alg-xmss-hashsig
-   -- KEY no ASN.1 wrapping --
-   PARAMS ARE absent
-   CERT-KEY-USAGE
-      { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+   pk-XMSS-HashSig PUBLIC-KEY ::= {
+      IDENTIFIER id-alg-xmss-hashsig
+      -- KEY no ASN.1 wrapping --
+      PARAMS ARE absent
+      CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
 
-pk-XMSSMT-HashSig PUBLIC-KEY ::= {
-   IDENTIFIER id-alg-xmssmt-hashsig
-   -- KEY no ASN.1 wrapping --
-   PARAMS ARE absent
-   CERT-KEY-USAGE
-      { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
+   XMSS-HashSig-PublicKey ::= OCTET STRING
 
---
--- Public Key (pk-) Algorithms
---
-PublicKeys PUBLIC-KEY ::= {
-   -- This expands PublicKeys from RFC 5912
-   pk-HSS-LMS-HashSig |
-   pk-XMSS-HashSig |
-   pk-XMSSMT-HashSig,
-   ...
-}
+   pk-XMSSMT-HashSig PUBLIC-KEY ::= {
+      IDENTIFIER id-alg-xmssmt-hashsig
+      -- KEY no ASN.1 wrapping --
+      PARAMS ARE absent
+      CERT-KEY-USAGE
+         { digitalSignature, nonRepudiation, keyCertSign, cRLSign } }
 
---
--- Signature Algorithms (sa-)
---
-SignatureAlgs SIGNATURE-ALGORITHM ::= {
-   -- This expands SignatureAlgorithms from RFC 5912
-   sa-HSS-LMS-HashSig |
-   sa-XMSS-HashSig |
-   sa-XMSSMT-HashSig,
-   ...
-}
+   XMSSMT-HashSig-PublicKey ::= OCTET STRING
 
-END
+   --
+   -- Public Key (pk-) Algorithms
+   --
+   PublicKeys PUBLIC-KEY ::= {
+      -- This expands PublicKeys from RFC 5912
+      pk-HSS-LMS-HashSig |
+      pk-XMSS-HashSig |
+      pk-XMSSMT-HashSig,
+      ...
+   }
+
+   --
+   -- Signature Algorithms (sa-)
+   --
+   SignatureAlgs SIGNATURE-ALGORITHM ::= {
+      -- This expands SignatureAlgorithms from RFC 5912
+      sa-HSS-LMS-HashSig |
+      sa-XMSS-HashSig |
+      sa-XMSSMT-HashSig,
+      ...
+   }
+
+   END
 
 10.  Security Considerations
 
@@ -521,7 +529,7 @@ END
 
    As stateful HBS private keys can only generate a limited number of
    signatures, a user needs to be aware of the total number of
-   signatures they intend to generate in their use case, otherwise they
+   signatures they intend to generate in their use case; otherwise, they
    risk exhausting the number of OTS keys in their private key.
 
    For stateful HBS schemes, it is crucial to stress the importance of
@@ -536,11 +544,15 @@ END
    Various strategies for a correct state management can be applied:
 
    *  Implement a record of all signatures generated by a key pair
-      associated with a stateful HBS instance.  This record may be
-      stored outside the device which is used to generate the signature.
-      Check the record to prevent OTS key reuse before a new signature
-      is released.  Drop the new signature and hit your PANIC button if
-      you spot OTS key reuse.
+      associated with a stateful HBS instance, for example, by logging
+      the OTS key indexes as signatures are generated.  This record may
+      be stored outside the device that is used to generate the
+      signature.  Check the record to prevent OTS key reuse before a new
+      signature is released.  If OTS key reuse is detected, freeze all
+      new signature generation by the private key, re-audit previously
+      released signatures (possibly revoking the private key if
+      previously released signatures showed OTS key reuse), and perform
+      a post-failure audit.
 
    *  Use a stateful HBS instance only for a moderate number of
       signatures such that it is always practical to keep a consistent
@@ -549,7 +561,7 @@ END
 
    *  Apply the state reservation strategy described in Section 5 of
       [MCGREW], where upcoming states are reserved in advance by the
-      signer.  In this way the number of state synchronisations between
+      signer.  In this way, the number of state synchronizations between
       nonvolatile and volatile memory is reduced.
 
 11.  Backup and Restore Management
@@ -559,7 +571,7 @@ END
    of signing key pairs.
 
    Usual backup and restore strategies when using a stateless signature
-   scheme (e.g.  SLH-DSA) are to duplicate private keying material and
+   scheme (e.g., SLH-DSA) are to duplicate private keying material and
    to operate redundant signing devices or to store and safeguard a copy
    of the private keying material such that it can be used to set up a
    new signing device in case of technical difficulties.
@@ -568,32 +580,32 @@ END
    strategies will lead to OTS reuse with high probability as a correct
    state management is not guaranteed.  Strategies for maintaining
    availability and keeping a correct state are described in Section 7
-   of [SP800208].
+   of [SP800208] and [S-HBS].
 
 12.  IANA Considerations
 
-   One object identifier for the ASN.1 module in Section 9 is requested
-   for the SMI Security for PKIX Module Identifiers (1.3.6.1.5.5.7.0)
-   registry:
+   IANA has registered the following object identifier for the ASN.1
+   module (see Section 9) in the "SMI Security for PKIX Module
+   Identifier" (1.3.6.1.5.5.7.0) registry:
 
-         +=========+========================+====================+
-         | Decimal | Description            | References         |
-         +=========+========================+====================+
-         | TBD     | id-mod-pkix1-shbs-2024 | [EDNOTE: THIS RFC] |
-         +---------+------------------------+--------------------+
+             +=========+========================+============+
+             | Decimal | Description            | References |
+             +=========+========================+============+
+             | 114     | id-mod-pkix1-shbs-2024 | RFC 9802   |
+             +---------+------------------------+------------+
 
                                   Table 1
 
-   IANA has updated the "SMI Security for PKIX Algorithms"
-   (1.3.6.1.5.5.7.6) registry [SMI-PKIX] with two additional entries:
+   IANA has registered the following entries in the "SMI Security for
+   PKIX Algorithms" (1.3.6.1.5.5.7.6) registry [SMI-PKIX]:
 
-         +=========+=======================+====================+
-         | Decimal | Description           | References         |
-         +=========+=======================+====================+
-         | 34      | id-alg-xmss-hashsig   | [EDNOTE: THIS RFC] |
-         +---------+-----------------------+--------------------+
-         | 35      | id-alg-xmssmt-hashsig | [EDNOTE: THIS RFC] |
-         +---------+-----------------------+--------------------+
+             +=========+=======================+============+
+             | Decimal | Description           | References |
+             +=========+=======================+============+
+             | 34      | id-alg-xmss-hashsig   | RFC 9802   |
+             +---------+-----------------------+------------+
+             | 35      | id-alg-xmssmt-hashsig | RFC 9802   |
+             +---------+-----------------------+------------+
 
                                  Table 2
 
@@ -601,45 +613,56 @@ END
 
 13.1.  Normative References
 
-   [I-D.draft-ietf-lamps-rfc8708bis]
-              Housley, R., "Use of the HSS/LMS Hash-Based Signature
-              Algorithm in the Cryptographic Message Syntax (CMS)",
-              RFC 8708, DOI 10.17487/RFC8708, February 2020,
-              <https://www.rfc-editor.org/rfc/rfc8708>.
-
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
-              <https://www.rfc-editor.org/rfc/rfc2119>.
+              <https://www.rfc-editor.org/info/rfc2119>.
 
    [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
               Housley, R., and W. Polk, "Internet X.509 Public Key
               Infrastructure Certificate and Certificate Revocation List
               (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
-              <https://www.rfc-editor.org/rfc/rfc5280>.
+              <https://www.rfc-editor.org/info/rfc5280>.
 
-   [RFC5911]  Hoffman, P. and J. Schaad, "New ASN.1 Modules for
-              Cryptographic Message Syntax (CMS) and S/MIME", RFC 5911,
-              DOI 10.17487/RFC5911, June 2010,
-              <https://www.rfc-editor.org/rfc/rfc5911>.
+   [RFC5912]  Hoffman, P. and J. Schaad, "New ASN.1 Modules for the
+              Public Key Infrastructure Using X.509 (PKIX)", RFC 5912,
+              DOI 10.17487/RFC5912, June 2010,
+              <https://www.rfc-editor.org/info/rfc5912>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
-              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+              May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
    [RFC8391]  Huelsing, A., Butin, D., Gazdag, S., Rijneveld, J., and A.
               Mohaisen, "XMSS: eXtended Merkle Signature Scheme",
               RFC 8391, DOI 10.17487/RFC8391, May 2018,
-              <https://www.rfc-editor.org/rfc/rfc8391>.
+              <https://www.rfc-editor.org/info/rfc8391>.
 
    [RFC8554]  McGrew, D., Curcio, M., and S. Fluhrer, "Leighton-Micali
               Hash-Based Signatures", RFC 8554, DOI 10.17487/RFC8554,
-              April 2019, <https://www.rfc-editor.org/rfc/rfc8554>.
+              April 2019, <https://www.rfc-editor.org/info/rfc8554>.
 
-   [SP800208] National Institute of Standards and Technology (NIST),
-              "Recommendation for Stateful Hash-Based Signature
-              Schemes", 29 October 2020,
+   [RFC9708]  Housley, R., "Use of the HSS/LMS Hash-Based Signature
+              Algorithm in the Cryptographic Message Syntax (CMS)",
+              RFC 9708, DOI 10.17487/RFC9708, January 2025,
+              <https://www.rfc-editor.org/info/rfc9708>.
+
+   [SP800208] Cooper, D., Apon, D., Dang, Q., Davidson, M., Dworkin, M.,
+              and C. Miller, "Recommendation for Stateful Hash-Based
+              Signature Schemes", NIST SP 800-208,
+              DOI 10.6028/nist.sp.800-208, 29 October 2020,
               <https://doi.org/10.6028/NIST.SP.800-208>.
+
+   [X680]     ITU-T, "Information technology - Abstract Syntax Notation
+              One (ASN.1): Specification of basic notation", ITU-T
+              Recommendation X.680, ISO/IEC 8824-1:2021, February 2021,
+              <https://www.itu.int/rec/T-REC-X.680>.
+
+   [X690]     ITU-T, "Information technology: ASN.1 encoding rules:
+              Specification of Basic Encoding Rules (BER), Canonical
+              Encoding Rules (CER) and Distinguished Encoding Rules
+              (DER)", ITU-T Recommendation X.690, ISO/IEC 8825-1:2021,
+              February 2021, <https://www.itu.int/rec/T-REC-X.690>.
 
 13.2.  Informative References
 
@@ -651,7 +674,8 @@ END
 
    [BH16]     Bruinderink, L. and S. Hülsing, "Oops, I did it again –
               Security of One-Time Signatures under Two-Message
-              Attacks.", 2016, <https://eprint.iacr.org/2016/1042.pdf>.
+              Attacks.", Cryptology ePrint Archive, Paper 2016/1042,
+              2016, <https://eprint.iacr.org/2016/1042>.
 
    [BSI]      Bundesamt für Sicherheit in der Informationstechnik (BSI),
               "Quantum-safe cryptography – fundamentals, current
@@ -659,63 +683,70 @@ END
               <https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/
               Publications/Brochure/quantum-safe-cryptography.pdf>.
 
-   [CNSA2.0]  National Security Agency (NSA), "Commercial National
-              Security Algorithm Suite 2.0 (CNSA 2.0) Cybersecurity
-              Advisory (CSA)", 7 September 2022,
-              <https://media.defense.gov/2022/Sep/07/2003071834/-1/-1/0/
-              CSA_CNSA_2.0_ALGORITHMS_.PDF>.
+   [CNSA2.0]  National Security Agency (NSA), "The Commercial National
+              Security Algorithm Suite 2.0 and Quantum Computing FAQ", 7
+              September 2022, <https://media.defense.gov/2022/
+              Sep/07/2003071836/-1/-1/0/CSI_CNSA_2.0_FAQ_.PDF>.
 
    [ETSI-TR-103-692]
               European Telecommunications Standards Institute (ETSI),
-              "State management for stateful authentication mechanisms",
-              November 2021, <https://www.etsi.org/deliver/
+              "CYBER; State management for stateful authentication
+              mechanisms", ETSI TR 103 692 v1.1.1, November 2021,
+              <https://www.etsi.org/deliver/
               etsi_tr/103600_103699/103692/01.01.01_60/
               tr_103692v010101p.pdf>.
 
-   [IANA-LMS] IANA, "Leighton-Micali Signatures (LMS)", n.d.,
+   [IANA-LMS] IANA, "Leighton-Micali Signatures (LMS)",
               <https://www.iana.org/assignments/leighton-micali-
               signatures/>.
 
    [IANA-XMSS]
-              IANA, "XMSS: Extended Hash-Based Signatures", n.d.,
+              IANA, "XMSS: Extended Hash-Based Signatures",
               <https://iana.org/assignments/xmss-extended-hash-based-
               signatures/>.
 
    [MCGREW]   McGrew, D., Kampanakis, P., Fluhrer, S., Gazdag, S.,
               Butin, D., and J. Buchmann, "State Management for Hash-
-              Based Signatures", 2 November 2016,
+              Based Signatures", Cryptology ePrint Archive, Paper
+              2016/357, 2 November 2016,
               <https://eprint.iacr.org/2016/357>.
 
    [RFC3279]  Bassham, L., Polk, W., and R. Housley, "Algorithms and
               Identifiers for the Internet X.509 Public Key
               Infrastructure Certificate and Certificate Revocation List
               (CRL) Profile", RFC 3279, DOI 10.17487/RFC3279, April
-              2002, <https://www.rfc-editor.org/rfc/rfc3279>.
+              2002, <https://www.rfc-editor.org/info/rfc3279>.
 
    [RFC3647]  Chokhani, S., Ford, W., Sabett, R., Merrill, C., and S.
               Wu, "Internet X.509 Public Key Infrastructure Certificate
               Policy and Certification Practices Framework", RFC 3647,
               DOI 10.17487/RFC3647, November 2003,
-              <https://www.rfc-editor.org/rfc/rfc3647>.
+              <https://www.rfc-editor.org/info/rfc3647>.
 
    [RFC4949]  Shirey, R., "Internet Security Glossary, Version 2",
               FYI 36, RFC 4949, DOI 10.17487/RFC4949, August 2007,
-              <https://www.rfc-editor.org/rfc/rfc4949>.
+              <https://www.rfc-editor.org/info/rfc4949>.
 
    [RFC8410]  Josefsson, S. and J. Schaad, "Algorithm Identifiers for
               Ed25519, Ed448, X25519, and X448 for Use in the Internet
               X.509 Public Key Infrastructure", RFC 8410,
               DOI 10.17487/RFC8410, August 2018,
-              <https://www.rfc-editor.org/rfc/rfc8410>.
+              <https://www.rfc-editor.org/info/rfc8410>.
 
    [RFC8411]  Schaad, J. and R. Andrews, "IANA Registration for the
               Cryptographic Algorithm Object Identifier Range",
               RFC 8411, DOI 10.17487/RFC8411, August 2018,
-              <https://www.rfc-editor.org/rfc/rfc8411>.
+              <https://www.rfc-editor.org/info/rfc8411>.
 
-   [SMI-PKIX] IANA, "SMI Security for PKIX Algorithms", n.d.,
-              <https://www.iana.org/assignments/smi-numbers/smi-
-              numbers.xhtml#smi-numbers-1.3.6.1.5.5.7.6>.
+   [S-HBS]    Wiggers, T., Bashiri, K., Kölbl, S., Goodman, J., and S.
+              Kousidis, "Hash-based Signatures: State and Backup
+              Management", Work in Progress, Internet-Draft, draft-
+              wiggers-hbs-state-02, 1 April 2025,
+              <https://datatracker.ietf.org/doc/html/draft-wiggers-hbs-
+              state-02>.
+
+   [SMI-PKIX] IANA, "SMI Security for PKIX Algorithms",
+              <https://www.iana.org/assignments/smi-numbers>.
 
 Appendix A.  HSS X.509 v3 Certificate Example
 
@@ -1539,14 +1570,13 @@ Appendix C.  XMSS^MT X.509 v3 Certificate Example
 
 Acknowledgments
 
-   Thanks for Russ Housley, Panos Kampanakis, Michael StJohns and Corey
-   Bonnell for helpful suggestions and reviews.
+   Thanks to Russ Housley, Panos Kampanakis, Michael StJohns, and Corey
+   Bonnell for their helpful suggestions and reviews.
 
    This document uses a lot of text from similar documents [SP800208],
-   ([RFC3279] and [RFC8410]) as well as
-   [I-D.draft-ietf-lamps-rfc8708bis].  Thanks go to the authors of those
-   documents.  "Copying always makes things easier and less error prone"
-   - [RFC8411].
+   ([RFC3279] and [RFC8410]) as well as [RFC9708].  Thanks goes to the
+   authors of those documents.  "Copying always makes things easier and
+   less error prone" [RFC8411].
 
 Authors' Addresses
 
