@@ -48,10 +48,18 @@
 
 <!-- [rfced] Please insert any keywords (beyond those that appear in
 the title) for use on https://www.rfc-editor.org/search. -->
+<!-- [authors] Done -->
 
-<keyword>example</keyword>
+<keyword>HSS</keyword>
+<keyword>LMS</keyword>
+<keyword>XMSS</keyword>
+<keyword>certificate</keyword>
+<keyword>X.509</keyword>
+<keyword>PKIX</keyword>
+<keyword>stateful</keyword>
+<keyword>hash-based</keyword>
 
-<!-- [rfced] We have updated the abstract for clarity.  Please review and let us know if any updates are needed. 
+<!-- [rfced] We have updated the abstract for clarity.  Please review and let us know if any updates are needed.
 
 Original:
    This document specifies algorithm identifiers and ASN.1 encoding
@@ -71,10 +79,17 @@ Perhaps:
    and certificate revocation lists, this specification applies to the
    Internet X.509 Public Key Infrastructure (PKI).
 -->
-<!-- [rfced] Please note that we updated instances of MT in XMSS^MT to appear as superscript to match how it appears in [SP800208].  Please review and let us know if you prefer otherwise. 
-
-Note that the text file will continue to display XMSS^MT, but the HTML and PDF will display MT in superscript. 
+<!-- [authors] Your suggestion from "Perhaps" above, and the changes you made
+below are different. We prefer the changes below as they align with the text
+used in RFC 5758. I've updated the final sentence below to exactly match
+RFC 5758.
 -->
+<!-- [rfced] Please note that we updated instances of MT in XMSS^MT to appear as superscript to match how it appears in [SP800208].  Please review and let us know if you prefer otherwise.
+
+Note that the text file will continue to display XMSS^MT, but the HTML and PDF will display MT in superscript.
+-->
+<!-- [authors] Looks good. -->
+
 
 
     <abstract>
@@ -82,9 +97,9 @@ Note that the text file will continue to display XMSS^MT, but the HTML and PDF w
       formats for the following stateful Hash-Based Signature (HBS) schemes:
       Hierarchical Signature System (HSS), eXtended Merkle Signature Scheme
       (XMSS), and XMSS<sup>MT</sup> (a multi-tree variant of XMSS).  This specification
-      applies to the Internet X.509 Public Key infrastructure (PKI) when those
-      digital signatures are used in Internet X.509 certificates and
-      certificate revocation lists.</t>
+      applies to the Internet X.509 Public Key infrastructure (PKI) when
+      digital signatures are used to sign certificates and certificate
+      revocation lists (CRLs).</t>
     </abstract>
   </front>
   <middle>
@@ -147,6 +162,21 @@ Note that the text file will continue to display XMSS^MT, but the HTML and PDF w
 	would not be practical to transition to a different digital signature
 	scheme once the implementation has been deployed.
       </blockquote>
+<!-- [authors] The RFC editors have changed this from a numbered list with one
+number per line to a paragraph with inline numbers. We think this might have
+been intentional, as this is a blockquote and the new text is exactly as it
+appears in [SP800208].
+
+As a personal opinion (DVG), this looks odd as just a blockquote of an inline numbered list. Would it be better to blockquote the entire paragraph from [SP800208]:
+
+  Instead, stateful HBS schemes are primarily intended for applications with the following
+  characteristics: 1) it is necessary to implement a digital signature scheme in the near future; 2)
+  the implementation will have a long lifetime; and 3) it would not be practical to transition to a
+  different digital signature scheme once the implementation has been deployed.
+
+or perhaps quote it in such a way that the "Instead" is removed.  You're the editors so you can make the decision here :)
+-->
+
 
       <t>In addition, since a stateful HBS private key can only generate a
       finite number of signatures, use cases for stateful HBS public keys in
@@ -161,11 +191,11 @@ Note that the text file will continue to display XMSS^MT, but the HTML and PDF w
 
       <ul spacing="normal">
         <li>
-          <t>Firmware signing (see Section 1.1 of <xref target="SP800208"/>, Table
-          IV of <xref target="CNSA2.0"/>, and Section 6.7 of <xref target="BSI"/>)</t>
+          <t>Firmware signing (see Section 1.1 of <xref target="SP800208"/>,
+          <xref target="CNSA2.0"/>, and Section 6.7 of <xref target="BSI"/>)</t>
         </li>
         <li>
-          <t>Software signing (see Table IV of <xref target="CNSA2.0"/> and <xref
+          <t>Software signing (<xref target="CNSA2.0"/> and <xref
           target="ANSSI"/>)</t>
         </li>
         <li>
@@ -207,8 +237,8 @@ Note that the text file will continue to display XMSS^MT, but the HTML and PDF w
       additional OID is defined in <xref target="RFC9708"/> and repeated here
       for convenience.</t>
 
-<!-- Sourcecode matches that from [RFC5912]. 
-SG: blockquote not used because it causes margin issues. 
+<!-- Sourcecode matches that from [RFC5912].
+SG: blockquote not used because it causes margin issues.
 -->
       <t>The AlgorithmIdentifier type is defined in <xref target="RFC5912"/> as follows:</t>
 
@@ -285,7 +315,7 @@ AlgorithmIdentifier{ALGORITHM-TYPE, ALGORITHM-TYPE:AlgorithmSet} ::=
 
       <section anchor="xmssmt-algorithm-identifier">
         <name>XMSS<sup>MT</sup> Algorithm Identifier</name>
-        
+
 	<t>The AlgorithmIdentifier for an XMSS<sup>MT</sup> public key
 	<bcp14>MUST</bcp14> use the id-alg-xmssmt-hashsig object
 	identifier.</t>
@@ -298,7 +328,7 @@ AlgorithmIdentifier{ALGORITHM-TYPE, ALGORITHM-TYPE:AlgorithmSet} ::=
 
         <t>The public key and signature values identify the hash function and
         the height used in the XMSS<sup>MT</sup> tree. <xref target="RFC8391"/> and
-        <xref target="SP800208"/> define these values, and additional identifiers can be registered in the “Leighton-Micali Signatures (LMS)” registry 
+        <xref target="SP800208"/> define these values, and additional identifiers can be registered in the “Leighton-Micali Signatures (LMS)” registry
         <xref target="IANA-XMSS"/>.</t>
       </section>
     </section>
@@ -673,15 +703,25 @@ Original:
    new signing device in case of technical difficulties.
 
 Perhaps:
-   Usual backup and restore strategies when using a stateless signature
+   Some usual backup and restore strategies when using a stateless signature
    scheme (e.g., SLH-DSA) are to:
-   
-   *  duplicate private keying material and operate redundant signing
-   devices, or
-   
+
+   * duplicate private keying material and operate redundant signing
+   devices.
+
    * store and safeguard a copy of the private keying material such that it
    can be used to set up a new signing device in case of technical
    difficulties.
+-->
+<!-- [authors]
+You may make those changes. We've made the following tweaks to your new text
+so that it doesn't sound like an either-or choice:
+
+OLD: "Usual backup..."
+NEW: "Some usual backup"
+
+OLD: "devices, or"
+NEW: "devices."
 -->
 
       <t>Usual backup and restore strategies when using a stateless signature
@@ -864,12 +904,19 @@ https://web.archive.org/web/20220908002358/https://media.defense.gov/2022/Sep/07
 
 Is there a better URL, or may we replace the current URL with this archived link? This URL has an archive date of 8 September 2022 (the original date for this reference was 7
 September 2025). -->
+<!-- [authors] The original document was replaced with a FAQ:
+https://media.defense.gov/2022/Sep/07/2003071836/-1/-1/0/CSI_CNSA_2.0_FAQ_.PDF
+For the [CNSA2.0] reference, elsewhere in this RFC we've removed the reference
+to table numbers because the new PDF doesn't have them. This FAQ URL is probably
+as stable as the previous one which disappeared, so I wonder if this URL is
+better or a wayback copy of it?
+-->
 
 
 
-        <reference anchor="CNSA2.0" target="https://media.defense.gov/2022/Sep/07/2003071834/-1/-1/0/CSA_CNSA_2.0_ALGORITHMS_.PDF">
+        <reference anchor="CNSA2.0" target="https://media.defense.gov/2022/Sep/07/2003071836/-1/-1/0/CSI_CNSA_2.0_FAQ_.PDF">
           <front>
-            <title>Commercial National Security Algorithm Suite 2.0 (CNSA 2.0) Cybersecurity Advisory (CSA)</title>
+            <title>The Commercial National Security Algorithm Suite 2.0 and Quantum Computing FAQ</title>
             <author>
               <organization>National Security Agency (NSA)</organization>
             </author>
@@ -1800,6 +1847,7 @@ Perhaps:
    error prone" [RFC8411].
 
 -->
+<!-- [authors] Go ahead with this change -->
 
 
 
@@ -1833,39 +1881,45 @@ Certification Authority (CA) certificates
 Certificate Authorities
 
 c) FYI - We have added expansions for abbreviations upon first use
-per Section 3.6 of RFC 7322 ("RFC Style Guide"). Please review 
+per Section 3.6 of RFC 7322 ("RFC Style Guide"). Please review
 carefully to ensure correctness:
 
-Internet of Things (IoT) 
+Internet of Things (IoT)
 
 -->
+<!-- [authors] These changes are all fine -->
 
 
 <!-- [rfced] We have changed all <artwork> elements in this document to
 <sourcecode>. Please review to confirm this is correct.
 
 In addition, please consider whether the "type" attribute of any <sourcecode>
-element should be set and/or has been set correctly.  Currently, some are set to asn.1 and some are set to x509.  
+element should be set and/or has been set correctly.  Currently, some are set to asn.1 and some are set to x509.
 
 The current list of preferred values for "type" is available at
 <https://www.rfc-editor.org/rpc/wiki/doku.php?id=sourcecode-types>.
 If the current list does not contain an applicable type, feel free to
 suggest additions for consideration. Note that it is also acceptable
 to leave the "type" attribute not set. -->
+<!-- [authors] These changes are all fine -->
 
 
 <!-- [rfced] Please review whether any of the notes in this document should be
 in the <aside> element. It is defined as "a container for content that is
 semantically less important or tangential to the content that surrounds
 it" (https://authors.ietf.org/en/rfcxml-vocabulary#aside). -->
+<!-- [authors] <aside> is used appropriately, all other notes in the document
+are more directly relevant to the content
+-->
 
-<!-- [rfced] Please review the "Inclusive Language" portion of the online 
+<!-- [rfced] Please review the "Inclusive Language" portion of the online
 Style Guide <https://www.rfc-editor.org/styleguide/part2/#inclusive_language>
 and let us know if any changes are needed.  Updates of this nature typically
 result in more precise language, which is helpful for readers.
 
-Note that our script did not flag any words in particular, but this should 
+Note that our script did not flag any words in particular, but this should
 still be reviewed as a best practice. -->
+<!-- [authors] Reviewed, no changes needed -->
 
 
 </rfc>
